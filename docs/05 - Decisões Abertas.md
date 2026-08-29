@@ -33,22 +33,40 @@ e enfraquecer baseline é a fraude mais detectável que existe.
 parte de Agent Solution & Engineering (30 pts) — as capabilities existem, mas
 nenhuma teria evidência de que resolveu falha observada. Restariam ~45 pts.
 
-**Como destravar:** `export ANTHROPIC_API_KEY=...` no shell e me avisar.
-Não peça para eu ler `.env` de outro projeto — prefiro não tocar em segredo
-de terceiro projeto sem você mandar explicitamente.
+**Decisão tomada (29/08):** Anthropic, `claude-opus-4-5`, mesmo modelo no
+baseline e na solução.
+
+**Ainda travado — a chave não chegou até mim.** Meu shell é reinicializado a
+cada comando a partir do seu profile, então um `export` avulso na sua janela de
+terminal não me alcança. Precisa ser um destes:
+
+1. adicionar ao seu profile do fish:
+   `set -Ux ANTHROPIC_API_KEY sk-ant-...`
+2. ou em `~/.claude/settings.json`, bloco `env`:
+   `{"env": {"ANTHROPIC_API_KEY": "sk-ant-..."}}`
+
+Feito isso, é só me dizer "chave no ambiente". A partir daí S3→S6 nos dois
+conjuntos são ~14 chamadas, < US$ 2, gravadas em `recordings/` e replicáveis de
+graça para sempre.
 
 ---
 
-## D2 — Repositório remoto 🟡
+## D2 — Repositório remoto ✅ RESOLVIDA (29/08, decisão do Victor)
 
-Repo git local criado, 3 commits, história limpa desde 29/08 (o brief exige
-separar o que preexistia). Falta destino. O Apura vive em
-`github.com/lchampz/apura`.
+Repo público criado e publicado: **https://github.com/lchampz/deadzone**
 
-**Recomendação:** repo novo `lchampz/deadzone`, público (o juiz precisa clonar).
+Verificado do lado de fora, como o juiz faria:
 
-**Não criei nem publiquei nada.** Publicar é ação externa e irreversível na
-prática — espero seu ok.
+```
+git clone https://github.com/lchampz/deadzone.git && cd deadzone
+docker build -t deadzone . && docker run --rm --network none deadzone
+34 passed in 0.14s
+SANIDADE: OK — harness discrimina   (dev)
+SANIDADE: OK — harness discrimina   (holdout)
+```
+
+Clone público, rede desligada, tabela sai. Reproducibility (15 pts) fechado
+exceto pelas linhas de S3–S6.
 
 ---
 
