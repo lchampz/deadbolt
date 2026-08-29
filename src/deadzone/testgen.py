@@ -613,7 +613,7 @@ def main() -> int:
     print(json.dumps(m, indent=2))
     print(f"\nscore {m['score_before']:.4f} → {m['score_after']:.4f} "
           f"(+{m['newly_killed']} de {m['survivors_attacked']} sobreviventes) "
-          f"· suíte verde: {m['suite_green']}")
+          f"· suíte verde: {m['cru_suite_green']}")
     print(f"gravado: {dest}")
     return 0
 

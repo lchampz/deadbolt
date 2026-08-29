@@ -1,0 +1,26 @@
+{
+  "set": "dev",
+  "stage": "T3",
+  "tool": "mutmut 3.7.0 run from scratch",
+  "survivors_after": [
+    "slugify.slugify.x_slugify__mutmut_23",
+    "slugify.slugify.x_slugify__mutmut_48",
+    "slugify.slugify.x_slugify__mutmut_49",
+    "slugify.slugify.x_slugify__mutmut_50",
+    "slugify.slugify.x_slugify__mutmut_51",
+    "slugify.slugify.x_slugify__mutmut_52",
+    "slugify.slugify.x_slugify__mutmut_53",
+    "slugify.slugify.x_slugify__mutmut_54",
+    "slugify.slugify.x_slugify__mutmut_55",
+    "slugify.slugify.x_slugify__mutmut_56",
+    "slugify.slugify.x_slugify__mutmut_57",
+    "slugify.slugify.x_slugify__mutmut_58",
+    "slugify.slugify.x_smart_truncate__mutmut_17",
+    "slugify.special.x_add_uppercase_char__mutmut_4",
+    "slugify.special.x_add_uppercase_char__mutmut_9"
+  ],
+  "proxy_disagreements": [
+    "slugify.special.x_add_uppercase_char__mutmut_4",
+    "slugify.special.x_add_uppercase_char__mutmut_9"
+  ]
+}

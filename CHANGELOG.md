@@ -229,3 +229,135 @@ deltas should be read as a stable effect size, and this report does not claim on
 
 **Cost of every number above:** US$ 2.16, 14 recorded calls. Re-scoring after the
 ground-truth correction cost nothing — the recordings were replayed.
+
+
+---
+
+# Part two — the pivot
+
+The predictor was measured honestly and it did not transfer: on the holdout it
+lost to a one-line heuristic. Everything above stays published. What follows is
+what that failure led to.
+
+## The diagnosis
+
+The task had the wrong shape. Predicting which of 244 lines are blind is
+high-cardinality localisation with no feedback — the agent guesses and never
+learns whether it was right. And the oracle was on the table the whole time:
+`mutmut` knows the answer, and the predictor was forbidden from using it.
+
+Both Apura and Deadzone bet the project on a hypothesis that could be false. The
+fix is not a better hypothesis. It is a task whose metric is **monotone by
+construction**:
+
+> A mutant dies if *any* test fails on it. Adding tests only widens the set of
+> failing tests. **Adding a test can never resurrect a mutant.**
+
+Conditioned on the suite staying green, mutation score cannot fall. The worst
+case is "did not rise". That is a property of the task, not a hope about the model.
+
+## The result
+
+Frozen before generation in [`METRIC_TESTGEN.md`](METRIC_TESTGEN.md). Every score
+below is `mutmut` run from scratch on the corpus with the generated tests added —
+the same external tool that produced the ground truth, not the pipeline's own
+measurement.
+
+| set | backend | before | after | Δ | real ceiling | tests |
+|---|---|---:|---:|---:|---:|---:|
+| DEV `slugify.py`+`special.py` | API · `claude-opus-5` | 0.7870 | **0.9398** | +15.3 pt | 0.9444 | 33 |
+| HOLDOUT `__main__.py` | API · `claude-opus-5` | 0.6342 | **0.9698** | +33.6 pt | **0.9698** 🎯 | 99 |
+| DEV control | Cursor · `composer-2.5` | 0.7870 | 0.9306 | +14.3 pt | 0.9444 | 26 |
+| TRANSFER `toolz/functoolz.py` | Cursor · `composer-2.5` | 0.7790 | 0.7996 | +2.1 pt | — | 53 |
+
+**On the holdout the pipeline reached the ceiling.** It killed every killable
+mutant; the nine left standing are provably equivalent. That set was never looked
+at during development.
+
+Only the suite changes — never the source — so mutant IDs are stable across the
+two runs, and `results/verify-*.json` names exactly which mutants died.
+
+### The two comparisons the control run buys
+
+API credit ran out with two sets measured. The rest ran through `cursor-agent` on
+a subscription, which changes **model and harness at once** — so the secondary
+backend was run on *two* sets, not one, and the confound became a measured axis.
+
+| holding constant | comparison | Δ |
+|---|---|---:|
+| the corpus | `claude-opus-5` → `composer-2.5` on DEV | **+0.0092** — two mutants |
+| the model | `slugify` → `toolz` on `composer-2.5` | **−0.1310** |
+
+**The architecture is nearly indifferent to the model and very sensitive to the
+codebase.** A fast, cheap coding model lands within two mutants of a frontier
+model on the same corpus. The drop on `toolz` is therefore the repository, not
+the backend — `functoolz.py` is classes, decorators and curried higher-order
+functions, and it is genuinely harder to test than string processing.
+
+That is a narrower claim than "it works everywhere", and it is the one the data
+supports.
+
+## The ablation — what each capability buys (DEV, API)
+
+| stage | score | usable tests | generated | commit as-is |
+|---|---:|---:|---:|---|
+| **B** naive prompt | 0.8704 | **7** | 48 | **breaks the build** |
+| **T1** + mutant diffs | 0.9352 | 32 | 37 | **breaks the build** |
+| **T2** + guards | 0.9352 | 32 | 37 | green |
+| **T3** + repair loop | **0.9398** | 33 | 37 | green |
+
+Each stage passed its own pre-registered death condition. The naive baseline
+generated 48 tests: **40 had duplicate function names** — six independent batches
+produced six near-identical batches that silently shadow each other — and one
+asserted `slugify("a&#381;b") == "azb"` when the real output is `"az-b"`. Seven
+survived contact with reality.
+
+**The guards do not raise the score. They turn a diff that breaks the build into
+one a maintainer can merge.** That distinction is only visible because every
+stage reports both numbers, raw and filtered.
+
+## Layer two — what survives is the output, not the failure
+
+In MuTAP, MUTGEN, PRIMG and Meta's ACH, a mutant surviving generation is treated
+as failure: noise to minimise. Here it is the product.
+
+An equivalent mutant **cannot be killed** — that is its definition. So every
+mutant verified generation kills is provably non-equivalent, and the technique is
+a **sound pre-filter** for equivalence triage: nothing killable is ever excluded
+from the human's reading list.
+
+| set | survivors | undetermined | reduction | provably impossible |
+|---|---:|---:|---:|---:|
+| DEV | 46 | 13 | 3.54× | 12 — 92.3% |
+| HOLDOUT | 109 | 9 | **12.11×** | 9 — **100%** |
+| **total** | **155** | **22** | **7.05×** | **21 — 95.5%** |
+
+This is deductive, not empirical: a weak model shrinks the reading list a little,
+a strong one a lot, and neither can produce a false exclusion.
+
+Every label carries a mechanical proof (`data/triage/`):
+
+- **`slugify.py:127-129` is dead code.** The guard is `if not isinstance(text, str)`,
+  and both preceding branches end in `unicodedata.normalize` or `unidecode`, which
+  return `str` for every input — checked over ASCII, accented, CJK, astral-plane and
+  empty, with `allow_unicode` both ways. Eleven mutants nobody can kill.
+- **`'utf-8'` → `'UTF-8'` is equivalent**: codec names are normalised before lookup.
+- **Nine `default=`/`type=` declarations in `__main__.py` are redundant** — argparse
+  supplies exactly those values. Verified by construction against a real parser.
+- **One boundary is labelled `hard`, not equivalent.** I could not prove
+  equivalence, so the protocol's default applies. Honesty, not modesty.
+
+Those proofs are also the product: two concrete cleanups a maintainer would take.
+
+## Cost
+
+| | |
+|---|---|
+| API | **US$ 6.83** — `claude-opus-5`, effort `high` |
+| Cursor | subscription, not metered per token |
+| Re-scoring, re-reporting, container | **US$ 0.00** — replay |
+
+Two fixes moved the cost more than any model choice: prompt caching (the module
+and suite are byte-identical across every call) and dropping repair to effort
+`low`. One repair call at `high` spent 34,397 output tokens — 33,894 of them
+reasoning — to return 2KB. The same call at `low`: 280 tokens, **90× cheaper**.

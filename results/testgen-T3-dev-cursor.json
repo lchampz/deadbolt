@@ -1,0 +1,588 @@
+{
+  "meta": {
+    "n_calls": 12,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "cost_usd": 0.0,
+    "wall_seconds": 944.512,
+    "model": "composer-2.5",
+    "provider": "cursor",
+    "mode": "live",
+    "effort": "high",
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "set": "dev",
+    "stage": "T3",
+    "mutants_total": 216,
+    "killed_before": 170,
+    "score_before": 0.787,
+    "newly_killed": 33,
+    "of_which_timeout": 2,
+    "killed_after": 203,
+    "score_after": 0.9398,
+    "survivors_attacked": 46,
+    "cru_n_tests": 26,
+    "cru_suite_green": true,
+    "filtrado_n_tests": 26,
+    "dropped_duplicate_name": 0,
+    "dropped_failing_on_original": 0,
+    "n_generated": 46,
+    "n_rejected_by_guards": 6,
+    "n_model_declined": 14,
+    "repair_rounds": 2
+  },
+  "killed_ids": [
+    "slugify.slugify.x_slugify__mutmut_15",
+    "slugify.slugify.x_slugify__mutmut_152",
+    "slugify.slugify.x_slugify__mutmut_153",
+    "slugify.slugify.x_slugify__mutmut_16",
+    "slugify.slugify.x_slugify__mutmut_17",
+    "slugify.slugify.x_slugify__mutmut_18",
+    "slugify.slugify.x_slugify__mutmut_19",
+    "slugify.slugify.x_slugify__mutmut_2",
+    "slugify.slugify.x_slugify__mutmut_20",
+    "slugify.slugify.x_slugify__mutmut_21",
+    "slugify.slugify.x_slugify__mutmut_22",
+    "slugify.slugify.x_slugify__mutmut_24",
+    "slugify.slugify.x_slugify__mutmut_25",
+    "slugify.slugify.x_slugify__mutmut_3",
+    "slugify.slugify.x_slugify__mutmut_64",
+    "slugify.slugify.x_smart_truncate__mutmut_2",
+    "slugify.slugify.x_smart_truncate__mutmut_3",
+    "slugify.slugify.x_smart_truncate__mutmut_33",
+    "slugify.slugify.x_smart_truncate__mutmut_4",
+    "slugify.slugify.x_smart_truncate__mutmut_6",
+    "slugify.slugify.x_smart_truncate__mutmut_8",
+    "slugify.special.x_add_uppercase_char__mutmut_1",
+    "slugify.special.x_add_uppercase_char__mutmut_10",
+    "slugify.special.x_add_uppercase_char__mutmut_11",
+    "slugify.special.x_add_uppercase_char__mutmut_12",
+    "slugify.special.x_add_uppercase_char__mutmut_2",
+    "slugify.special.x_add_uppercase_char__mutmut_3",
+    "slugify.special.x_add_uppercase_char__mutmut_4",
+    "slugify.special.x_add_uppercase_char__mutmut_5",
+    "slugify.special.x_add_uppercase_char__mutmut_6",
+    "slugify.special.x_add_uppercase_char__mutmut_7",
+    "slugify.special.x_add_uppercase_char__mutmut_8",
+    "slugify.special.x_add_uppercase_char__mutmut_9"
+  ],
+  "timeout_ids": [
+    "slugify.special.x_add_uppercase_char__mutmut_4",
+    "slugify.special.x_add_uppercase_char__mutmut_9"
+  ],
+  "accepted": [
+    {
+      "mutant_id": "slugify.slugify.x_smart_truncate__mutmut_2",
+      "test": "def test_smart_truncate_default_word_boundary_is_false():\n    assert smart_truncate(\"one two three\", max_length=10) == \"one two th\"",
+      "confirmed": [
+        "slugify.slugify.x_smart_truncate__mutmut_2"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_smart_truncate__mutmut_3",
+      "test": "def test_smart_truncate_default_separator_is_space():\n    assert smart_truncate(\"XhelloX\", max_length=0) == \"XhelloX\"",
+      "confirmed": [
+        "slugify.slugify.x_smart_truncate__mutmut_3"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_smart_truncate__mutmut_4",
+      "test": "def test_smart_truncate_default_save_order_is_false():\n    assert smart_truncate(\"one two three four\", max_length=12, word_boundary=True) == \"one two four\"",
+      "confirmed": [
+        "slugify.slugify.x_smart_truncate__mutmut_4"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_smart_truncate__mutmut_6",
+      "test": "def test_smart_truncate_initial_strip_uses_separator_only():\n    assert smart_truncate(\"\\thello\\t\", max_length=0) == \"\\thello\\t\"",
+      "confirmed": [
+        "slugify.slugify.x_smart_truncate__mutmut_6"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_smart_truncate__mutmut_8",
+      "test": "def test_smart_truncate_word_boundary_when_length_equals_max_length():\n    assert smart_truncate(\"a  b\", max_length=4, word_boundary=True) == \"a b\"",
+      "confirmed": [
+        "slugify.slugify.x_smart_truncate__mutmut_8"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_smart_truncate__mutmut_33",
+      "test": "def test_smart_truncate_fallback_truncates_when_no_word_fits():\n    assert smart_truncate(\"abcd efgh\", max_length=3, word_boundary=True) == \"abc\"",
+      "confirmed": [
+        "slugify.slugify.x_smart_truncate__mutmut_33"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_2",
+      "test": "def test_slugify_decimal_default_is_true():\n    assert slugify(\"&#381;\") == \"z\"",
+      "confirmed": [
+        "slugify.slugify.x_slugify__mutmut_2"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_3",
+      "test": "def test_html_hexadecimal_default_on():\n    assert slugify('&#x17D;') == 'z'",
+      "confirmed": [
+        "slugify.slugify.x_slugify__mutmut_3"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_15",
+      "test": "def test_slugify_coerces_bytes_input():\n    assert slugify(b'hello-world') == 'hello-world'",
+      "confirmed": [
+        "slugify.slugify.x_slugify__mutmut_15"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_16",
+      "test": "def test_slugify_decodes_bytes_to_unicode():\n    assert slugify(b'hello-world') == 'hello-world'",
+      "confirmed": [
+        "slugify.slugify.x_slugify__mutmut_16"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_17",
+      "test": "def test_slugify_bytes_utf8_decode_encoding():\n    assert slugify(b'hello-world') == 'hello-world'",
+      "confirmed": [
+        "slugify.slugify.x_slugify__mutmut_17"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_18",
+      "test": "def test_slugify_bytes_invalid_utf8_ignored():\n    assert slugify(b'\\xffhello') == 'hello'",
+      "confirmed": [
+        "slugify.slugify.x_slugify__mutmut_18"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_19",
+      "test": "def test_slugify_bytes_input_not_misdecoded():\n    assert slugify(b'hello-world') == 'hello-world'",
+      "confirmed": [
+        "slugify.slugify.x_slugify__mutmut_19"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_20",
+      "test": "def test_slugify_bytes_utf8_decode_errors():\n    assert slugify(b'hello-world') == 'hello-world'",
+      "confirmed": [
+        "slugify.slugify.x_slugify__mutmut_20"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_21",
+      "test": "def test_slugify_bytes_strict_utf8_decode():\n    assert slugify(b'\\xffhello') == 'hello'",
+      "confirmed": [
+        "slugify.slugify.x_slugify__mutmut_21"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_22",
+      "test": "def test_slugify_bytes_input():\n    assert slugify(b'hello world') == 'hello-world'",
+      "confirmed": [
+        "slugify.slugify.x_slugify__mutmut_22"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_25",
+      "test": "def test_slugify_bytes_invalid_utf8():\n    assert slugify(b'\\xffhello') == 'hello'",
+      "confirmed": [
+        "slugify.slugify.x_slugify__mutmut_25"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_64",
+      "test": "def test_html_entity_named_char_not_stripped():\n    assert slugify('caf&eacute;') == 'cafe'",
+      "confirmed": [
+        "slugify.slugify.x_slugify__mutmut_64"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_152",
+      "test": "def test_slugify_max_length_zero_preserves_trailing_separator_from_replacements():\n    assert slugify('hello', replacements=[['ello', 'ello-']], max_length=0) == 'hello-'",
+      "confirmed": [
+        "slugify.slugify.x_slugify__mutmut_152"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_153",
+      "test": "def test_slugify_max_length_one():\n    assert slugify('hello world', max_length=1) == 'h'",
+      "confirmed": [
+        "slugify.slugify.x_slugify__mutmut_153"
+      ]
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_24",
+      "test": "def test_slugify_bytes_invalid_utf8_ignores_bad_bytes():\n    assert slugify(b'\\xffhello') == 'hello'",
+      "confirmed": [
+        "slugify.slugify.x_slugify__mutmut_24"
+      ]
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_1",
+      "test": "def test_add_uppercase_char_unpacks_each_item():\n    char_list = [('\\u00fc', 'ue')]\n    result = add_uppercase_char(char_list)\n    assert result == [('\\u00dc', 'Ue'), ('\\u00fc', 'ue')]",
+      "confirmed": [
+        "slugify.special.x_add_uppercase_char__mutmut_1"
+      ]
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_2",
+      "test": "def test_add_uppercase_char_builds_uppercase_pair():\n    char_list = [('\\u00fc', 'ue')]\n    result = add_uppercase_char(char_list)\n    assert result[0] == ('\\u00dc', 'Ue')",
+      "confirmed": [
+        "slugify.special.x_add_uppercase_char__mutmut_2"
+      ]
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_6",
+      "test": "def test_add_uppercase_char_skips_when_input_char_is_uppercase():\n    assert add_uppercase_char([('U', 'u')]) == [('U', 'u')]",
+      "confirmed": [
+        "slugify.special.x_add_uppercase_char__mutmut_6"
+      ]
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_7",
+      "test": "def test_add_uppercase_char_adds_mapping_for_uppercase_char():\n    assert add_uppercase_char([('Ue', 'ue')]) == [('UE', 'Ue'), ('Ue', 'ue')]",
+      "confirmed": [
+        "slugify.special.x_add_uppercase_char__mutmut_7"
+      ]
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_10",
+      "test": "def test_add_uppercase_char_inserts_pair_without_error():\n    assert add_uppercase_char([('a', 'a')]) == [('A', 'A'), ('a', 'a')]",
+      "confirmed": [
+        "slugify.special.x_add_uppercase_char__mutmut_10"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_3",
+      "test": "def test_add_uppercase_char_uses_uppercase_char_key():\n    result = add_uppercase_char([('ü', 'ue')])\n    assert result == [('Ü', 'Ue')]\n    assert result[0][0] == 'Ü'",
+      "reason": "G1: o teste falha no código ORIGINAL — a expectativa está errada",
+      "output": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_______________ test_add_uppercase_char_uses_uppercase_char_key ________________\n\n    def test_add_uppercase_char_uses_uppercase_char_key():\n        result = add_uppercase_char([('ü', 'ue')])\n>       assert result == [('Ü', 'Ue')]\nE       AssertionError: assert [('Ü', 'Ue'), ('ü', 'ue')] == [('Ü', 'Ue')]\nE         \nE         Left contains one more item: ('ü', 'ue')\nE         Use -v to get more diff\n\ntest_probe.py:8: AssertionError\n=========================== short test summary info ============================\nFAILED test_probe.py::test_add_uppercase_char_uses_uppercase_char_key - AssertionError: assert [('Ü', 'Ue'), ('ü', 'ue')] == [('Ü', 'Ue')]\n1 failed in 0.04s\n"
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_4",
+      "test": "def test_add_uppercase_char_skips_when_char_already_uppercase():\n    assert add_uppercase_char([('Y', 'y')]) == []\n    assert add_uppercase_char([('Ü', 'Ue')]) == []",
+      "reason": "G1: o teste falha no código ORIGINAL — a expectativa está errada",
+      "output": "F                                                                        [100%]\n=================================== FAILURES ===================================\n__________ test_add_uppercase_char_skips_when_char_already_uppercase ___________\n\n    def test_add_uppercase_char_skips_when_char_already_uppercase():\n>       assert add_uppercase_char([('Y', 'y')]) == []\nE       AssertionError: assert [('Y', 'y')] == []\nE         \nE         Left contains one more item: ('Y', 'y')\nE         Use -v to get more diff\n\ntest_probe.py:7: AssertionError\n=========================== short test summary info ============================\nFAILED test_probe.py::test_add_uppercase_char_skips_when_char_already_uppercase - AssertionError: assert [('Y', 'y')] == []\n1 failed in 0.04s\n"
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_5",
+      "test": "def test_add_uppercase_char_adds_uppercase_variant_from_lowercase():\n    assert add_uppercase_char([('ü', 'ue')]) == [('Ü', 'Ue')]\n    assert add_uppercase_char([('щ', 'sch')]) == [('Щ', 'Sch')]",
+      "reason": "G1: o teste falha no código ORIGINAL — a expectativa está errada",
+      "output": "F                                                                        [100%]\n=================================== FAILURES ===================================\n________ test_add_uppercase_char_adds_uppercase_variant_from_lowercase _________\n\n    def test_add_uppercase_char_adds_uppercase_variant_from_lowercase():\n>       assert add_uppercase_char([('ü', 'ue')]) == [('Ü', 'Ue')]\nE       AssertionError: assert [('Ü', 'Ue'), ('ü', 'ue')] == [('Ü', 'Ue')]\nE         \nE         Left contains one more item: ('ü', 'ue')\nE         Use -v to get more diff\n\ntest_probe.py:7: AssertionError\n=========================== short test summary info ============================\nFAILED test_probe.py::test_add_uppercase_char_adds_uppercase_variant_from_lowercase - AssertionError: assert [('Ü', 'Ue'), ('ü', 'ue')] == [('Ü', 'Ue')]\n1 failed in 0.04s\n"
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_8",
+      "test": "def test_add_uppercase_char_inserts_at_index_zero():\n    char_list = [['B', 'bee']]\n    add_uppercase_char(char_list)\n    assert char_list[0] == ['b', 'B']\n    assert char_list[1] == ['B', 'bee']",
+      "reason": "G1: o teste falha no código ORIGINAL — a expectativa está errada",
+      "output": "F                                                                        [100%]\n=================================== FAILURES ===================================\n________________ test_add_uppercase_char_inserts_at_index_zero _________________\n\n    def test_add_uppercase_char_inserts_at_index_zero():\n        char_list = [['B', 'bee']]\n        add_uppercase_char(char_list)\n>       assert char_list[0] == ['b', 'B']\nE       AssertionError: assert ['B', 'bee'] == ['b', 'B']\nE         \nE         At index 0 diff: 'B' != 'b'\nE         Use -v to get more diff\n\ntest_probe.py:9: AssertionError\n=========================== short test summary info ============================\nFAILED test_probe.py::test_add_uppercase_char_inserts_at_index_zero - AssertionError: assert ['B', 'bee'] == ['b', 'B']\n1 failed in 0.04s\n"
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_9",
+      "test": "def test_add_uppercase_char_inserts_lowercase_uppercase_pair():\n    char_list = [['C', 'see']]\n    add_uppercase_char(char_list)\n    assert char_list[0] == ['c', 'C']\n    assert char_list[0][1] == 'C'",
+      "reason": "G1: o teste falha no código ORIGINAL — a expectativa está errada",
+      "output": "F                                                                        [100%]\n=================================== FAILURES ===================================\n___________ test_add_uppercase_char_inserts_lowercase_uppercase_pair ___________\n\n    def test_add_uppercase_char_inserts_lowercase_uppercase_pair():\n        char_list = [['C', 'see']]\n        add_uppercase_char(char_list)\n>       assert char_list[0] == ['c', 'C']\nE       AssertionError: assert ['C', 'see'] == ['c', 'C']\nE         \nE         At index 0 diff: 'C' != 'c'\nE         Use -v to get more diff\n\ntest_probe.py:9: AssertionError\n=========================== short test summary info ============================\nFAILED test_probe.py::test_add_uppercase_char_inserts_lowercase_uppercase_pair - AssertionError: assert ['C', 'see'] == ['c', 'C']\n1 failed in 0.04s\n"
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_12",
+      "test": "def test_add_uppercase_char_prepends_to_pre_translations():\n    char_list = [['A', 'ay']]\n    add_uppercase_char(char_list)\n    assert char_list[0] == ['a', 'A']\n    assert char_list[1] == ['A', 'ay']\n    assert len(char_list) == 2",
+      "reason": "G1: o teste falha no código ORIGINAL — a expectativa está errada",
+      "output": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_____________ test_add_uppercase_char_prepends_to_pre_translations _____________\n\n    def test_add_uppercase_char_prepends_to_pre_translations():\n        char_list = [['A', 'ay']]\n        add_uppercase_char(char_list)\n>       assert char_list[0] == ['a', 'A']\nE       AssertionError: assert ['A', 'ay'] == ['a', 'A']\nE         \nE         At index 0 diff: 'A' != 'a'\nE         Use -v to get more diff\n\ntest_probe.py:9: AssertionError\n=========================== short test summary info ============================\nFAILED test_probe.py::test_add_uppercase_char_prepends_to_pre_translations - AssertionError: assert ['A', 'ay'] == ['a', 'A']\n1 failed in 0.04s\n"
+    }
+  ],
+  "model_declined": [
+    {
+      "mutant_id": "slugify.slugify.x_smart_truncate__mutmut_17",
+      "why": "When next_len == max_length, the mutant takes the <= branch (word plus separator, no break) instead of the elif branch (word only, break). No later word can satisfy next_len < max_length because len(truncated) is already max_length + len(separator), and the final truncated.strip(separator) removes the extra trailing separator, yielding the same string as the original elif path for every reachable input."
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_23",
+      "why": "Python trata 'UTF-8' e 'utf-8' como nomes de encoding equivalentes; str(bytes, 'UTF-8', 'ignore') produz o mesmo resultado que str(bytes, 'utf-8', 'ignore') para qualquer entrada bytes."
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_48",
+      "why": "A linha 129 so executa quando text nao e str apos normalize/unidecode; na pratica text ja e str apos a conversao na linha 115 (ou era str desde o inicio), entao esse ramo e inatingivel via API publica."
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_49",
+      "why": "A linha 129 so executa quando text nao e str apos normalize/unidecode; na pratica text ja e str apos a conversao na linha 115 (ou era str desde o inicio), entao esse ramo e inatingivel via API publica."
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_50",
+      "why": "A linha 129 so executa quando text nao e str apos normalize/unidecode; na pratica text ja e str apos a conversao na linha 115 (ou era str desde o inicio), entao esse ramo e inatingivel via API publica."
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_51",
+      "why": "A linha 129 so executa quando text nao e str apos normalize/unidecode; na pratica text ja e str apos a conversao na linha 115 (ou era str desde o inicio), entao esse ramo e inatingivel via API publica."
+    },
+    {
+      "mutant_id": null,
+      "why": "A linha 129 so e executada quando text nao e str apos normalize/unidecode; pela API publica, entradas nao-str viram str nas linhas 114-115 e normalize/unidecode sempre devolvem str, logo o ramo e inalcancavel. Mesmo se fosse alcancavel, str('utf-8', 'ignore') levantaria TypeError em vez de produzir slug diferente de forma assertivel sem mock."
+    },
+    {
+      "mutant_id": null,
+      "why": "O guard isinstance(text, str) na linha 128 nunca e falso via API publica (bytes e convertido antes; normalize/unidecode retornam str). O mutante str(text, 'ignore') nem e uma chamada valida de decodificacao e falharia antes de gerar saida comparavel."
+    },
+    {
+      "mutant_id": null,
+      "why": "O segundo isinstance(text, str) em 128 nao e atingivel pela API publica. Embora str(text, 'utf-8') sem errors use strict (diferente de ignore), nenhuma entrada publica deixa text como nao-str nesse ponto."
+    },
+    {
+      "mutant_id": null,
+      "why": "Linha 129 inalcancavel: apos o primeiro coerce e unidecode, text e sempre str. O encoding invalido 'XXutf-8XX' so seria avaliado nesse ramo morto."
+    },
+    {
+      "mutant_id": null,
+      "why": "Linha 129 inalcancavel pela API publica. Alem disso, 'UTF-8' e alias case-insensitive de 'utf-8' em str(bytes, encoding, errors), logo o mutante e semanticamente identico ao original para toda entrada."
+    },
+    {
+      "mutant_id": null,
+      "why": "O ramo da linha 129 nunca executa via API publica. O modo de erro 'XXignoreXX' e invalido e so seria avaliado nesse caminho inalcancavel."
+    },
+    {
+      "mutant_id": null,
+      "why": "Linha 129 inalcancavel pela API publica. Mesmo se alcancavel, 'IGNORE' e equivalente case-insensitive a 'ignore' em str(), portanto indistinguivel para qualquer entrada."
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_11",
+      "why": "A mutacao `char_list.insert(0, )` e um SyntaxError; o modulo nao pode ser importado, entao nenhum teste de runtime distingue o mutante do original."
+    }
+  ],
+  "generated": [
+    {
+      "mutant_id": "slugify.slugify.x_smart_truncate__mutmut_2",
+      "test": "def test_smart_truncate_default_word_boundary_is_false():\n    assert smart_truncate(\"one two three\", max_length=10) == \"one two th\""
+    },
+    {
+      "mutant_id": "slugify.slugify.x_smart_truncate__mutmut_3",
+      "test": "def test_smart_truncate_default_separator_is_space():\n    assert smart_truncate(\"XhelloX\", max_length=0) == \"XhelloX\""
+    },
+    {
+      "mutant_id": "slugify.slugify.x_smart_truncate__mutmut_4",
+      "test": "def test_smart_truncate_default_save_order_is_false():\n    assert smart_truncate(\"one two three four\", max_length=12, word_boundary=True) == \"one two four\""
+    },
+    {
+      "mutant_id": "slugify.slugify.x_smart_truncate__mutmut_6",
+      "test": "def test_smart_truncate_initial_strip_uses_separator_only():\n    assert smart_truncate(\"\\thello\\t\", max_length=0) == \"\\thello\\t\""
+    },
+    {
+      "mutant_id": "slugify.slugify.x_smart_truncate__mutmut_8",
+      "test": "def test_smart_truncate_word_boundary_when_length_equals_max_length():\n    assert smart_truncate(\"a  b\", max_length=4, word_boundary=True) == \"a b\""
+    },
+    {
+      "mutant_id": "slugify.slugify.x_smart_truncate__mutmut_17",
+      "test": null,
+      "targets": [
+        "slugify.slugify.x_smart_truncate__mutmut_17"
+      ],
+      "why": "When next_len == max_length, the mutant takes the <= branch (word plus separator, no break) instead of the elif branch (word only, break). No later word can satisfy next_len < max_length because len(truncated) is already max_length + len(separator), and the final truncated.strip(separator) removes the extra trailing separator, yielding the same string as the original elif path for every reachable input."
+    },
+    {
+      "mutant_id": "slugify.slugify.x_smart_truncate__mutmut_33",
+      "test": "def test_smart_truncate_fallback_truncates_when_no_word_fits():\n    assert smart_truncate(\"abcd efgh\", max_length=3, word_boundary=True) == \"abc\""
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_2",
+      "test": "def test_slugify_decimal_default_is_true():\n    assert slugify(\"&#381;\") == \"z\""
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_3",
+      "test": "def test_html_hexadecimal_default_on():\n    assert slugify('&#x17D;') == 'z'"
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_15",
+      "test": "def test_slugify_coerces_bytes_input():\n    assert slugify(b'hello-world') == 'hello-world'"
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_16",
+      "test": "def test_slugify_decodes_bytes_to_unicode():\n    assert slugify(b'hello-world') == 'hello-world'"
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_17",
+      "test": "def test_slugify_bytes_utf8_decode_encoding():\n    assert slugify(b'hello-world') == 'hello-world'"
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_18",
+      "test": "def test_slugify_bytes_invalid_utf8_ignored():\n    assert slugify(b'\\xffhello') == 'hello'"
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_19",
+      "test": "def test_slugify_bytes_input_not_misdecoded():\n    assert slugify(b'hello-world') == 'hello-world'"
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_20",
+      "test": "def test_slugify_bytes_utf8_decode_errors():\n    assert slugify(b'hello-world') == 'hello-world'"
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_21",
+      "test": "def test_slugify_bytes_strict_utf8_decode():\n    assert slugify(b'\\xffhello') == 'hello'"
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_22",
+      "test": "def test_slugify_bytes_input():\n    assert slugify(b'hello world') == 'hello-world'"
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_23",
+      "test": null,
+      "targets": [
+        "slugify.slugify.x_slugify__mutmut_23"
+      ],
+      "why": "Python trata 'UTF-8' e 'utf-8' como nomes de encoding equivalentes; str(bytes, 'UTF-8', 'ignore') produz o mesmo resultado que str(bytes, 'utf-8', 'ignore') para qualquer entrada bytes."
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_24",
+      "test": "def test_slugify_bytes_input():\n    assert slugify(b'hello world') == 'hello-world'"
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_25",
+      "test": "def test_slugify_bytes_invalid_utf8():\n    assert slugify(b'\\xffhello') == 'hello'"
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_48",
+      "test": null,
+      "targets": [
+        "slugify.slugify.x_slugify__mutmut_48"
+      ],
+      "why": "A linha 129 so executa quando text nao e str apos normalize/unidecode; na pratica text ja e str apos a conversao na linha 115 (ou era str desde o inicio), entao esse ramo e inatingivel via API publica."
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_49",
+      "test": null,
+      "targets": [
+        "slugify.slugify.x_slugify__mutmut_49"
+      ],
+      "why": "A linha 129 so executa quando text nao e str apos normalize/unidecode; na pratica text ja e str apos a conversao na linha 115 (ou era str desde o inicio), entao esse ramo e inatingivel via API publica."
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_50",
+      "test": null,
+      "targets": [
+        "slugify.slugify.x_slugify__mutmut_50"
+      ],
+      "why": "A linha 129 so executa quando text nao e str apos normalize/unidecode; na pratica text ja e str apos a conversao na linha 115 (ou era str desde o inicio), entao esse ramo e inatingivel via API publica."
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_51",
+      "test": null,
+      "targets": [
+        "slugify.slugify.x_slugify__mutmut_51"
+      ],
+      "why": "A linha 129 so executa quando text nao e str apos normalize/unidecode; na pratica text ja e str apos a conversao na linha 115 (ou era str desde o inicio), entao esse ramo e inatingivel via API publica."
+    },
+    {
+      "targets": [
+        "slugify.slugify.x_slugify__mutmut_52"
+      ],
+      "test": null,
+      "why": "A linha 129 so e executada quando text nao e str apos normalize/unidecode; pela API publica, entradas nao-str viram str nas linhas 114-115 e normalize/unidecode sempre devolvem str, logo o ramo e inalcancavel. Mesmo se fosse alcancavel, str('utf-8', 'ignore') levantaria TypeError em vez de produzir slug diferente de forma assertivel sem mock."
+    },
+    {
+      "targets": [
+        "slugify.slugify.x_slugify__mutmut_53"
+      ],
+      "test": null,
+      "why": "O guard isinstance(text, str) na linha 128 nunca e falso via API publica (bytes e convertido antes; normalize/unidecode retornam str). O mutante str(text, 'ignore') nem e uma chamada valida de decodificacao e falharia antes de gerar saida comparavel."
+    },
+    {
+      "targets": [
+        "slugify.slugify.x_slugify__mutmut_54"
+      ],
+      "test": null,
+      "why": "O segundo isinstance(text, str) em 128 nao e atingivel pela API publica. Embora str(text, 'utf-8') sem errors use strict (diferente de ignore), nenhuma entrada publica deixa text como nao-str nesse ponto."
+    },
+    {
+      "targets": [
+        "slugify.slugify.x_slugify__mutmut_55"
+      ],
+      "test": null,
+      "why": "Linha 129 inalcancavel: apos o primeiro coerce e unidecode, text e sempre str. O encoding invalido 'XXutf-8XX' so seria avaliado nesse ramo morto."
+    },
+    {
+      "targets": [
+        "slugify.slugify.x_slugify__mutmut_56"
+      ],
+      "test": null,
+      "why": "Linha 129 inalcancavel pela API publica. Alem disso, 'UTF-8' e alias case-insensitive de 'utf-8' em str(bytes, encoding, errors), logo o mutante e semanticamente identico ao original para toda entrada."
+    },
+    {
+      "targets": [
+        "slugify.slugify.x_slugify__mutmut_57"
+      ],
+      "test": null,
+      "why": "O ramo da linha 129 nunca executa via API publica. O modo de erro 'XXignoreXX' e invalido e so seria avaliado nesse caminho inalcancavel."
+    },
+    {
+      "targets": [
+        "slugify.slugify.x_slugify__mutmut_58"
+      ],
+      "test": null,
+      "why": "Linha 129 inalcancavel pela API publica. Mesmo se alcancavel, 'IGNORE' e equivalente case-insensitive a 'ignore' em str(), portanto indistinguivel para qualquer entrada."
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_64",
+      "test": "def test_html_entity_named_char_not_stripped():\n    assert slugify('caf&eacute;') == 'cafe'"
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_152",
+      "test": "def test_slugify_max_length_zero_preserves_trailing_separator_from_replacements():\n    assert slugify('hello', replacements=[['ello', 'ello-']], max_length=0) == 'hello-'"
+    },
+    {
+      "mutant_id": "slugify.slugify.x_slugify__mutmut_153",
+      "test": "def test_slugify_max_length_one():\n    assert slugify('hello world', max_length=1) == 'h'"
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_1",
+      "test": "def test_add_uppercase_char_adds_uppercase_variant():\n    assert add_uppercase_char([], ('ü', 'ue')) == [('Ü', 'Ue')]"
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_2",
+      "test": "def test_add_uppercase_char_adds_uppercase_variant():\n    assert add_uppercase_char([], ('ü', 'ue')) == [('Ü', 'Ue')]"
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_3",
+      "test": "def test_add_uppercase_char_uses_uppercase_char_key():\n    assert add_uppercase_char([], ('ü', 'ue')) == [('Ü', 'Ue')]"
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_4",
+      "test": "def test_add_uppercase_char_skips_when_char_already_uppercase():\n    assert add_uppercase_char([], ('Y', 'y')) == []"
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_5",
+      "test": "def test_add_uppercase_char_adds_uppercase_variant_from_lowercase():\n    assert add_uppercase_char([], ('ü', 'ue')) == [('Ü', 'Ue')]"
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_6",
+      "test": "def test_add_uppercase_char_skips_when_input_char_is_uppercase():\n    assert add_uppercase_char([], ('U', 'u')) == []"
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_7",
+      "test": "def test_add_uppercase_char_adds_mapping_for_uppercase_char():\n    char_list = []\n    add_uppercase_char('Ü', char_list)\n    assert char_list == [['ü', 'Ü']]"
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_10",
+      "test": "def test_add_uppercase_char_inserts_pair_without_error():\n    char_list = []\n    add_uppercase_char('A', char_list)\n    assert char_list == [['a', 'A']]"
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_11",
+      "test": null,
+      "targets": [
+        "slugify.special.x_add_uppercase_char__mutmut_11"
+      ],
+      "why": "A mutacao `char_list.insert(0, )` e um SyntaxError; o modulo nao pode ser importado, entao nenhum teste de runtime distingue o mutante do original."
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_12",
+      "test": "def test_add_uppercase_char_prepends_to_existing_list():\n    char_list = [['z', 'Z']]\n    add_uppercase_char('A', char_list)\n    assert char_list == [['a', 'A'], ['z', 'Z']]"
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_8",
+      "test": "def test_add_uppercase_char_accepts_integer_index_for_insert():\n    char_list = []\n    add_uppercase_char('B', char_list)\n    assert char_list == [['b', 'B']]"
+    },
+    {
+      "mutant_id": "slugify.special.x_add_uppercase_char__mutmut_9",
+      "test": "def test_add_uppercase_char_inserts_char_pair_not_none():\n    char_list = []\n    add_uppercase_char('C', char_list)\n    assert char_list == [['c', 'C']]"
+    }
+  ]
+}
