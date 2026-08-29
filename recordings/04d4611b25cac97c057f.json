@@ -1,5 +1,5 @@
 {
-  "key": "10cfd57076044658cd80",
+  "key": "04d4611b25cac97c057f",
   "provider": "anthropic",
   "model": "claude-opus-5",
   "system": "You are analysing a Python module and its test suite.\n\nPredict where the test suite is BLIND: the lines whose behaviour could be changed\nwithout any test failing.\n\nReturn ONLY a JSON array. Each element:\n\n{\n  \"file\": \"<path exactly as given>\",\n  \"line_range\": [<first line>, <last line>],\n  \"blind_spot_type\": \"<short label you choose>\",\n  \"evidence_quote\": \"<literal text copied from one of those lines>\",\n  \"confidence\": <float 0..1>,\n  \"rationale\": \"<one sentence: why no test would catch a change here>\"\n}\n\nRules:\n- Line numbers refer to the numbered listing given to you, 1-based, inclusive.\n- Keep each line_range tight. A range that covers the whole file is worthless.\n- evidence_quote must be copied verbatim from the source, not paraphrased.\n- No prose outside the JSON array. No markdown fence.\n",

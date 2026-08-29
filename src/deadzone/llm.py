@@ -97,8 +97,14 @@ def _price(model: str, tin: int, tout: int) -> float:
     return 0.0
 
 
-def cache_key(provider: str, model: str, system: str, prompt: str) -> str:
-    blob = json.dumps([provider, model, system, prompt], sort_keys=True).encode()
+def cache_key(provider: str, model: str, system: str, prompt: str,
+              effort: str = DEFAULT_EFFORT) -> str:
+    """O esforço entra na chave: ele muda a resposta, não só o custo.
+
+    Servir uma gravação feita em effort=high para um pedido em effort=low seria
+    reportar um número que ninguém pode reproduzir com o comando publicado.
+    """
+    blob = json.dumps([provider, model, system, prompt, effort], sort_keys=True).encode()
     return hashlib.sha256(blob).hexdigest()[:20]
 
 
@@ -121,7 +127,7 @@ class Client:
     # ---------------------------------------------------------------- público
 
     def complete(self, system: str, prompt: str, *, stage: str = "", unit: str = "",
-                 cache_system: bool = False) -> Call:
+                 cache_system: bool = False, effort: str | None = None) -> Call:
         """`cache_system` marca o bloco system para cache de prefixo.
 
         O system carrega o módulo e a suíte inteira — dezenas de milhares de
@@ -130,7 +136,8 @@ class Client:
         A chave de cache do replay NÃO inclui esta flag: ela muda o custo, nunca
         a resposta, e uma gravação feita com cache é igual a uma feita sem.
         """
-        key = cache_key(self.provider, self.model, system, prompt)
+        effort = effort or self.effort
+        key = cache_key(self.provider, self.model, system, prompt, effort)
         path = self.recordings / f"{key}.json"
 
         if path.exists():
@@ -146,10 +153,11 @@ class Client:
             )
 
         call = Call(key=key, provider=self.provider, model=self.model, system=system,
-                    prompt=prompt, effort=self.effort, stage=stage, unit=unit)
+                    prompt=prompt, effort=effort, stage=stage, unit=unit)
         started = time.time()
         try:
-            text, tin, tout, stop = self._live(system, prompt, cache_system=cache_system)
+            text, tin, tout, stop = self._live(system, prompt, cache_system=cache_system,
+                                               effort=effort)
         except Exception as exc:  # noqa: BLE001 — o erro vira artefato, mas NUNCA cache
             call.error = f"{type(exc).__name__}: {exc}"
             call.wall_seconds = round(time.time() - started, 3)
@@ -200,7 +208,8 @@ class Client:
 
     # ----------------------------------------------------------------- rede
 
-    def _live(self, system: str, prompt: str, *, cache_system: bool = False) -> tuple[str, int, int, str]:
+    def _live(self, system: str, prompt: str, *, cache_system: bool = False,
+              effort: str | None = None) -> tuple[str, int, int, str]:
         if self.provider != "anthropic":
             raise NotImplementedError(
                 f"provider {self.provider!r} não implementado. Este projeto mede um "
@@ -222,7 +231,7 @@ class Client:
             max_tokens=MAX_TOKENS,
             system=system_arg,
             thinking={"type": "adaptive"},
-            output_config={"effort": self.effort},
+            output_config={"effort": effort or self.effort},
             messages=[{"role": "user", "content": prompt}],
         ) as stream:
             response = stream.get_final_message()

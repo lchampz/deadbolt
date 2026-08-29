@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -41,6 +42,10 @@ SANDBOXES = ROOT / ".sandboxes"
 BATCH = 8
 MAX_REPAIR = 2
 REPAIR_BATCH = 3
+# Reparo é execução, não decisão: ler um erro de pytest e corrigir uma asserção.
+# Em effort=high uma chamada de reparo gastou 34.397 tokens de saída dos quais
+# 33.894 foram raciocínio, para responder 2 KB. US$ 0,86 numa correção mecânica.
+REPAIR_EFFORT = "low"
 STAGES = ("B", "T1", "T2", "T3")
 
 SYSTEM_TARGETED = """You write pytest tests that detect specific mutations.
@@ -195,27 +200,38 @@ class Sandbox:
         cmd = [self.corpus.python, "-m", "pytest", "-q", "-p", "no:cacheprovider",
                "--override-ini=testpaths="]
         cmd.extend(targets or [self.corpus.spec["test_file"]])
+        # PYTHONDONTWRITEBYTECODE: sem isso o pytest grava .pyc do módulo MUTADO,
+        # e o import seguinte pode servir bytecode obsoleto depois da restauração
+        # do fonte. O sintoma é uma suíte vermelha por uma mutação que já não
+        # está no arquivo — invisível em diff, porque o .py está correto.
+        env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1"}
         try:
             return subprocess.run(cmd, cwd=self.path, capture_output=True,
-                                  text=True, timeout=timeout)
+                                  text=True, timeout=timeout, env=env)
         except subprocess.TimeoutExpired:
             return subprocess.CompletedProcess(cmd, returncode=124, stdout="",
                                                stderr=f"TIMEOUT após {timeout}s")
 
     def mutate(self, mutant: dict):
-        """Aplica uma mutação. Devolve um restaurador."""
+        """Aplica uma mutação. Devolve um restaurador do arquivo INTEIRO.
+
+        A primeira versão restaurava só a linha mutada pelo índice. Quando o
+        texto mutado contém quebra de linha o arquivo cresce, o índice passa a
+        apontar para a primeira linha do bloco inserido, e as linhas extras
+        ficam para trás — o sandbox segue corrompido para toda medição seguinte,
+        e a suíte fica vermelha por um motivo que não é o mutante em teste.
+        Guardar o conteúdo inteiro custa nada e não tem esse modo de falha.
+        """
         src = self.path / mutant["file"]
-        lines = src.read_text().splitlines()
+        original = src.read_text()
+        lines = original.splitlines()
         i = mutant["line"] - 1
-        before = lines[i]
-        indent = re.match(r"\s*", before).group(0)
+        indent = re.match(r"\s*", lines[i]).group(0)
         lines[i] = indent + mutant["mutated"]
         src.write_text("\n".join(lines) + "\n")
 
         def restore() -> None:
-            cur = src.read_text().splitlines()
-            cur[i] = before
-            src.write_text("\n".join(cur) + "\n")
+            src.write_text(original)
 
         return restore
 
@@ -498,7 +514,7 @@ def generate(corpus: Corpus, stage: str, client: Client, sandbox: Sandbox) -> Ru
                     system, fill(REPAIR, failures=blob),
                     stage=f"testgen-{stage}",
                     unit=f"{corpus.set_name}#repair{round_}.{j // REPAIR_BATCH}",
-                    cache_system=True,
+                    cache_system=True, effort=REPAIR_EFFORT,
                 )
                 novos.extend(g for g in parse(call.response) if g.get("test"))
             pending = novos
