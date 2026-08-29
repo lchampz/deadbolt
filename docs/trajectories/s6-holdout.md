@@ -7,7 +7,7 @@ Custo US$ 0.2924 · 36432 tokens de entrada · 4411 de saída · 58.961s de pare
 
 | precisão | recall | F1 | near-miss | ruído | mut-recall | evidência |
 |---:|---:|---:|---:|---:|---:|---:|
-| 0.323 | 0.333 | 0.328 | 0.387 | 0.290 | 0.354 | 1.000 |
+| 0.452 | 0.389 | 0.418 | 0.387 | 0.161 | 0.376 | 1.000 |
 
 Piso trivial deste conjunto e teto do oráculo em `eval/report.py`.
 

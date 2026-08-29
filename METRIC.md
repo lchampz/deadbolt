@@ -159,3 +159,29 @@ com o total que o parser reconheceu, e **sai com erro** se diferirem. Era a
 assertiva que faltava na fronteira entre ferramenta externa e métrica própria —
 a mesma lição do § "offset silencioso", que eu já tinha aprendido uma vez e não
 generalizei.
+
+---
+
+## 9. Conjunto TRANSFER — adicionado em 2026-08-29, declarado antes de medir
+
+Um terceiro conjunto, num **repositório diferente**: `toolz @ 1.1.0`, módulo
+`toolz/functoolz.py` (1049 linhas), 534 mutantes, 118 sobreviventes (22.1%),
+**|G| = 50 linhas cegas**. Ground truth gerado pelo mesmo `mutmut 3.7.0`, com o
+construtor já corrigido (534/534 parseados, 0 erros, 0 mismatches).
+
+**Isto NÃO altera DEV nem HOLDOUT.** Nenhum número já publicado é recalculado por
+causa deste conjunto. Ele é reportado à parte, com o próprio piso e o próprio teto.
+
+**O que ele responde que o HOLDOUT não responde.** O HOLDOUT é outro módulo do
+*mesmo* repositório, com a *mesma* suíte. O TRANSFER é outro projeto, outros
+autores, outro estilo de teste, e código com classes e decoradores — que o DEV
+não tem. É generalização entre repositórios, não entre módulos.
+
+**Escopo declarado antes de rodar:** só os estágios de arquivo inteiro —
+`baseline`, `s4` e `s5`. O `s6` (varredura por função) fica **de fora**:
+`functoolz.py` tem 45 funções e métodos, o que seriam 45 chamadas para um único
+conjunto opcional. É corte por orçamento, declarado aqui, não resultado omitido.
+
+**Compromisso:** o número que sair é reportado, seja qual for. Se o TRANSFER
+ficar abaixo do piso trivial dele, isso entra na tabela e no changelog do mesmo
+jeito que o resultado do HOLDOUT entrou.

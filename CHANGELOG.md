@@ -80,8 +80,124 @@ correctness. No number in this report claims the predicted type is right.
 
 ---
 
-## S3–S6 — not measured yet
+## S3 — Measured baseline · 2026-08-29
 
-Blocked on a decision about model access, not on code. The pipeline is written,
-the harness is frozen, and the stages run with one command each. See
-`README.md` § Status.
+**Hypothesis, written before the run.** A single prompt produces measurable
+predictions, and performs worse than the final pipeline.
+**Death condition.** Output not parseable — in which case only the parser is
+adjusted, never the prompt to improve the result.
+
+**Result.** Parsed on the first try, all three sets. `claude-opus-5`, effort
+`high`, identical to every later stage.
+
+| Set | trivial floor | baseline F1 | precision | recall |
+|---|---:|---:|---:|---:|
+| DEV | 0.130 | **0.292** | 0.226 | 0.412 |
+| HOLDOUT | 0.537 | **0.464** | 0.650 | 0.361 |
+| TRANSFER | 0.091 | **0.131** | 0.093 | 0.220 |
+
+**Confirmed.** And note the baseline is already strong on the holdout — 0.464
+against a random floor of 0.361. It was not weakened. A weak baseline is the
+most detectable fraud in a hackathon report.
+
+---
+
+## S4 — Frozen taxonomy as a skill · 2026-08-29
+
+**Hypothesis.** Naming the six blind-spot types raises precision.
+**Death condition, pre-registered.** Precision does not rise by ≥ 3 points.
+
+| Set | precision before | after | Δ | F1 before → after |
+|---|---:|---:|---:|---|
+| DEV | 0.226 | 0.360 | **+13.4 pts** | 0.292 → 0.429 |
+| HOLDOUT | 0.650 | 0.684 | **+3.4 pts** | 0.464 → 0.473 |
+| TRANSFER | 0.093 | 0.125 | **+3.2 pts** | 0.131 → 0.148 |
+
+**Confirmed on all three**, and by the narrowest margin on the two sets it was
+not tuned against — 3.4 and 3.2 points, against a bar of 3. Kept.
+
+**What it cost.** Predictions got fewer and tighter (DEV: 14 → 13 items, 31 → 25
+lines). The taxonomy works by making the model decline what it cannot name.
+
+---
+
+## S5 — Evidence gate, in code · 2026-08-29
+
+**Hypothesis.** Requiring a file+line anchor cuts false positives.
+**Death condition, pre-registered.** False positives do not fall.
+
+The gate is code, not prompt — so it reuses S4's recordings byte for byte. Its
+effect is measured **on identical model output**, with no resampling in between.
+That makes the delta fully attributable to the gate; it also cost $0.00.
+
+| Set | noise rate | precision | dropped by gate | F1 |
+|---|---|---|---:|---|
+| DEV | 0.360 → **0.250** | 0.360 → **0.450** | 2 | 0.429 → **0.486** |
+| HOLDOUT | 0.263 → **0.091** | 0.684 → **0.818** | 2 | 0.473 → **0.383** |
+| TRANSFER | 0.667 → 0.667 | 0.125 → 0.125 | 0 | 0.148 → 0.148 |
+
+**Confirmed by its own criterion on DEV and HOLDOUT** — false positives fell, hard.
+On HOLDOUT precision reached 0.818: eleven lines pointed at, nine of them real.
+
+**And it lowered holdout F1 anyway**, 0.473 → 0.383, because recall fell 0.361 →
+0.250. The gate removed true positives along with false ones. Both facts are the
+result; the criterion was written first and it says "confirmed", so confirmed is
+what it gets. On TRANSFER the gate was inert — every anchor was already valid, so
+there was nothing to drop.
+
+---
+
+## S6 — Per-function sweep and reconciliation · 2026-08-29
+
+**Hypothesis.** Splitting context per function raises recall.
+**Death condition, pre-registered.** Recall does not rise.
+
+| Set | recall before | after | precision before → after | F1 |
+|---|---:|---:|---|---|
+| DEV | 0.529 | **0.588** | 0.450 → 0.556 | 0.486 → **0.571** |
+| HOLDOUT | 0.250 | **0.389** | 0.818 → 0.452 | 0.383 → **0.418** |
+| TRANSFER | — | — | — | not run (declared below) |
+
+**Confirmed by its criterion on both measured sets.** On DEV it is the best
+configuration by every column. On HOLDOUT it bought recall by giving back most of
+the precision S5 had won.
+
+**Not run on TRANSFER, and this is a cut, not an omission.** `functoolz.py` has
+45 functions and methods; the sweep would be 45 calls for one optional set.
+Declared in `METRIC.md` § 9 before the transfer set was measured, not after.
+
+---
+
+## The result that matters, and it is not a win
+
+| Set | trivial floor | baseline | S4 | S5 | S6 | oracle |
+|---|---:|---:|---:|---:|---:|---:|
+| DEV | 0.130 | 0.292 | 0.429 | 0.486 | **0.571** | 1.000 |
+| HOLDOUT | **0.537** | 0.464 | 0.473 | 0.383 | 0.418 | 1.000 |
+| TRANSFER | 0.091 | 0.131 | **0.148** | 0.148 | — | 1.000 |
+
+On DEV — the set the iterations were built against — the pipeline reaches 4.4×
+the trivial floor and improves at every step.
+
+**On HOLDOUT, nothing beats predicting the whole file.** The floor is 0.537. The
+best configuration reaches 0.473. Every gain built while looking at DEV either
+shrank or reversed on a module of the same library, tested by the same suite.
+
+That is the finding. It is the exact failure the predecessor project shipped as a
+victory, and the only reason it is visible here is that the floor was computed in
+S2, before any solution existed, and printed on every table since.
+
+**One observation that does not change the verdict.** On HOLDOUT, S5 reaches
+precision 0.818 at recall 0.250 — eleven lines named, nine correct — while the
+floor reaches its 0.537 with precision 0.367 and recall 1.000, by saying every
+line is blind. A reviewer can act on the first and not on the second. F1 does not
+capture that, and F1 was named the primary metric in `METRIC.md` before anything
+was measured. So the floor wins, and it is recorded as winning.
+
+**No iteration was removed**, because none met its pre-registered death
+condition: S4 raised precision on all three sets, S5 cut false positives, S6
+raised recall. What failed is not any one iteration — it is the transfer of all
+of them, and no single change can be deleted to fix that.
+
+**Cost of every number above:** US$ 2.16, 14 recorded calls. Re-scoring after the
+ground-truth correction cost nothing — the recordings were replayed.

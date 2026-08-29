@@ -19,6 +19,7 @@ test:             ## testes da própria métrica — se quebrarem, todo results/
 sanity:           ## controles do harness: piso trivial, fabricada errada, aleatório, oráculo
 	$(PY) eval/run.py --sanity --set dev
 	$(PY) eval/run.py --sanity --set holdout
+	$(PY) eval/run.py --sanity --set transfer
 
 predict:          ## roda um estágio (STAGE=baseline|s4|s5|s6 SET=dev|holdout)
 	PYTHONPATH=src $(PY) -m deadzone.predict --stage $(STAGE) --set $(SET)

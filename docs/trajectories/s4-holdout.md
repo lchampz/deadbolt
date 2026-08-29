@@ -7,7 +7,7 @@ Custo US$ 0.1424 · 13338 tokens de entrada · 3029 de saída · 36.92s de pared
 
 | precisão | recall | F1 | near-miss | ruído | mut-recall | evidência |
 |---:|---:|---:|---:|---:|---:|---:|
-| 0.474 | 0.300 | 0.367 | 0.053 | 0.474 | 0.323 | 0.750 |
+| 0.684 | 0.361 | 0.473 | 0.053 | 0.263 | 0.349 | 0.750 |
 
 Piso trivial deste conjunto e teto do oráculo em `eval/report.py`.
 
@@ -264,6 +264,106 @@ gravação `ace84516a3bc18459b2d` · 12357→4751 tokens · US$ 0.1806 · 62.183
     "rationale": "add_uppercase_char is only ever invoked at import time on the three non-empty hard-coded tables, so the empty-list / single-item edge of the loop is never exercised and a change to its handling would go unnoticed."
   }
 ]
+```
+</details>
+
+### 4. `toolz/functoolz.py`
+
+gravação `e4ffbe57ce133f6fffd0` · 25223→7683 tokens · US$ 0.3182 · 92.463s · 2026-08-29T19:39:55Z
+
+<details><summary>instrução (prompt de usuário)</summary>
+
+```
+## Module under analysis: toolz/functoolz.py
+
+```python
+   1 | from functools import reduce, partial
+   2 | import inspect
+   3 | import sys
+   4 | from operator import attrgetter, not_
+   5 | from importlib import import_module
+   6 | from types import MethodType
+   7 | 
+   8 | from .utils import no_default
+   9 | 
+  10 | PYPY = hasattr(sys, 'pypy_version_info') and sys.version_info[0] > 2
+  11 | 
+  12 | 
+  13 | __all__ = ('identity', 'apply', 'thread_first', 'thread_last', 'memoize',
+  14 |            'compose', 'compose_left', 'pipe', 'complement', 'juxt', 'do',
+  15 |            'curry', 'flip', 'excepts')
+  16 | 
+  17 | PYPY = hasattr(sys, 'pypy_version_info')
+  18 | 
+  19 | 
+  20 | def identity(x):
+  21 |     """ Identity function. Return x
+  22 | 
+  23 |     >>> identity(3)
+  24 |     3
+  25 |     """
+  26 |     return x
+  27 | 
+  28 | 
+  29 | def apply(*func_and_args, **kwargs):
+  30 |     """ Applies a function and returns the results
+  31 | 
+  32 |     >>> def double(x): return 2*x
+  33 |     >>> def inc(x):    return x + 1
+  34 |     >>> apply(double, 5)
+  35 |     10
+  36 | 
+  37 |     >>> tuple(map(apply, [double, inc, double], [10, 500, 8000]))
+  38 |     (20, 501, 16000)
+  39 |     """
+  40 |     if not func_and_args:
+  41 |         raise TypeError('func argument is required')
+  42 |     func, args = func_and_args[0], func_and_args[1:]
+  43 |     return func(*arg
+… [56220 chars omitidos — íntegra em recordings/]
+```
+</details>
+
+<details><summary>resposta crua do modelo</summary>
+
+```
+[
+  {
+    "file": "toolz/functoolz.py",
+    "line_range": [10, 10],
+    "blind_spot_type": "dead_config",
+    "evidence_quote": "PYPY = hasattr(sys, 'pypy_version_info') and sys.version_info[0] > 2",
+    "confidence": 0.85,
+    "rationale": "This constant is unconditionally overwritten at line 17, so any change to its expression is invisible to every test."
+  },
+  {
+    "file": "toolz/functoolz.py",
+    "line_range": [847, 855],
+    "blind_spot_type": "dead_config",
+    "evidence_quote": "if PYPY:  # pragma: no cover",
+    "confidence": 0.8,
+    "rationale": "The PyPy-only rebinding of _check_sigspec is never taken on the CPython test runs, so its contents can change freely."
+  },
+  {
+    "file": "toolz/functoolz.py",
+    "line_range": [201, 201],
+    "blind_spot_type": "output_shape",
+    "evidence_quote": "raise TypeError(\"Input must be callable\")",
+    "confidence": 0.6,
+    "rationale": "Tests only assert that TypeError is raised via raises(), so the message text is unchecked and can be altered unnoticed."
+  },
+  {
+    "file": "toolz/functoolz.py",
+    "line_range": [204, 209],
+    "blind_spot_type": "error_path",
+    "evidence_quote": "and isinstance(func.args, tuple)",
+    "confidence": 0.55,
+    "rationale": "No test passes a partial-like object whose .args is not a tuple, so this guard's False outcome is never exercised."
+  },
+  {
+    "file": "toolz/functoolz.py",
+   
+… [4245 chars omitidos — íntegra em recordings/]
 ```
 </details>
 

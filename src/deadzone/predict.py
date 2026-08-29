@@ -33,7 +33,6 @@ from metric import SETS, TAXONOMY  # noqa: E402
 PROMPTS = ROOT / "prompts"
 CORPUS = ROOT / "corpus"
 RESULTS = ROOT / "results"
-TEST_FILE = "test.py"
 
 STAGES = {
     "baseline": {"system": "system_baseline.md", "gate": False, "sweep": False},
@@ -156,7 +155,8 @@ def run(stage: str, set_name: str, client: Client) -> dict:
     cfg = STAGES[stage]
     spec = SETS[set_name]
     system = (PROMPTS / cfg["system"]).read_text()
-    tests = (CORPUS / spec["corpus"] / TEST_FILE).read_text()
+    test_file = spec["test_file"]
+    tests = (CORPUS / spec["corpus"] / test_file).read_text()
 
     preds: list[dict] = []
     dropped: list[dict] = []
@@ -175,7 +175,7 @@ def run(stage: str, set_name: str, client: Client) -> dict:
                 body = "\n".join(src_lines[start - 1 : end])
                 prompt = tmpl.format(
                     file=file, function=name, start=start, end=end,
-                    source=numbered(body, start=start), test_file=TEST_FILE, tests=tests,
+                    source=numbered(body, start=start), test_file=test_file, tests=tests,
                 )
                 call = client.complete(system, prompt, stage=stage, unit=f"{file}::{name}")
                 raw_by_unit[f"{file}::{name}"] = call.response
@@ -183,7 +183,7 @@ def run(stage: str, set_name: str, client: Client) -> dict:
         else:
             tmpl = (PROMPTS / "user_whole_file.md").read_text()
             prompt = tmpl.format(
-                file=file, source=numbered(target.source()), test_file=TEST_FILE, tests=tests
+                file=file, source=numbered(target.source()), test_file=test_file, tests=tests
             )
             call = client.complete(system, prompt, stage=stage, unit=file)
             raw_by_unit[file] = call.response

@@ -114,24 +114,93 @@ Fallback não acionado — a regra de casamento por linha rodou de primeira.
 **Congelado em 2026-08-29T16:30:00Z:** métrica, schema, taxonomia de 6 tipos,
 regra de casamento e corpus. R5 vale a partir daqui.
 
-## S3 — Baseline medido 🔴 BLOQUEADO — [[05 - Decisões Abertas]] D1
+## S3 — Baseline medido ✅ CONFIRMADA
 
-Código pronto e testado em seco: `src/deadzone/predict.py --stage baseline`.
-Prompt versionado em `prompts/system_baseline.md`. Falta **só** acesso a modelo.
+Parseou de primeira nos três conjuntos. `claude-opus-5`, effort `high`.
 
-```
-HIPÓTESE:    um prompt único produz predições mensuráveis, com desempenho
-             pior que o pipeline final
-CONFIRMA SE: baseline roda nos dois conjuntos e produz precisão e recall
-             registrados com timestamp
-MORRE SE:    saída não parseável — nesse caso ajusta-se SÓ o parsing,
-             nunca o prompt para melhorar resultado
-ARTEFATO:    results/baseline-{dev,holdout}.pred.json + recordings/
-```
+| Conjunto | piso trivial | baseline F1 | precisão | recall |
+|---|---:|---:|---:|---:|
+| DEV | 0.130 | **0.292** | 0.226 | 0.412 |
+| HOLDOUT | 0.537 | **0.464** | 0.650 | 0.361 |
+| TRANSFER | 0.091 | **0.131** | 0.093 | 0.220 |
 
-**Piso a bater, já conhecido:** F1 0.130 no DEV, **0.469 no HOLDOUT**. Se o
-baseline sair forte, não se enfraquece o baseline — reporta-se como achado.
+Baseline **forte** no holdout — 0.464 contra piso aleatório 0.361. Não foi
+enfraquecido. Enfraquecer baseline é a fraude mais detectável que existe.
 
-## S4/S5/S6 — Iterações ⏳ PENDENTE
+---
 
-## S7 — Congelamento e container ⏳ PENDENTE
+## S4 — Taxonomia como skill ✅ CONFIRMADA
+
+`MORRE SE:` precisão não sobe ≥ 3 pontos.
+
+| Conjunto | precisão antes → depois | Δ | veredito |
+|---|---|---:|---|
+| DEV | 0.226 → 0.360 | +13.4 pts | ✅ |
+| HOLDOUT | 0.650 → 0.684 | +3.4 pts | ✅ (raspando) |
+| TRANSFER | 0.093 → 0.125 | +3.2 pts | ✅ (raspando) |
+
+Passou nos dois conjuntos em que **não** foi ajustada por 3,4 e 3,2 pontos,
+contra uma barra de 3. Mantida.
+
+---
+
+## S5 — Gate de evidência ✅ CONFIRMADA pelo critério, mas derruba F1 no holdout
+
+`MORRE SE:` falso positivo não cai.
+
+Gate é código, não prompt → reusa as gravações do S4 byte a byte. O efeito é
+medido sobre **saída idêntica do modelo**, custo US$ 0,00, delta 100% atribuível.
+
+| Conjunto | ruído | precisão | descartadas | F1 |
+|---|---|---|---:|---|
+| DEV | 0.360 → **0.250** | 0.360 → **0.450** | 2 | 0.429 → **0.486** |
+| HOLDOUT | 0.263 → **0.091** | 0.684 → **0.818** | 2 | 0.473 → **0.383** |
+| TRANSFER | 0.667 → 0.667 | 0.125 → 0.125 | 0 | inerte |
+
+FP caiu forte nos dois. **E mesmo assim o F1 do holdout caiu**, porque o recall
+foi de 0.361 para 0.250: o gate levou verdadeiros positivos junto. Os dois fatos
+são o resultado. O critério foi escrito antes e diz confirmada — confirmada fica.
+
+---
+
+## S6 — Varredura por função ✅ CONFIRMADA pelo critério
+
+`MORRE SE:` recall não sobe.
+
+| Conjunto | recall antes → depois | precisão antes → depois | F1 |
+|---|---|---|---|
+| DEV | 0.529 → **0.588** | 0.450 → 0.556 | 0.486 → **0.571** |
+| HOLDOUT | 0.250 → **0.389** | 0.818 → 0.452 | 0.383 → **0.418** |
+
+No DEV é a melhor configuração em toda coluna. No holdout comprou recall
+devolvendo quase toda a precisão que o S5 tinha ganho.
+
+Não rodado no TRANSFER: 45 funções em `functoolz.py` = 45 chamadas para um
+conjunto opcional. **Corte de orçamento declarado em METRIC.md § 9 antes de
+medir**, não resultado omitido.
+
+---
+
+## O veredito que importa
+
+| Conjunto | piso | baseline | S4 | S5 | S6 | oráculo |
+|---|---:|---:|---:|---:|---:|---:|
+| DEV | 0.130 | 0.292 | 0.429 | 0.486 | **0.571** | 1.000 |
+| HOLDOUT | **0.537** | 0.464 | 0.473 | 0.383 | 0.418 | 1.000 |
+| TRANSFER | 0.091 | 0.131 | **0.148** | 0.148 | — | 1.000 |
+
+No DEV — onde iterei — o pipeline chega a 4,4× o piso e sobe a cada passo.
+
+**No HOLDOUT nada bate prever o arquivo inteiro.** Piso 0.537, melhor
+configuração 0.473. Todo ganho construído olhando o DEV encolheu ou inverteu num
+módulo da *mesma biblioteca*, testado pela *mesma suíte*.
+
+Esse é o achado. É exatamente a falha que o projeto anterior entregou como
+vitória, e só está visível porque o piso foi calculado no S2, antes de existir
+solução, e impresso em toda tabela desde então.
+
+**Nenhuma iteração foi removida** — nenhuma bateu na própria condição de morte.
+O que falhou não é uma iteração, é a transferência de todas elas, e não existe
+uma mudança para deletar que conserte isso.
+
+**Custo:** US$ 2,16 em 14 chamadas gravadas.

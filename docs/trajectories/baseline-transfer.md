@@ -1,13 +1,13 @@
-# Trajetória — baseline · conjunto holdout
+# Trajetória — baseline · conjunto transfer
 
 Modelo `claude-opus-5` · provider `anthropic` · modo `live`
-Custo US$ 0.0940 · 13023 tokens de entrada · 1154 de saída · 13.716s de parede
+Custo US$ 0.1780 · 24908 tokens de entrada · 2138 de saída · 24.478s de parede
 
 ## Resultado, contra o ground truth congelado
 
 | precisão | recall | F1 | near-miss | ruído | mut-recall | evidência |
 |---:|---:|---:|---:|---:|---:|---:|
-| 0.650 | 0.361 | 0.464 | 0.050 | 0.300 | 0.321 | 1.000 |
+| 0.093 | 0.220 | 0.131 | 0.237 | 0.669 | 0.195 | 1.000 |
 
 Piso trivial deste conjunto e teto do oráculo em `eval/report.py`.
 
@@ -376,11 +376,18 @@ _Gate não aplicado neste estágio._
 
 ## Predições que sobreviveram
 
-- `slugify/__main__.py:[85, 94]` · **untested entry point** · conf 0.95 — The test suite only imports parse_args and slugify_params; main() is never invoked, so its argv defaulting, printing and KeyboardInterrupt handling are unexercised.
-- `slugify/__main__.py:[87, 88]` · **default argument branch** · conf 0.92 — No test calls main() without argv, so the sys.argv fallback is never executed.
-- `slugify/__main__.py:[91, 94]` · **exception handling** · conf 0.95 — No test raises KeyboardInterrupt during slugify, so the sys.exit(-1) path is unverified.
-- `slugify/__main__.py:[97, 98]` · **module __main__ guard** · conf 0.9 — The module is imported, never executed as a script, so this guard body never runs in tests.
-- `slugify/__main__.py:[62, 63]` · **redundant/unreached default** · conf 0.6 — input_string already defaults to an empty list turned into '' or nothing, so this fallback assignment can be altered without any assertion detecting it beyond the default test that also passes with the list default.
-- `slugify/__main__.py:[41, 42]` · **untested CLI option** · conf 0.75 — allow_unicode is not in the DEFAULTS dict compared by assertParamsMatch and no CLI test passes --allow-unicode, so changes to it go unnoticed.
-- `slugify/__main__.py:[35, 36]` · **unused/unpropagated option** · conf 0.85 — regex_pattern is parsed but never included in slugify_params and no test asserts on it, so removing or renaming it is invisible.
-- `slugify/__main__.py:[31, 32]` · **help text / default string** · conf 0.55 — Help strings are never asserted; only the parsed value is checked.
+- `toolz/functoolz.py:[347, 375]` · **unpickled-serialization-path** · conf 0.85 — No test in this file pickles or copies a curry object, so the module/qualname lookup and state tuple construction are never exercised.
+- `toolz/functoolz.py:[378, 389]` · **unpickled-serialization-path** · conf 0.85 — This restore helper is only invoked during unpickling, which the test suite never performs.
+- `toolz/functoolz.py:[163, 165]` · **unpickled-serialization-path** · conf 0.85 — InstanceProperty.__reduce__ is only used when pickling descriptors, never triggered by any test.
+- `toolz/functoolz.py:[242, 270]` · **introspection-detail-untested** · conf 0.7 — No test inspects inspect.signature() of a curry object, so the parameter rewriting (skip, kwonly, no_default) logic is unverified.
+- `toolz/functoolz.py:[239, 240]` · **unreached-error-branch** · conf 0.75 — No test creates a curry with invalid args and then asks for its signature, so this raise is never triggered.
+- `toolz/functoolz.py:[492, 496]` · **unpickled-serialization-path** · conf 0.8 — Compose pickling state hooks are never called because no test pickles or copies a Compose object.
+- `toolz/functoolz.py:[674, 678]` · **unpickled-serialization-path** · conf 0.8 — juxt's getstate/setstate are only used by pickle, which the tests never invoke.
+- `toolz/functoolz.py:[280, 282]` · **conditionally-tested-alias** · conf 0.6 — The only assertion involving func_name is guarded by `if hasattr(f, 'func_name')` and merely compares it to __name__, so an altered implementation could still pass.
+- `toolz/functoolz.py:[17, 17]` · **dead-redundant-assignment** · conf 0.7 — This duplicated global re-definition is never asserted on and (on CPython) selects the same code path either way.
+- `toolz/functoolz.py:[847, 855]` · **platform-gated-code** · conf 0.8 — This PyPy-only override is marked no cover and never executes under CPython test runs.
+- `toolz/functoolz.py:[834, 843]` · **fallback-registry-branch** · conf 0.6 — This test file never calls introspection helpers on builtins lacking signatures, so the registry fallback branch is unexercised here.
+- `toolz/functoolz.py:[946, 947]` · **unreachable-none-branch** · conf 0.8 — Marked no cover and requires an introspection failure that no test constructs.
+- `toolz/functoolz.py:[436, 438]` · **unreached-exception-handler** · conf 0.8 — The fallback for introspection TypeError in memoize is explicitly marked no cover and no test triggers it.
+- `toolz/functoolz.py:[551, 555]` · **weakly-asserted-signature** · conf 0.45 — Only a two-function composition is checked, so using a different element of funcs for the return annotation would still pass.
+- `toolz/functoolz.py:[351, 352]` · **unreached-fallback** · conf 0.8 — Marked no cover; no test builds a curry over a function without __qualname__ and reduces it.

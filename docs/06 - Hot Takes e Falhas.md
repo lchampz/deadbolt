@@ -54,6 +54,34 @@
   agente que declara sucesso sem verificar — e ele apareceu no meu código antes
   de aparecer no do modelo.
 
+## O parser que descartava em silêncio (2026-08-29, pós-medição)
+
+- **Falha observada:** um terceiro corpus (`toolz`) acusou 233 mutantes onde o
+  `mutmut run` tinha contado 534. Os outros 301 sumiram **sem erro**:
+  `parse_errors: 0`, `line_mismatches: 0`, tudo aparentemente limpo.
+- **Causas, três empilhadas:**
+  1. `mutmut` nomeia método de classe como `xǁClasseǁmetodo__mutmut_N` (U+01C1),
+     não `x_nome`. Minha regex conhecia só um esquema.
+  2. Status de duas palavras (`no tests`) não casava com `\w+`. Isso derrubou os
+     10 mutantes sem teste do HOLDOUT — e eu tinha escrito esse buraco no
+     METRIC.md como *limitação do mutmut*. Era bug meu, declarado como limitação.
+  3. `linha = def + offset - 1` funcionava por acidente: o `mutmut` inclui
+     comentários e decoradores colados acima do `def` e **desindenta** corpo de
+     método. Nos dois primeiros corpora não havia nem um nem outro.
+- **O que estava sendo medido errado:** as 6 linhas do `main()` que nenhum teste
+  executa contavam como **linha coberta**. Um preditor que acertasse era punido.
+  \|G\| do holdout foi de 30 para 36 e todos os estágios foram remedidos sobre as
+  mesmas gravações.
+- **Correção:** mapeamento por ancoragem de texto (reconstrói o lado "antes" do
+  hunk e procura a sequência dentro da faixa da função, ignorando indentação) e
+  uma comparação que **sai com erro** se o total listado pelo `mutmut` não bater
+  com o total reconhecido.
+- **Lição, e é a mesma de antes que eu não generalizei:** eu já tinha aprendido
+  no S1 que fronteira entre ferramenta externa e métrica própria precisa de
+  assertiva que falhe alto. Instalei a assertiva para *uma* coisa — a linha bate
+  com o texto — e não para a anterior: **todo mutante listado tem que ser
+  reconhecido**. Uma verificação que só olha o que passou não vê o que sumiu.
+
 ## Risco declarado do harness desta sessão
 
 O plano previa três papéis separados: Claude pensa, Cursor executa, Claude

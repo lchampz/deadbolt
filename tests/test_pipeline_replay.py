@@ -36,7 +36,7 @@ def _prompts_for(stage: str, set_name: str) -> list[tuple[str, str, str]]:
     cfg = STAGES[stage]
     spec = SETS[set_name]
     system = (PROMPTS / cfg["system"]).read_text()
-    tests = (CORPUS / spec["corpus"] / "test.py").read_text()
+    tests = (CORPUS / spec["corpus"] / spec["test_file"]).read_text()
     out = []
     for file in spec["files"]:
         target = Target(spec["corpus"], file)
@@ -49,7 +49,7 @@ def _prompts_for(stage: str, set_name: str) -> list[tuple[str, str, str]]:
                     system,
                     tmpl.format(file=file, function=name, start=start, end=end,
                                 source=numbered(body, start=start),
-                                test_file="test.py", tests=tests),
+                                test_file=spec["test_file"], tests=tests),
                     f"{file}::{name}",
                 ))
         else:
@@ -57,7 +57,7 @@ def _prompts_for(stage: str, set_name: str) -> list[tuple[str, str, str]]:
             out.append((
                 system,
                 tmpl.format(file=file, source=numbered(target.source()),
-                            test_file="test.py", tests=tests),
+                            test_file=spec["test_file"], tests=tests),
                 file,
             ))
     return out

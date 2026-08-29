@@ -31,7 +31,7 @@ RECORDINGS = ROOT / "recordings"
 RESULTS = ROOT / "results"
 OUT = ROOT / "docs" / "trajectories"
 STAGES = ["baseline", "s4", "s5", "s6"]
-SETS = ["dev", "holdout"]
+SETS = ["dev", "holdout", "transfer"]
 
 
 def load_recordings() -> dict[str, dict]:

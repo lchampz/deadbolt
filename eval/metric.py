@@ -28,10 +28,18 @@ SETS = {
     "dev": {
         "corpus": "python-slugify",
         "files": ["slugify/slugify.py", "slugify/special.py"],
+        "test_file": "test.py",
     },
     "holdout": {
         "corpus": "python-slugify-holdout",
         "files": ["slugify/__main__.py"],
+        "test_file": "test.py",
+    },
+    # Terceiro conjunto, outro repositório. Ver METRIC.md § 9.
+    "transfer": {
+        "corpus": "toolz-transfer",
+        "files": ["toolz/functoolz.py"],
+        "test_file": "toolz/tests/test_functoolz.py",
     },
 }
 

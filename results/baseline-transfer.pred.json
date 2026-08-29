@@ -1,0 +1,204 @@
+{
+  "label": "baseline-transfer",
+  "set": "transfer",
+  "stage": "baseline",
+  "predictions": [
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        347,
+        375
+      ],
+      "blind_spot_type": "unpickled-serialization-path",
+      "evidence_quote": "    def __reduce__(self):",
+      "confidence": 0.85,
+      "rationale": "No test in this file pickles or copies a curry object, so the module/qualname lookup and state tuple construction are never exercised."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        378,
+        389
+      ],
+      "blind_spot_type": "unpickled-serialization-path",
+      "evidence_quote": "def _restore_curry(cls, func, args, kwargs, userdict, is_decorated):",
+      "confidence": 0.85,
+      "rationale": "This restore helper is only invoked during unpickling, which the test suite never performs."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        163,
+        165
+      ],
+      "blind_spot_type": "unpickled-serialization-path",
+      "evidence_quote": "        state = (self.fget, self.fset, self.fdel, self.__doc__, self.classval)",
+      "confidence": 0.85,
+      "rationale": "InstanceProperty.__reduce__ is only used when pickling descriptors, never triggered by any test."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        242,
+        270
+      ],
+      "blind_spot_type": "introspection-detail-untested",
+      "evidence_quote": "        params = list(sig.parameters.values())",
+      "confidence": 0.7,
+      "rationale": "No test inspects inspect.signature() of a curry object, so the parameter rewriting (skip, kwonly, no_default) logic is unverified."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        239,
+        240
+      ],
+      "blind_spot_type": "unreached-error-branch",
+      "evidence_quote": "            raise TypeError('curry object has incorrect arguments')",
+      "confidence": 0.75,
+      "rationale": "No test creates a curry with invalid args and then asks for its signature, so this raise is never triggered."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        492,
+        496
+      ],
+      "blind_spot_type": "unpickled-serialization-path",
+      "evidence_quote": "    def __getstate__(self):",
+      "confidence": 0.8,
+      "rationale": "Compose pickling state hooks are never called because no test pickles or copies a Compose object."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        674,
+        678
+      ],
+      "blind_spot_type": "unpickled-serialization-path",
+      "evidence_quote": "    def __setstate__(self, state):",
+      "confidence": 0.8,
+      "rationale": "juxt's getstate/setstate are only used by pickle, which the tests never invoke."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        280,
+        282
+      ],
+      "blind_spot_type": "conditionally-tested-alias",
+      "evidence_quote": "    def func_name(self):",
+      "confidence": 0.6,
+      "rationale": "The only assertion involving func_name is guarded by `if hasattr(f, 'func_name')` and merely compares it to __name__, so an altered implementation could still pass."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        17,
+        17
+      ],
+      "blind_spot_type": "dead-redundant-assignment",
+      "evidence_quote": "PYPY = hasattr(sys, 'pypy_version_info')",
+      "confidence": 0.7,
+      "rationale": "This duplicated global re-definition is never asserted on and (on CPython) selects the same code path either way."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        847,
+        855
+      ],
+      "blind_spot_type": "platform-gated-code",
+      "evidence_quote": "    def _check_sigspec(sigspec, func, builtin_func, *builtin_args):",
+      "confidence": 0.8,
+      "rationale": "This PyPy-only override is marked no cover and never executes under CPython test runs."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        834,
+        843
+      ],
+      "blind_spot_type": "fallback-registry-branch",
+      "evidence_quote": "            func in _sigs.signatures",
+      "confidence": 0.6,
+      "rationale": "This test file never calls introspection helpers on builtins lacking signatures, so the registry fallback branch is unexercised here."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        946,
+        947
+      ],
+      "blind_spot_type": "unreachable-none-branch",
+      "evidence_quote": "    if num is None or varargs is None or keywords is None:  # pragma: no cover",
+      "confidence": 0.8,
+      "rationale": "Marked no cover and requires an introspection failure that no test constructs."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        436,
+        438
+      ],
+      "blind_spot_type": "unreached-exception-handler",
+      "evidence_quote": "    except TypeError:  # pragma: no cover",
+      "confidence": 0.8,
+      "rationale": "The fallback for introspection TypeError in memoize is explicitly marked no cover and no test triggers it."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        551,
+        555
+      ],
+      "blind_spot_type": "weakly-asserted-signature",
+      "evidence_quote": "        last = inspect.signature(self.funcs[-1])",
+      "confidence": 0.45,
+      "rationale": "Only a two-function composition is checked, so using a different element of funcs for the return annotation would still pass."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        351,
+        352
+      ],
+      "blind_spot_type": "unreached-fallback",
+      "evidence_quote": "        if qualname is None:  # pragma: no cover",
+      "confidence": 0.8,
+      "rationale": "Marked no cover; no test builds a curry over a function without __qualname__ and reduces it."
+    }
+  ],
+  "dropped_by_gate": [],
+  "meta": {
+    "n_calls": 1,
+    "input_tokens": 24908,
+    "output_tokens": 2138,
+    "cost_usd": 0.17799,
+    "wall_seconds": 24.478,
+    "model": "claude-opus-5",
+    "provider": "anthropic",
+    "mode": "live",
+    "effort": "high",
+    "stage": "baseline",
+    "gate_applied": false,
+    "sweep_applied": false,
+    "n_dropped_by_gate": 0,
+    "types_off_taxonomy": [
+      "conditionally-tested-alias",
+      "dead-redundant-assignment",
+      "fallback-registry-branch",
+      "introspection-detail-untested",
+      "platform-gated-code",
+      "unpickled-serialization-path",
+      "unreachable-none-branch",
+      "unreached-error-branch",
+      "unreached-exception-handler",
+      "unreached-fallback",
+      "weakly-asserted-signature"
+    ]
+  },
+  "raw_responses": {
+    "toolz/functoolz.py": "[\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [347, 375],\n    \"blind_spot_type\": \"unpickled-serialization-path\",\n    \"evidence_quote\": \"    def __reduce__(self):\",\n    \"confidence\": 0.85,\n    \"rationale\": \"No test in this file pickles or copies a curry object, so the module/qualname lookup and state tuple construction are never exercised.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [378, 389],\n    \"blind_spot_type\": \"unpickled-serialization-path\",\n    \"evidence_quote\": \"def _restore_curry(cls, func, args, kwargs, userdict, is_decorated):\",\n    \"confidence\": 0.85,\n    \"rationale\": \"This restore helper is only invoked during unpickling, which the test suite never performs.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [163, 165],\n    \"blind_spot_type\": \"unpickled-serialization-path\",\n    \"evidence_quote\": \"        state = (self.fget, self.fset, self.fdel, self.__doc__, self.classval)\",\n    \"confidence\": 0.85,\n    \"rationale\": \"InstanceProperty.__reduce__ is only used when pickling descriptors, never triggered by any test.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [242, 270],\n    \"blind_spot_type\": \"introspection-detail-untested\",\n    \"evidence_quote\": \"        params = list(sig.parameters.values())\",\n    \"confidence\": 0.7,\n    \"rationale\": \"No test inspects inspect.signature() of a curry object, so the parameter rewriting (skip, kwonly, no_default) logic is unverified.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [239, 240],\n    \"blind_spot_type\": \"unreached-error-branch\",\n    \"evidence_quote\": \"            raise TypeError('curry object has incorrect arguments')\",\n    \"confidence\": 0.75,\n    \"rationale\": \"No test creates a curry with invalid args and then asks for its signature, so this raise is never triggered.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [492, 496],\n    \"blind_spot_type\": \"unpickled-serialization-path\",\n    \"evidence_quote\": \"    def __getstate__(self):\",\n    \"confidence\": 0.8,\n    \"rationale\": \"Compose pickling state hooks are never called because no test pickles or copies a Compose object.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [674, 678],\n    \"blind_spot_type\": \"unpickled-serialization-path\",\n    \"evidence_quote\": \"    def __setstate__(self, state):\",\n    \"confidence\": 0.8,\n    \"rationale\": \"juxt's getstate/setstate are only used by pickle, which the tests never invoke.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [280, 282],\n    \"blind_spot_type\": \"conditionally-tested-alias\",\n    \"evidence_quote\": \"    def func_name(self):\",\n    \"confidence\": 0.6,\n    \"rationale\": \"The only assertion involving func_name is guarded by `if hasattr(f, 'func_name')` and merely compares it to __name__, so an altered implementation could still pass.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [17, 17],\n    \"blind_spot_type\": \"dead-redundant-assignment\",\n    \"evidence_quote\": \"PYPY = hasattr(sys, 'pypy_version_info')\",\n    \"confidence\": 0.7,\n    \"rationale\": \"This duplicated global re-definition is never asserted on and (on CPython) selects the same code path either way.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [847, 855],\n    \"blind_spot_type\": \"platform-gated-code\",\n    \"evidence_quote\": \"    def _check_sigspec(sigspec, func, builtin_func, *builtin_args):\",\n    \"confidence\": 0.8,\n    \"rationale\": \"This PyPy-only override is marked no cover and never executes under CPython test runs.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [834, 843],\n    \"blind_spot_type\": \"fallback-registry-branch\",\n    \"evidence_quote\": \"            func in _sigs.signatures\",\n    \"confidence\": 0.6,\n    \"rationale\": \"This test file never calls introspection helpers on builtins lacking signatures, so the registry fallback branch is unexercised here.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [946, 947],\n    \"blind_spot_type\": \"unreachable-none-branch\",\n    \"evidence_quote\": \"    if num is None or varargs is None or keywords is None:  # pragma: no cover\",\n    \"confidence\": 0.8,\n    \"rationale\": \"Marked no cover and requires an introspection failure that no test constructs.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [436, 438],\n    \"blind_spot_type\": \"unreached-exception-handler\",\n    \"evidence_quote\": \"    except TypeError:  # pragma: no cover\",\n    \"confidence\": 0.8,\n    \"rationale\": \"The fallback for introspection TypeError in memoize is explicitly marked no cover and no test triggers it.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [551, 555],\n    \"blind_spot_type\": \"weakly-asserted-signature\",\n    \"evidence_quote\": \"        last = inspect.signature(self.funcs[-1])\",\n    \"confidence\": 0.45,\n    \"rationale\": \"Only a two-function composition is checked, so using a different element of funcs for the return annotation would still pass.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [351, 352],\n    \"blind_spot_type\": \"unreached-fallback\",\n    \"evidence_quote\": \"        if qualname is None:  # pragma: no cover\",\n    \"confidence\": 0.8,\n    \"rationale\": \"Marked no cover; no test builds a curry over a function without __qualname__ and reduces it.\"\n  }\n]"
+  }
+}

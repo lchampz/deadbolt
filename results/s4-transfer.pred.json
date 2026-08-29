@@ -1,0 +1,203 @@
+{
+  "label": "s4-transfer",
+  "set": "transfer",
+  "stage": "s4",
+  "predictions": [
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        10,
+        10
+      ],
+      "blind_spot_type": "dead_config",
+      "evidence_quote": "PYPY = hasattr(sys, 'pypy_version_info') and sys.version_info[0] > 2",
+      "confidence": 0.85,
+      "rationale": "This constant is unconditionally overwritten at line 17, so any change to its expression is invisible to every test."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        847,
+        855
+      ],
+      "blind_spot_type": "dead_config",
+      "evidence_quote": "if PYPY:  # pragma: no cover",
+      "confidence": 0.8,
+      "rationale": "The PyPy-only rebinding of _check_sigspec is never taken on the CPython test runs, so its contents can change freely."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        201,
+        201
+      ],
+      "blind_spot_type": "output_shape",
+      "evidence_quote": "raise TypeError(\"Input must be callable\")",
+      "confidence": 0.6,
+      "rationale": "Tests only assert that TypeError is raised via raises(), so the message text is unchecked and can be altered unnoticed."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        204,
+        209
+      ],
+      "blind_spot_type": "error_path",
+      "evidence_quote": "and isinstance(func.args, tuple)",
+      "confidence": 0.55,
+      "rationale": "No test passes a partial-like object whose .args is not a tuple, so this guard's False outcome is never exercised."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        224,
+        226
+      ],
+      "blind_spot_type": "error_path",
+      "evidence_quote": "self.__name__ = getattr(func, '__name__', '<curry>')",
+      "confidence": 0.5,
+      "rationale": "Every curried callable in the tests has __name__/__qualname__, so the getattr fallback values are never produced or asserted."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        239,
+        240
+      ],
+      "blind_spot_type": "error_path",
+      "evidence_quote": "raise TypeError('curry object has incorrect arguments')",
+      "confidence": 0.6,
+      "rationale": "No test calls inspect.signature on a curry object with invalid bound arguments, so this raise never fires."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        254,
+        268
+      ],
+      "blind_spot_type": "unasserted_branch",
+      "evidence_quote": "elif param.name in keywords:",
+      "confidence": 0.6,
+      "rationale": "The test file never inspects a curry object's __signature__, so the VAR_KEYWORD / VAR_POSITIONAL / keyword-only branches are indistinguishable from each other."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        315,
+        319
+      ],
+      "blind_spot_type": "unasserted_branch",
+      "evidence_quote": "            sigspec = self._sigspec",
+      "confidence": 0.4,
+      "rationale": "Each currying TypeError in the tests happens on a freshly created curry object, so the cached-sigspec branch is never distinguished from recomputation."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        365,
+        368
+      ],
+      "blind_spot_type": "unasserted_branch",
+      "evidence_quote": "                is_decorated = obj is self",
+      "confidence": 0.55,
+      "rationale": "This test module never pickles or calls __reduce__ on a curry, so the decorated-vs-not determination is never observed."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        384,
+        386
+      ],
+      "blind_spot_type": "unasserted_branch",
+      "evidence_quote": "        if is_decorated:",
+      "confidence": 0.5,
+      "rationale": "_restore_curry is only reached through unpickling, which this test suite never performs, so neither side of the branch is checked."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        436,
+        438
+      ],
+      "blind_spot_type": "error_path",
+      "evidence_quote": "    except TypeError:  # pragma: no cover",
+      "confidence": 0.75,
+      "rationale": "No memoized callable in the tests makes introspection raise TypeError, so this fallback assignment never executes."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        459,
+        459
+      ],
+      "blind_spot_type": "output_shape",
+      "evidence_quote": "raise TypeError(\"Arguments to memoized function must be hashable\")",
+      "confidence": 0.6,
+      "rationale": "test_memoize only asserts raises(TypeError, ...), so the wording of the message can change without detection."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        464,
+        468
+      ],
+      "blind_spot_type": "output_shape",
+      "evidence_quote": "        memof.__name__ = func.__name__",
+      "confidence": 0.5,
+      "rationale": "No test asserts the memoized wrapper's __name__, so the copied name value could change (only __doc__ and __wrapped__ are checked)."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        667,
+        668
+      ],
+      "blind_spot_type": "boundary_condition",
+      "evidence_quote": "if len(funcs) == 1 and not callable(funcs[0]):",
+      "confidence": 0.55,
+      "rationale": "Only the single-generator case is exercised; the single-callable and multi-function boundaries of this length/callable test are never tested in this module."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        834,
+        843
+      ],
+      "blind_spot_type": "error_path",
+      "evidence_quote": "        return None, False",
+      "confidence": 0.55,
+      "rationale": "No test drives _check_sigspec with a non-Signature, non-ValueError sigspec for a registered builtin, so this fallback pair is never returned."
+    },
+    {
+      "file": "toolz/functoolz.py",
+      "line_range": [
+        946,
+        947
+      ],
+      "blind_spot_type": "error_path",
+      "evidence_quote": "    if num is None or varargs is None or keywords is None:  # pragma: no cover",
+      "confidence": 0.7,
+      "rationale": "The tests never introspect a callable whose arity information is undeterminable, so this None-returning guard never runs."
+    }
+  ],
+  "dropped_by_gate": [],
+  "meta": {
+    "n_calls": 1,
+    "input_tokens": 25223,
+    "output_tokens": 7683,
+    "cost_usd": 0.31819,
+    "wall_seconds": 92.463,
+    "model": "claude-opus-5",
+    "provider": "anthropic",
+    "mode": "live",
+    "effort": "high",
+    "stage": "s4",
+    "gate_applied": false,
+    "sweep_applied": false,
+    "n_dropped_by_gate": 0,
+    "types_off_taxonomy": []
+  },
+  "raw_responses": {
+    "toolz/functoolz.py": "[\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [10, 10],\n    \"blind_spot_type\": \"dead_config\",\n    \"evidence_quote\": \"PYPY = hasattr(sys, 'pypy_version_info') and sys.version_info[0] > 2\",\n    \"confidence\": 0.85,\n    \"rationale\": \"This constant is unconditionally overwritten at line 17, so any change to its expression is invisible to every test.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [847, 855],\n    \"blind_spot_type\": \"dead_config\",\n    \"evidence_quote\": \"if PYPY:  # pragma: no cover\",\n    \"confidence\": 0.8,\n    \"rationale\": \"The PyPy-only rebinding of _check_sigspec is never taken on the CPython test runs, so its contents can change freely.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [201, 201],\n    \"blind_spot_type\": \"output_shape\",\n    \"evidence_quote\": \"raise TypeError(\\\"Input must be callable\\\")\",\n    \"confidence\": 0.6,\n    \"rationale\": \"Tests only assert that TypeError is raised via raises(), so the message text is unchecked and can be altered unnoticed.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [204, 209],\n    \"blind_spot_type\": \"error_path\",\n    \"evidence_quote\": \"and isinstance(func.args, tuple)\",\n    \"confidence\": 0.55,\n    \"rationale\": \"No test passes a partial-like object whose .args is not a tuple, so this guard's False outcome is never exercised.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [224, 226],\n    \"blind_spot_type\": \"error_path\",\n    \"evidence_quote\": \"self.__name__ = getattr(func, '__name__', '<curry>')\",\n    \"confidence\": 0.5,\n    \"rationale\": \"Every curried callable in the tests has __name__/__qualname__, so the getattr fallback values are never produced or asserted.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [239, 240],\n    \"blind_spot_type\": \"error_path\",\n    \"evidence_quote\": \"raise TypeError('curry object has incorrect arguments')\",\n    \"confidence\": 0.6,\n    \"rationale\": \"No test calls inspect.signature on a curry object with invalid bound arguments, so this raise never fires.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [254, 268],\n    \"blind_spot_type\": \"unasserted_branch\",\n    \"evidence_quote\": \"elif param.name in keywords:\",\n    \"confidence\": 0.6,\n    \"rationale\": \"The test file never inspects a curry object's __signature__, so the VAR_KEYWORD / VAR_POSITIONAL / keyword-only branches are indistinguishable from each other.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [315, 319],\n    \"blind_spot_type\": \"unasserted_branch\",\n    \"evidence_quote\": \"            sigspec = self._sigspec\",\n    \"confidence\": 0.4,\n    \"rationale\": \"Each currying TypeError in the tests happens on a freshly created curry object, so the cached-sigspec branch is never distinguished from recomputation.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [365, 368],\n    \"blind_spot_type\": \"unasserted_branch\",\n    \"evidence_quote\": \"                is_decorated = obj is self\",\n    \"confidence\": 0.55,\n    \"rationale\": \"This test module never pickles or calls __reduce__ on a curry, so the decorated-vs-not determination is never observed.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [384, 386],\n    \"blind_spot_type\": \"unasserted_branch\",\n    \"evidence_quote\": \"        if is_decorated:\",\n    \"confidence\": 0.5,\n    \"rationale\": \"_restore_curry is only reached through unpickling, which this test suite never performs, so neither side of the branch is checked.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [436, 438],\n    \"blind_spot_type\": \"error_path\",\n    \"evidence_quote\": \"    except TypeError:  # pragma: no cover\",\n    \"confidence\": 0.75,\n    \"rationale\": \"No memoized callable in the tests makes introspection raise TypeError, so this fallback assignment never executes.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [459, 459],\n    \"blind_spot_type\": \"output_shape\",\n    \"evidence_quote\": \"raise TypeError(\\\"Arguments to memoized function must be hashable\\\")\",\n    \"confidence\": 0.6,\n    \"rationale\": \"test_memoize only asserts raises(TypeError, ...), so the wording of the message can change without detection.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [464, 468],\n    \"blind_spot_type\": \"output_shape\",\n    \"evidence_quote\": \"        memof.__name__ = func.__name__\",\n    \"confidence\": 0.5,\n    \"rationale\": \"No test asserts the memoized wrapper's __name__, so the copied name value could change (only __doc__ and __wrapped__ are checked).\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [667, 668],\n    \"blind_spot_type\": \"boundary_condition\",\n    \"evidence_quote\": \"if len(funcs) == 1 and not callable(funcs[0]):\",\n    \"confidence\": 0.55,\n    \"rationale\": \"Only the single-generator case is exercised; the single-callable and multi-function boundaries of this length/callable test are never tested in this module.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [834, 843],\n    \"blind_spot_type\": \"error_path\",\n    \"evidence_quote\": \"        return None, False\",\n    \"confidence\": 0.55,\n    \"rationale\": \"No test drives _check_sigspec with a non-Signature, non-ValueError sigspec for a registered builtin, so this fallback pair is never returned.\"\n  },\n  {\n    \"file\": \"toolz/functoolz.py\",\n    \"line_range\": [946, 947],\n    \"blind_spot_type\": \"error_path\",\n    \"evidence_quote\": \"    if num is None or varargs is None or keywords is None:  # pragma: no cover\",\n    \"confidence\": 0.7,\n    \"rationale\": \"The tests never introspect a callable whose arity information is undeterminable, so this None-returning guard never runs.\"\n  }\n]"
+  }
+}

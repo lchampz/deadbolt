@@ -274,6 +274,102 @@ gravação `5b505975d02c8361b329` · 12042→3697 tokens · US$ 0.1526 · 46.852
 ```
 </details>
 
+### 4. `toolz/functoolz.py`
+
+gravação `9ec55db3035145c70e48` · 24908→2138 tokens · US$ 0.1780 · 24.478s · 2026-08-29T19:38:22Z
+
+<details><summary>instrução (prompt de usuário)</summary>
+
+```
+## Module under analysis: toolz/functoolz.py
+
+```python
+   1 | from functools import reduce, partial
+   2 | import inspect
+   3 | import sys
+   4 | from operator import attrgetter, not_
+   5 | from importlib import import_module
+   6 | from types import MethodType
+   7 | 
+   8 | from .utils import no_default
+   9 | 
+  10 | PYPY = hasattr(sys, 'pypy_version_info') and sys.version_info[0] > 2
+  11 | 
+  12 | 
+  13 | __all__ = ('identity', 'apply', 'thread_first', 'thread_last', 'memoize',
+  14 |            'compose', 'compose_left', 'pipe', 'complement', 'juxt', 'do',
+  15 |            'curry', 'flip', 'excepts')
+  16 | 
+  17 | PYPY = hasattr(sys, 'pypy_version_info')
+  18 | 
+  19 | 
+  20 | def identity(x):
+  21 |     """ Identity function. Return x
+  22 | 
+  23 |     >>> identity(3)
+  24 |     3
+  25 |     """
+  26 |     return x
+  27 | 
+  28 | 
+  29 | def apply(*func_and_args, **kwargs):
+  30 |     """ Applies a function and returns the results
+  31 | 
+  32 |     >>> def double(x): return 2*x
+  33 |     >>> def inc(x):    return x + 1
+  34 |     >>> apply(double, 5)
+  35 |     10
+  36 | 
+  37 |     >>> tuple(map(apply, [double, inc, double], [10, 500, 8000]))
+  38 |     (20, 501, 16000)
+  39 |     """
+  40 |     if not func_and_args:
+  41 |         raise TypeError('func argument is required')
+  42 |     func, args = func_and_args[0], func_and_args[1:]
+  43 |     return func(*arg
+… [56220 chars omitidos — íntegra em recordings/]
+```
+</details>
+
+<details><summary>resposta crua do modelo</summary>
+
+```
+[
+  {
+    "file": "toolz/functoolz.py",
+    "line_range": [347, 375],
+    "blind_spot_type": "unpickled-serialization-path",
+    "evidence_quote": "    def __reduce__(self):",
+    "confidence": 0.85,
+    "rationale": "No test in this file pickles or copies a curry object, so the module/qualname lookup and state tuple construction are never exercised."
+  },
+  {
+    "file": "toolz/functoolz.py",
+    "line_range": [378, 389],
+    "blind_spot_type": "unpickled-serialization-path",
+    "evidence_quote": "def _restore_curry(cls, func, args, kwargs, userdict, is_decorated):",
+    "confidence": 0.85,
+    "rationale": "This restore helper is only invoked during unpickling, which the test suite never performs."
+  },
+  {
+    "file": "toolz/functoolz.py",
+    "line_range": [163, 165],
+    "blind_spot_type": "unpickled-serialization-path",
+    "evidence_quote": "        state = (self.fget, self.fset, self.fdel, self.__doc__, self.classval)",
+    "confidence": 0.85,
+    "rationale": "InstanceProperty.__reduce__ is only used when pickling descriptors, never triggered by any test."
+  },
+  {
+    "file": "toolz/functoolz.py",
+    "line_range": [242, 270],
+    "blind_spot_type": "introspection-detail-untested",
+    "evidence_quote": "        params = list(sig.parameters.values())",
+    "confidence": 0.7,
+    "rationale": "No test inspects inspect.signature() of a curry object, so the parameter re
+… [3877 chars omitidos — íntegra em recordings/]
+```
+</details>
+
 ## Feedback — o que o gate de evidência descartou
 
 _Gate não aplicado neste estágio._

@@ -75,17 +75,28 @@ That prints the sanity controls and the final table, reading the frozen ground
 truth and the recorded model calls in `recordings/`. No network, no credential.
 Local path and the live path are in [`REPRODUCTION.md`](REPRODUCTION.md).
 
-## 5. Status
+## 5. Results
 
-Measured and frozen: **S0** repository selection, **S1** mutation ground truth,
-**S2** metric, schema and evaluation harness. `make sanity` reproduces all four
-controls on both sets.
+| Set | trivial floor | baseline | +taxonomy | +evidence gate | +function sweep | oracle |
+|---|---:|---:|---:|---:|---:|---:|
+| DEV | 0.130 | 0.292 | 0.429 | 0.486 | **0.571** | 1.000 |
+| HOLDOUT | **0.537** | 0.464 | 0.473 | 0.383 | 0.418 | 1.000 |
+| TRANSFER (`toolz`) | 0.091 | 0.131 | **0.148** | 0.148 | — | 1.000 |
 
-Not yet measured: **S3** baseline and the three iterations **S4–S6**. The
-pipeline is written (`src/deadzone/`), the prompts are versioned (`prompts/`),
-and each stage is one command — they are blocked on a decision about model
-access, not on code. `eval/report.py` prints those rows as *not measured* rather
-than omitting them.
+F1, line-level, against mutation ground truth. Reproduce with `make report`.
+Every stage: `claude-opus-5`, effort `high`, US$ 2.16 for all 14 recorded calls.
+
+On DEV — the set the iterations were built against — the pipeline reaches 4.4×
+the trivial floor and improves at every step.
+
+**On HOLDOUT, nothing beats predicting the whole file.** The floor is 0.537; the
+best configuration reaches 0.473. Every gain built while looking at DEV shrank or
+reversed on a *different module of the same library, tested by the same suite*.
+
+That is the honest headline, and it is only visible because the floor was
+computed in S2 — before any solution existed — and printed on every table since.
+The full accounting, including the one observation that does **not** overturn it,
+is in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## 6. What existed before 2026-08-28
 

@@ -58,7 +58,7 @@ def main() -> int:
     print("Ground truth: mutmut 3.7.0 sobre python-slugify @ 7b6d5d96, congelado em S1.")
     print("Métrica congelada em METRIC.md § 5. Nenhum número abaixo mudou de definição depois de medido.\n")
 
-    for set_name in ("dev", "holdout"):
+    for set_name in ("dev", "holdout", "transfer"):
         gt = GroundTruth.load(set_name)
         c1, c2, c3, c4 = sanity(set_name)
         print(f"\n## Conjunto {set_name.upper()} — {', '.join(gt.files)}")
