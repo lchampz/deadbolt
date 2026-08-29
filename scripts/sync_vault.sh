@@ -7,7 +7,7 @@ cd "$(dirname "$0")/.."
 VAULT="${VAULT:-$HOME/Documents/documentacao/obsidian/deadzone}"
 [ -d "$VAULT" ] || { echo "vault não encontrado: $VAULT" >&2; exit 1; }
 mkdir -p docs
-rsync -a --delete --exclude '.git' --exclude '.obsidian' --exclude 'trajectories' \
+rsync -a --delete --exclude '.git' --exclude '.obsidian' --exclude '.gitignore' --exclude 'trajectories' \
       "$VAULT"/ docs/
 echo "sincronizado de $VAULT:"
 ls docs/*.md | sed 's|^|  |'
