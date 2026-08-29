@@ -78,13 +78,16 @@ Métrica congelada em METRIC.md § 5. Nenhum número abaixo mudou de definição
 ------------------------------------------------------------------------------------------------------------------------
 PISO prever o arquivo inteiro         0.070    1.000    0.130    0.193    0.738    1.000    0.000      2    244   0.0000
 PISO aleatório, mesmo orçamento       0.118    0.118    0.118    0.176    0.706    0.087    0.941     17     17   0.0000
-S3 baseline — prompt único                        — não medido (sem gravação em recordings/) —
-S4 + taxonomia congelada                          — não medido (sem gravação em recordings/) —
-S5 + gate de evidência                            — não medido (sem gravação em recordings/) —
-S6 + varredura por função                         — não medido (sem gravação em recordings/) —
+S3 baseline — prompt único            0.226    0.412    0.292    0.226    0.548    0.739    0.786     14     31   0.2572
+S4 + taxonomia congelada              0.360    0.529    0.429    0.280    0.360    0.717    0.846     13     25   0.4047
+S5 + gate de evidência                0.450    0.529    0.486    0.300    0.250    0.717    1.000     11     20   0.4047
+S6 + varredura por função             0.556    0.588    0.571    0.222    0.222    0.739    1.000     11     18   0.4747
 TETO oráculo (= ground truth)         1.000    1.000    1.000    0.000    0.000    1.000    1.000     17     17   0.0000
 
-  Nenhum estágio medido ainda. Ver README § Status.
+### Delta por iteração (F1)
+  baseline → s4       ΔF1 +0.137   mantida
+        s4 → s5       ΔF1 +0.058   mantida
+        s5 → s6       ΔF1 +0.085   mantida
 
 ## Conjunto HOLDOUT — slugify/__main__.py
 288 mutantes · 99 sobreviventes · |G|=30 linhas cegas · N=98 linhas
@@ -93,13 +96,16 @@ TETO oráculo (= ground truth)         1.000    1.000    1.000    0.000    0.000
 ------------------------------------------------------------------------------------------------------------------------
 PISO prever o arquivo inteiro         0.306    1.000    0.469    0.245    0.449    1.000    0.000      1     98   0.0000
 PISO aleatório, mesmo orçamento       0.233    0.233    0.233    0.233    0.533    0.232    0.733     30     30   0.0000
-S3 baseline — prompt único                        — não medido (sem gravação em recordings/) —
-S4 + taxonomia congelada                          — não medido (sem gravação em recordings/) —
-S5 + gate de evidência                            — não medido (sem gravação em recordings/) —
-S6 + varredura por função                         — não medido (sem gravação em recordings/) —
+S3 baseline — prompt único            0.350    0.233    0.280    0.050    0.600    0.253    1.000      8     20   0.0940
+S4 + taxonomia congelada              0.474    0.300    0.367    0.053    0.474    0.323    0.750      8     19   0.1424
+S5 + gate de evidência                0.818    0.300    0.439    0.091    0.091    0.323    1.000      6     11   0.1424
+S6 + varredura por função             0.323    0.333    0.328    0.387    0.290    0.354    1.000     11     31   0.2924
 TETO oráculo (= ground truth)         1.000    1.000    1.000    0.000    0.000    1.000    1.000     30     30   0.0000
 
-  Nenhum estágio medido ainda. Ver README § Status.
+### Delta por iteração (F1)
+  baseline → s4       ΔF1 +0.087   mantida
+        s4 → s5       ΔF1 +0.072   mantida
+        s5 → s6       ΔF1 -0.111   REMOVIDA — não moveu a métrica
 ```
 <!-- END REPORT TABLE -->
 

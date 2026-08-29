@@ -1,0 +1,174 @@
+{
+  "label": "s5-dev",
+  "set": "dev",
+  "stage": "s5",
+  "predictions": [
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        114,
+        115
+      ],
+      "blind_spot_type": "error_path",
+      "evidence_quote": "if not isinstance(text, str):",
+      "confidence": 0.9,
+      "rationale": "Every test passes a str, so the bytes-decoding fallback never runs and could be deleted or altered undetected."
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        128,
+        129
+      ],
+      "blind_spot_type": "error_path",
+      "evidence_quote": "        text = str(text, 'utf-8', 'ignore')",
+      "confidence": 0.9,
+      "rationale": "After normalization/unidecode the value is always str in the tests, so this second decoding guard is never triggered."
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        146,
+        147
+      ],
+      "blind_spot_type": "error_path",
+      "evidence_quote": "        except Exception:",
+      "confidence": 0.85,
+      "rationale": "Only valid hexadecimal entities are tested, so the exception fallback for invalid/overflowing code points is never reached."
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        49,
+        50
+      ],
+      "blind_spot_type": "boundary_condition",
+      "evidence_quote": "    if len(string) < max_length:",
+      "confidence": 0.7,
+      "rationale": "The only case where len(string) equals max_length (max_length=19 with a 19-char slug) yields the same output whether '<' or '<=' is used, so the boundary is untested."
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        55,
+        56
+      ],
+      "blind_spot_type": "error_path",
+      "evidence_quote": "    if separator not in string:",
+      "confidence": 0.75,
+      "rationale": "Every word_boundary test uses multi-word text containing the separator, so this single-word fallback return is never executed."
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        62,
+        63
+      ],
+      "blind_spot_type": "boundary_condition",
+      "evidence_quote": "            if next_len < max_length:",
+      "confidence": 0.65,
+      "rationale": "Changing '<' to '<=' produces identical output in all word_boundary tests because the trailing separator is stripped at the end, so the strict comparison is never distinguished from the inclusive one."
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        70,
+        71
+      ],
+      "blind_spot_type": "error_path",
+      "evidence_quote": "    if not truncated:",
+      "confidence": 0.8,
+      "rationale": "No test uses a max_length shorter than the first word, so the empty-truncation fallback slice is never taken."
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        191,
+        192
+      ],
+      "blind_spot_type": "boundary_condition",
+      "evidence_quote": "    if max_length > 0:",
+      "confidence": 0.6,
+      "rationale": "max_length is only 0 or clearly positive in tests, and with 0 smart_truncate returns the same string anyway, so '>0' vs '>=0' or a negative value is indistinguishable."
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        31,
+        31
+      ],
+      "blind_spot_type": "default_argument",
+      "evidence_quote": "    separator: str = \" \",",
+      "confidence": 0.55,
+      "rationale": "smart_truncate is only called with its default separator on a path that returns before the separator matters, and slugify always passes '-', so most changes to this default are invisible."
+    },
+    {
+      "file": "slugify/special.py",
+      "line_range": [
+        10,
+        10
+      ],
+      "blind_spot_type": "unasserted_branch",
+      "evidence_quote": "if upper_dict not in char_list and char != upper_dict[0]:",
+      "confidence": 0.6,
+      "rationale": "The second clause `char != upper_dict[0]` only ever evaluates False for entries like ('Ξ','X') and ('ϒ','Y') whose uppercase form already equals themselves and is therefore already caught by the first clause, so deleting it leaves PRE_TRANSLATIONS byte-identical and the only assertion (test_pre_translation) still passes."
+    },
+    {
+      "file": "slugify/special.py",
+      "line_range": [
+        7,
+        8
+      ],
+      "blind_spot_type": "boundary_condition",
+      "evidence_quote": "    for item in char_list:",
+      "confidence": 0.35,
+      "rationale": "add_uppercase_char is only ever invoked at import time on the three non-empty hard-coded tables, so the empty-list / single-item edge of the loop is never exercised and a change to its handling would go unnoticed."
+    }
+  ],
+  "dropped_by_gate": [
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        139,
+        140
+      ],
+      "blind_spot_type": "error_path",
+      "evidence_quote": "        except Exception:\n            pass",
+      "confidence": 0.85,
+      "rationale": "No test supplies a decimal entity whose chr(int(...)) raises, so the swallow-all except body is never executed.",
+      "_drop_reason": "citação não encontrada no line_range"
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        186,
+        188
+      ],
+      "blind_spot_type": "unasserted_branch",
+      "evidence_quote": "    # finalize user-specific replacements",
+      "confidence": 0.6,
+      "rationale": "In every replacements test the old strings are already gone after the pre-processing pass, so this second replacement loop is a no-op whose removal no test would notice.",
+      "_drop_reason": "citação não encontrada no line_range"
+    }
+  ],
+  "meta": {
+    "n_calls": 2,
+    "input_tokens": 27237,
+    "output_tokens": 10740,
+    "cost_usd": 0.404685,
+    "wall_seconds": 133.122,
+    "model": "claude-opus-5",
+    "provider": "anthropic",
+    "mode": "live",
+    "effort": "high",
+    "stage": "s5",
+    "gate_applied": true,
+    "sweep_applied": false,
+    "n_dropped_by_gate": 2,
+    "types_off_taxonomy": []
+  },
+  "raw_responses": {
+    "slugify/slugify.py": "[\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [114, 115],\n    \"blind_spot_type\": \"error_path\",\n    \"evidence_quote\": \"if not isinstance(text, str):\",\n    \"confidence\": 0.9,\n    \"rationale\": \"Every test passes a str, so the bytes-decoding fallback never runs and could be deleted or altered undetected.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [128, 129],\n    \"blind_spot_type\": \"error_path\",\n    \"evidence_quote\": \"        text = str(text, 'utf-8', 'ignore')\",\n    \"confidence\": 0.9,\n    \"rationale\": \"After normalization/unidecode the value is always str in the tests, so this second decoding guard is never triggered.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [139, 140],\n    \"blind_spot_type\": \"error_path\",\n    \"evidence_quote\": \"        except Exception:\\n            pass\",\n    \"confidence\": 0.85,\n    \"rationale\": \"No test supplies a decimal entity whose chr(int(...)) raises, so the swallow-all except body is never executed.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [146, 147],\n    \"blind_spot_type\": \"error_path\",\n    \"evidence_quote\": \"        except Exception:\",\n    \"confidence\": 0.85,\n    \"rationale\": \"Only valid hexadecimal entities are tested, so the exception fallback for invalid/overflowing code points is never reached.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [49, 50],\n    \"blind_spot_type\": \"boundary_condition\",\n    \"evidence_quote\": \"    if len(string) < max_length:\",\n    \"confidence\": 0.7,\n    \"rationale\": \"The only case where len(string) equals max_length (max_length=19 with a 19-char slug) yields the same output whether '<' or '<=' is used, so the boundary is untested.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [55, 56],\n    \"blind_spot_type\": \"error_path\",\n    \"evidence_quote\": \"    if separator not in string:\",\n    \"confidence\": 0.75,\n    \"rationale\": \"Every word_boundary test uses multi-word text containing the separator, so this single-word fallback return is never executed.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [62, 63],\n    \"blind_spot_type\": \"boundary_condition\",\n    \"evidence_quote\": \"            if next_len < max_length:\",\n    \"confidence\": 0.65,\n    \"rationale\": \"Changing '<' to '<=' produces identical output in all word_boundary tests because the trailing separator is stripped at the end, so the strict comparison is never distinguished from the inclusive one.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [70, 71],\n    \"blind_spot_type\": \"error_path\",\n    \"evidence_quote\": \"    if not truncated:\",\n    \"confidence\": 0.8,\n    \"rationale\": \"No test uses a max_length shorter than the first word, so the empty-truncation fallback slice is never taken.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [191, 192],\n    \"blind_spot_type\": \"boundary_condition\",\n    \"evidence_quote\": \"    if max_length > 0:\",\n    \"confidence\": 0.6,\n    \"rationale\": \"max_length is only 0 or clearly positive in tests, and with 0 smart_truncate returns the same string anyway, so '>0' vs '>=0' or a negative value is indistinguishable.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [186, 188],\n    \"blind_spot_type\": \"unasserted_branch\",\n    \"evidence_quote\": \"    # finalize user-specific replacements\",\n    \"confidence\": 0.6,\n    \"rationale\": \"In every replacements test the old strings are already gone after the pre-processing pass, so this second replacement loop is a no-op whose removal no test would notice.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [31, 31],\n    \"blind_spot_type\": \"default_argument\",\n    \"evidence_quote\": \"    separator: str = \\\" \\\",\",\n    \"confidence\": 0.55,\n    \"rationale\": \"smart_truncate is only called with its default separator on a path that returns before the separator matters, and slugify always passes '-', so most changes to this default are invisible.\"\n  }\n]",
+    "slugify/special.py": "[\n  {\n    \"file\": \"slugify/special.py\",\n    \"line_range\": [10, 10],\n    \"blind_spot_type\": \"unasserted_branch\",\n    \"evidence_quote\": \"if upper_dict not in char_list and char != upper_dict[0]:\",\n    \"confidence\": 0.6,\n    \"rationale\": \"The second clause `char != upper_dict[0]` only ever evaluates False for entries like ('Ξ','X') and ('ϒ','Y') whose uppercase form already equals themselves and is therefore already caught by the first clause, so deleting it leaves PRE_TRANSLATIONS byte-identical and the only assertion (test_pre_translation) still passes.\"\n  },\n  {\n    \"file\": \"slugify/special.py\",\n    \"line_range\": [7, 8],\n    \"blind_spot_type\": \"boundary_condition\",\n    \"evidence_quote\": \"    for item in char_list:\",\n    \"confidence\": 0.35,\n    \"rationale\": \"add_uppercase_char is only ever invoked at import time on the three non-empty hard-coded tables, so the empty-list / single-item edge of the loop is never exercised and a change to its handling would go unnoticed.\"\n  }\n]"
+  }
+}

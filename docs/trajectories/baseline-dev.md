@@ -1,0 +1,296 @@
+# Trajetória — baseline · conjunto dev
+
+Modelo `claude-opus-5` · provider `anthropic` · modo `live`
+Custo US$ 0.2572 · 26607 tokens de entrada · 4965 de saída · 62.839s de parede
+
+## Resultado, contra o ground truth congelado
+
+| precisão | recall | F1 | near-miss | ruído | mut-recall | evidência |
+|---:|---:|---:|---:|---:|---:|---:|
+| 0.226 | 0.412 | 0.292 | 0.226 | 0.548 | 0.739 | 0.786 |
+
+Piso trivial deste conjunto e teto do oráculo em `eval/report.py`.
+
+## Ações — uma chamada por unidade
+
+### 1. `slugify/__main__.py`
+
+gravação `15b48a7a994fe44ca087` · 13023→1154 tokens · US$ 0.0940 · 13.716s · 2026-08-29T18:38:26Z
+
+<details><summary>instrução (prompt de usuário)</summary>
+
+```
+## Module under analysis: slugify/__main__.py
+
+```python
+   1 | from __future__ import annotations
+   2 | 
+   3 | import argparse
+   4 | import sys
+   5 | from typing import Any
+   6 | 
+   7 | from .slugify import slugify, DEFAULT_SEPARATOR
+   8 | 
+   9 | 
+  10 | def parse_args(argv: list[str]) -> argparse.Namespace:
+  11 |     parser = argparse.ArgumentParser(description="Slug string")
+  12 | 
+  13 |     input_group = parser.add_argument_group(description="Input")
+  14 |     input_group.add_argument("input_string", nargs='*',
+  15 |                              help='Text to slugify')
+  16 |     input_group.add_argument("--stdin", action='store_true',
+  17 |                              help="Take the text from STDIN")
+  18 | 
+  19 |     parser.add_argument("--no-entities", action='store_false', dest='entities', default=True,
+  20 |                         help="Do not convert HTML entities to unicode")
+  21 |     parser.add_argument("--no-decimal", action='store_false', dest='decimal', default=True,
+  22 |                         help="Do not convert HTML decimal to unicode")
+  23 |     parser.add_argument("--no-hexadecimal", action='store_false', dest='hexadecimal', default=True,
+  24 |                         help="Do not convert HTML hexadecimal to unicode")
+  25 |     parser.add_argument("--max-length", type=int, default=0,
+  26 |                         help="Output stri
+… [27520 chars omitidos — íntegra em recordings/]
+```
+</details>
+
+<details><summary>resposta crua do modelo</summary>
+
+```
+[
+  {
+    "file": "slugify/__main__.py",
+    "line_range": [85, 94],
+    "blind_spot_type": "untested entry point",
+    "evidence_quote": "def main(argv: list[str] | None = None) -> None:",
+    "confidence": 0.95,
+    "rationale": "The test suite only imports parse_args and slugify_params; main() is never invoked, so its argv defaulting, printing and KeyboardInterrupt handling are unexercised."
+  },
+  {
+    "file": "slugify/__main__.py",
+    "line_range": [87, 88],
+    "blind_spot_type": "default argument branch",
+    "evidence_quote": "        argv = sys.argv",
+    "confidence": 0.92,
+    "rationale": "No test calls main() without argv, so the sys.argv fallback is never executed."
+  },
+  {
+    "file": "slugify/__main__.py",
+    "line_range": [91, 94],
+    "blind_spot_type": "exception handling",
+    "evidence_quote": "    except KeyboardInterrupt:",
+    "confidence": 0.95,
+    "rationale": "No test raises KeyboardInterrupt during slugify, so the sys.exit(-1) path is unverified."
+  },
+  {
+    "file": "slugify/__main__.py",
+    "line_range": [97, 98],
+    "blind_spot_type": "module __main__ guard",
+    "evidence_quote": "if __name__ == '__main__':",
+    "confidence": 0.9,
+    "rationale": "The module is imported, never executed as a script, so this guard body never runs in tests."
+  },
+  {
+    "file": "slugify/__main__.py",
+    "line_range": [62, 63],
+    "blind_spot_type": "red
+… [1449 chars omitidos — íntegra em recordings/]
+```
+</details>
+
+### 2. `slugify/slugify.py`
+
+gravação `10cfd57076044658cd80` · 14565→1268 tokens · US$ 0.1045 · 15.987s · 2026-08-29T18:37:25Z
+
+<details><summary>instrução (prompt de usuário)</summary>
+
+```
+## Module under analysis: slugify/slugify.py
+
+```python
+   1 | from __future__ import annotations
+   2 | 
+   3 | import re
+   4 | import unicodedata
+   5 | from collections.abc import Iterable
+   6 | from html.entities import name2codepoint
+   7 | 
+   8 | try:
+   9 |     import unidecode
+  10 | except ImportError:
+  11 |     import text_unidecode as unidecode  # type: ignore[import-untyped, no-redef]
+  12 | 
+  13 | __all__ = ['slugify', 'smart_truncate']
+  14 | 
+  15 | 
+  16 | CHAR_ENTITY_PATTERN = re.compile(r'&(%s);' % '|'.join(name2codepoint))
+  17 | DECIMAL_PATTERN = re.compile(r'&#(\d+);')
+  18 | HEX_PATTERN = re.compile(r'&#x([\da-fA-F]+);')
+  19 | QUOTE_PATTERN = re.compile(r'[\']+')
+  20 | DISALLOWED_CHARS_PATTERN = re.compile(r'[^-a-zA-Z0-9]+')
+  21 | DISALLOWED_UNICODE_CHARS_PATTERN = re.compile(r'[\W_]+')
+  22 | DUPLICATE_DASH_PATTERN = re.compile(r'-{2,}')
+  23 | NUMBERS_PATTERN = re.compile(r'(?<=\d),(?=\d)')
+  24 | DEFAULT_SEPARATOR = '-'
+  25 | 
+  26 | 
+  27 | def smart_truncate(
+  28 |     string: str,
+  29 |     max_length: int = 0,
+  30 |     word_boundary: bool = False,
+  31 |     separator: str = " ",
+  32 |     save_order: bool = False,
+  33 | ) -> str:
+  34 |     """
+  35 |     Truncate a string.
+  36 |     :param string (str): string for modification
+  37 |     :param max_length (int): output string length
+  38 |     :param word_boundary (bool):
+  39 |   
+… [30455 chars omitidos — íntegra em recordings/]
+```
+</details>
+
+<details><summary>resposta crua do modelo</summary>
+
+```
+[
+  {
+    "file": "slugify/slugify.py",
+    "line_range": [114, 115],
+    "blind_spot_type": "unreachable defensive branch",
+    "evidence_quote": "        text = str(text, 'utf-8', 'ignore')",
+    "confidence": 0.9,
+    "rationale": "All tests pass str input, so the bytes-decoding branch is never executed and could be changed or deleted undetected."
+  },
+  {
+    "file": "slugify/slugify.py",
+    "line_range": [128, 129],
+    "blind_spot_type": "unreachable defensive branch",
+    "evidence_quote": "    if not isinstance(text, str):",
+    "confidence": 0.9,
+    "rationale": "After normalization/unidecode the value is always str, so this second re-decode branch is never taken by any test."
+  },
+  {
+    "file": "slugify/slugify.py",
+    "line_range": [136, 140],
+    "blind_spot_type": "untested exception handler",
+    "evidence_quote": "        except Exception:\n            pass",
+    "confidence": 0.85,
+    "rationale": "No test feeds an out-of-range decimal entity that raises inside the sub, so the try/except swallow path is never exercised."
+  },
+  {
+    "file": "slugify/slugify.py",
+    "line_range": [143, 147],
+    "blind_spot_type": "untested exception handler",
+    "evidence_quote": "            text = HEX_PATTERN.sub(lambda m: chr(int(m.group(1), 16)), text)",
+    "confidence": 0.85,
+    "rationale": "Only valid hex entities are tested, so the except branch that ignores c
+… [1857 chars omitidos — íntegra em recordings/]
+```
+</details>
+
+### 3. `slugify/special.py`
+
+gravação `5b505975d02c8361b329` · 12042→3697 tokens · US$ 0.1526 · 46.852s · 2026-08-29T18:38:12Z
+
+<details><summary>instrução (prompt de usuário)</summary>
+
+```
+## Module under analysis: slugify/special.py
+
+```python
+   1 | from __future__ import annotations
+   2 | 
+   3 | 
+   4 | def add_uppercase_char(char_list: list[tuple[str, str]]) -> list[tuple[str, str]]:
+   5 |     """ Given a replacement char list, this adds uppercase chars to the list """
+   6 | 
+   7 |     for item in char_list:
+   8 |         char, xlate = item
+   9 |         upper_dict = char.upper(), xlate.capitalize()
+  10 |         if upper_dict not in char_list and char != upper_dict[0]:
+  11 |             char_list.insert(0, upper_dict)
+  12 |     return char_list
+  13 | 
+  14 | 
+  15 | # Language specific pre translations
+  16 | # Source awesome-slugify
+  17 | 
+  18 | _CYRILLIC = [      # package defaults:
+  19 |     (u'ё', u'e'),    # io / yo
+  20 |     (u'я', u'ya'),   # ia
+  21 |     (u'х', u'h'),    # kh
+  22 |     (u'у', u'y'),    # u
+  23 |     (u'щ', u'sch'),  # sch
+  24 |     (u'ю', u'u'),    # iu / yu
+  25 | ]
+  26 | CYRILLIC = add_uppercase_char(_CYRILLIC)
+  27 | 
+  28 | _GERMAN = [        # package defaults:
+  29 |     (u'ä', u'ae'),   # a
+  30 |     (u'ö', u'oe'),   # o
+  31 |     (u'ü', u'ue'),   # u
+  32 | ]
+  33 | GERMAN = add_uppercase_char(_GERMAN)
+  34 | 
+  35 | _GREEK = [         # package defaults:
+  36 |     (u'χ', u'ch'),   # kh
+  37 |     (u'Ξ', u'X'),    # Ks
+  38 |     (u'ϒ', u'Y'),    # U
+  39 |     (u'υ', u'y'),    # u
+  40 |     (u'ύ', u'y
+… [24420 chars omitidos — íntegra em recordings/]
+```
+</details>
+
+<details><summary>resposta crua do modelo</summary>
+
+```
+[
+  {
+    "file": "slugify/special.py",
+    "line_range": [10, 10],
+    "blind_spot_type": "redundant/unreachable guard clause",
+    "evidence_quote": "if upper_dict not in char_list and char != upper_dict[0]:",
+    "confidence": 0.6,
+    "rationale": "For every entry in the three built-in lists the already-uppercase cases are also blocked by the first `not in char_list` test, so dropping or inverting the `char != upper_dict[0]` clause leaves PRE_TRANSLATIONS byte-identical and the sole equality assertion still passes."
+  },
+  {
+    "file": "slugify/special.py",
+    "line_range": [11, 12],
+    "blind_spot_type": "unobserved in-place mutation / aliasing",
+    "evidence_quote": "        return char_list",
+    "confidence": 0.5,
+    "rationale": "The test only compares the concatenated PRE_TRANSLATIONS value, so changing the function to copy the input instead of mutating and returning the same list object (or vice versa) is invisible."
+  },
+  {
+    "file": "slugify/special.py",
+    "line_range": [4, 5],
+    "blind_spot_type": "untested API surface / annotations",
+    "evidence_quote": "def add_uppercase_char(char_list: list[tuple[str, str]]) -> list[tuple[str, str]]:",
+    "confidence": 0.45,
+    "rationale": "add_uppercase_char is never imported or called directly by the tests, only implicitly at import time with three fixed inputs, so its signature, annotations and behaviour on 
+… [806 chars omitidos — íntegra em recordings/]
+```
+</details>
+
+## Feedback — o que o gate de evidência descartou
+
+_Gate não aplicado neste estágio._
+
+## Predições que sobreviveram
+
+- `slugify/slugify.py:[114, 115]` · **unreachable defensive branch** · conf 0.9 — All tests pass str input, so the bytes-decoding branch is never executed and could be changed or deleted undetected.
+- `slugify/slugify.py:[128, 129]` · **unreachable defensive branch** · conf 0.9 — After normalization/unidecode the value is always str, so this second re-decode branch is never taken by any test.
+- `slugify/slugify.py:[136, 140]` · **untested exception handler** · conf 0.85 — No test feeds an out-of-range decimal entity that raises inside the sub, so the try/except swallow path is never exercised.
+- `slugify/slugify.py:[143, 147]` · **untested exception handler** · conf 0.85 — Only valid hex entities are tested, so the except branch that ignores conversion errors is never triggered.
+- `slugify/slugify.py:[186, 188]` · **redundant post-processing pass** · conf 0.7 — Every replacement test already resolves during the pre-processing pass, so removing this second replacement loop changes no tested output.
+- `slugify/slugify.py:[49, 50]` · **boundary condition off-by-one** · conf 0.55 — No test exercises the exact len(string) == max_length case where '<' vs '<=' would differ in observable output.
+- `slugify/slugify.py:[55, 56]` · **partially covered branch** · conf 0.6 — The only separator-absent test uses max_length larger than the string so it returns earlier; this hard-cut return value is never verified.
+- `slugify/slugify.py:[70, 71]` · **unreached fallback** · conf 0.65 — No test creates a first word longer than max_length, so this empty-truncation fallback never runs.
+- `slugify/slugify.py:[44, 44]` · **unverified pre-strip** · conf 0.5 — slugify always passes already-stripped text and the direct smart_truncate tests use inputs without leading/trailing separators, so removing this strip is invisible.
+- `slugify/special.py:[10, 10]` · **redundant/unreachable guard clause** · conf 0.6 — For every entry in the three built-in lists the already-uppercase cases are also blocked by the first `not in char_list` test, so dropping or inverting the `char != upper_dict[0]` clause leaves PRE_TRANSLATIONS byte-identical and the sole equality assertion still passes.
+- `slugify/special.py:[11, 12]` · **unobserved in-place mutation / aliasing** · conf 0.5 — The test only compares the concatenated PRE_TRANSLATIONS value, so changing the function to copy the input instead of mutating and returning the same list object (or vice versa) is invisible.
+- `slugify/special.py:[4, 5]` · **untested API surface / annotations** · conf 0.45 — add_uppercase_char is never imported or called directly by the tests, only implicitly at import time with three fixed inputs, so its signature, annotations and behaviour on any other input are unverified.
+- `slugify/special.py:[26, 26]` · **unexported-name coverage gap** · conf 0.35 — No test imports CYRILLIC (or GERMAN/GREEK) individually, so the public constant could be renamed/removed as long as line 47 still builds the same combined list.
+- `slugify/special.py:[44, 44]` · **unexported-name coverage gap** · conf 0.35 — GREEK is only observed through the concatenated PRE_TRANSLATIONS assertion, so the individual constant's existence and name are never checked.

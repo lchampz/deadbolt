@@ -10,6 +10,7 @@ Mapeamento de linha (verificado empiricamente em S1):
 
 from __future__ import annotations
 
+import ast
 import json
 import re
 import subprocess
@@ -25,8 +26,21 @@ _venv_mutmut = CORPUS / ".venv" / "bin" / "mutmut"
 MUTMUT = _venv_mutmut.resolve() if _venv_mutmut.exists() else Path("mutmut")
 SPINNER = re.compile(r"[⠀-⣿]")
 
-# mutmut nomeia o mutante como <modulo>.x_<funcao>__mutmut_<n>
-MUTANT_RE = re.compile(r"^\s*([\w.]+)\.x_(\w+)__mutmut_(\d+):\s*(\w+)\s*$")
+# mutmut usa DOIS esquemas de nome. O segundo custou 301 mutantes descartados
+# em silêncio antes de eu notar (ver docs/06 - Hot Takes e Falhas):
+#   função de módulo:  <modulo>.x_<funcao>__mutmut_<n>
+#   método de classe:  <modulo>.xǁ<Classe>ǁ<metodo>__mutmut_<n>   (U+01C1 separando)
+# Dois esquemas de nome, e reconstruir o id a partir deles é frágil — o id é
+# extraído literal da linha e só o NOME DA FUNÇÃO sai da regex, para achar a
+# linha do `def` no arquivo original.
+#   função de módulo:  <modulo>.x_<funcao>__mutmut_<n>: <status>
+#   método de classe:  <modulo>.xǁ<Classe>ǁ<metodo>__mutmut_<n>: <status>
+MUTANT_RE = re.compile(
+    r"^([\w.]+?)\."
+    r"(?:x_(?P<func>\w+)|x\u01c1(?P<cls>\w+)\u01c1(?P<meth>\w+))"
+    r"__mutmut_\d+$"
+)
+ANY_MUTANT_RE = re.compile(r"__mutmut_\d+:")
 HUNK_RE = re.compile(r"^@@ -(\d+),\d+ \+\d+,\d+ @@")
 
 
@@ -41,79 +55,152 @@ def _run(args: list[str]) -> str:
     return _clean(out.stdout + out.stderr)
 
 
-def def_lines(path: Path) -> dict[str, int]:
-    """Linha 1-based onde cada `def <nome>` começa."""
-    found: dict[str, int] = {}
-    for i, line in enumerate(path.read_text().splitlines(), start=1):
-        m = re.match(r"^\s*def\s+(\w+)\s*\(", line)
-        if m and m.group(1) not in found:
-            found[m.group(1)] = i
+def def_lines(path: Path) -> dict[str, tuple[int, int]]:
+    """Linha 1-based de cada def, indexada por `nome` e por `Classe.metodo`.
+
+    Usa `ast`, não regex: `__call__` existe em várias classes do mesmo arquivo e
+    a primeira ocorrência não é a certa para as demais.
+    """
+    tree = ast.parse(path.read_text())
+    found: dict[str, tuple[int, int]] = {}
+
+    def visit(node, prefix: str = "") -> None:
+        for child in getattr(node, "body", []):
+            if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                found.setdefault(
+                    f"{prefix}{child.name}", (child.lineno, child.end_lineno or child.lineno)
+                )
+            elif isinstance(child, ast.ClassDef):
+                found.setdefault(child.name, (child.lineno, child.end_lineno or child.lineno))
+                visit(child, prefix=f"{child.name}.")
+
+    visit(tree)
     return found
 
 
-def list_mutants() -> list[dict]:
+def list_mutants() -> tuple[list[dict], int]:
+    """Devolve (mutantes reconhecidos, linhas de mutante vistas na saída).
+
+    Os dois números vêm juntos de propósito: a diferença entre eles é a única
+    coisa que denuncia um esquema de nome que a regex não conhece, e sozinha ela
+    não faz barulho nenhum. Custou 301 mutantes descartados em silêncio.
+    """
+    raw = _run(["results", "--all", "True"])
+    seen = 0
     mutants = []
-    for line in _run(["results", "--all", "True"]).splitlines():
-        m = MUTANT_RE.match(line)
-        if m:
-            module, func, idx, status = m.groups()
-            mutants.append(
-                {
-                    "id": f"{module}.x_{func}__mutmut_{idx}",
-                    "module": module,
-                    "function": func,
-                    "status": status,
-                }
-            )
-    return mutants
+    for line in raw.splitlines():
+        if not ANY_MUTANT_RE.search(line):
+            continue
+        seen += 1
+        mutant_id, _, status = line.strip().rpartition(":")
+        m = MUTANT_RE.match(mutant_id.strip())
+        if not m:
+            continue
+        name = m.group("func") or f"{m.group('cls')}.{m.group('meth')}"
+        mutants.append(
+            {
+                "id": mutant_id.strip(),
+                "module": m.group(1),
+                "function": name,
+                "status": status.strip(),
+            }
+        )
+    return mutants, seen
 
 
-def parse_show(mutant: dict, defs: dict[str, dict[str, int]]) -> dict:
+def parse_show(mutant: dict, defs: dict[str, dict[str, tuple[int, int]]]) -> dict:
+    """Mapeia um mutante para a linha real no arquivo original.
+
+    NÃO usa aritmética de offset. A primeira versão fazia
+    `linha = linha_do_def + posição_no_hunk - 1` e funcionou nos dois primeiros
+    corpora por acidente: o `mutmut` extrai a função **junto com comentários e
+    decoradores colados acima dela**, então o `def` não está sempre na posição 1
+    do bloco extraído. Em `toolz` isso errou 5 mutantes de `Compose.__get__` —
+    quatro linhas de comentário acima do `def` deslocaram tudo.
+
+    Em vez disso, reconstrói o lado "antes" do hunk (contexto + linhas removidas)
+    e procura essa sequência literal dentro da faixa da função no arquivo. Se
+    encontrar em exatamente um lugar, aquela é a posição. Se encontrar em zero ou
+    em mais de um, é erro declarado — nunca um palpite.
+    """
     text = _run(["show", mutant["id"]])
-    file_path, rel_start, removed, added = None, None, [], []
-    offset = None
+    file_path = None
+    before: list[str] = []      # contexto + removidas, na ordem do arquivo
+    removed_at = None           # índice da primeira removida dentro de `before`
+    added: list[str] = []
+    in_hunk = False
+
     for line in text.splitlines():
         if line.startswith("--- "):
             file_path = line[4:].strip()
             continue
-        h = HUNK_RE.match(line)
-        if h:
-            rel_start = int(h.group(1))
-            offset = 0
+        if line.startswith("+++"):
             continue
-        if rel_start is None:
+        if HUNK_RE.match(line):
+            in_hunk = True
             continue
-        if line.startswith("-") and not line.startswith("---"):
-            if not removed:
-                # primeira linha removida define a posição
-                mutant["_rel"] = rel_start + offset
-            removed.append(line[1:])
-        elif line.startswith("+") and not line.startswith("+++"):
+        if not in_hunk:
+            continue
+        if line.startswith("-"):
+            if removed_at is None:
+                removed_at = len(before)
+            before.append(line[1:])
+        elif line.startswith("+"):
             added.append(line[1:])
         else:
-            if not removed:
-                offset += 1
+            before.append(line[1:] if line.startswith(" ") else line)
 
-    if file_path is None or "_rel" not in mutant:
-        mutant["error"] = "diff não parseável"
+    if file_path is None or removed_at is None:
+        mutant["error"] = "diff sem arquivo ou sem linha removida"
         return mutant
 
-    def_line = defs.get(file_path, {}).get(mutant["function"])
-    if def_line is None:
+    span = defs.get(file_path, {}).get(mutant["function"])
+    if span is None:
         mutant["error"] = f"função {mutant['function']} não encontrada em {file_path}"
         return mutant
 
+    src = (CORPUS / file_path).read_text().splitlines()
+    lo, hi = span
+    # folga para comentários/decoradores que o mutmut inclui acima do `def`
+    lo = max(1, lo - 20)
+    hi = min(len(src), hi + 2)
+
+    # comparação sem indentação: o mutmut DESINDENTA o corpo do método ao
+    # extraí-lo, então `def __get__` sai na coluna 0 mesmo estando dentro de uma
+    # classe. Comparar texto cru não casa nada; comparar conteúdo casa.
+    want = [ln.strip() for ln in before]
+    hits = [
+        i
+        for i in range(lo - 1, hi - len(want) + 1)
+        if [ln.strip() for ln in src[i : i + len(want)]] == want
+    ]
+    if len(hits) != 1:
+        mutant["error"] = (
+            f"bloco do diff encontrado {len(hits)}x na faixa {lo}-{hi} de "
+            f"{mutant['function']} — ambíguo, não vou adivinhar"
+        )
+        return mutant
+
     mutant["file"] = file_path
-    mutant["line"] = def_line + mutant.pop("_rel") - 1
-    mutant["original"] = removed[0].strip() if removed else ""
+    mutant["line"] = hits[0] + removed_at + 1
+    mutant["original"] = before[removed_at].strip()
     mutant["mutated"] = added[0].strip() if added else ""
     return mutant
 
 
 def main() -> int:
-    mutants = list_mutants()
+    mutants, seen = list_mutants()
     if not mutants:
         print("ERRO: mutmut results não retornou mutantes", file=sys.stderr)
+        return 1
+    if len(mutants) != seen:
+        print(
+            f"ERRO: mutmut listou {seen} mutantes, o parser reconheceu {len(mutants)} "
+            f"— {seen - len(mutants)} descartados por esquema de nome desconhecido.\n"
+            f"Ground truth incompleto mede um subconjunto enviesado. Corrija "
+            f"MUTANT_RE antes de usar qualquer número deste corpus.",
+            file=sys.stderr,
+        )
         return 1
 
     files = sorted({m["module"].replace(".", "/") + ".py" for m in mutants})
@@ -144,6 +231,7 @@ def main() -> int:
         "tool": _run(["--version"]).strip(),
         "totals": {
             "mutants": len(mutants),
+            "listed_by_mutmut": seen,
             "parsed": len(ok),
             "parse_errors": len(errors),
             "line_mismatches": len(mismatches),

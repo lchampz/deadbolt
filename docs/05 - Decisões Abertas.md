@@ -5,19 +5,41 @@ commitado. As três abaixo são as únicas coisas que me travam.
 
 ---
 
-## D1 — Acesso a modelo para S3–S6 🔴 BLOQUEANTE
+## D1 — Acesso a modelo ✅ RESOLVIDA (29/08)
 
-**Fato apurado.** Nenhuma chave no ambiente: `ANTHROPIC_API_KEY`,
-`OPENAI_API_KEY`, `ANTHROPIC_AUTH_TOKEN` e `LLM_API_KEY` todas *unset*.
-`~/Documents/dev/hackaton/.env` declara `LLM_API_KEY` (provider `openai`, modelo
-`gpt-4o-mini`), mas o classificador de segurança bloqueou tanto a leitura do
-arquivo quanto um script que testasse a chave sem exibi-la. Não contornei.
+**Decisão do Victor:** Anthropic, `claude-opus-5`, mesmo modelo no baseline e na
+solução. Orçamento de US$ 10 em crédito de API.
 
-**Custo estimado da rodada inteira.** ~14 chamadas (4 estágios × 2 conjuntos,
-com o S6 quebrando por função): ~210k tokens de entrada, ~28k de saída.
+**Caminho até destravar, registrado porque custou quatro tentativas:**
 
-| Modelo | Custo estimado |
+1. `export` em janela fish não alcança minhas ferramentas — elas rodam num zsh
+   separado, criado de um snapshot do profile no início da sessão. Processos
+   irmãos, não pai/filho.
+2. Resolvido com `~/.anthropic_key` (modo 600) + `env ANTHROPIC_API_KEY="$(cat ...)"`
+   no comando: o valor vai do arquivo direto para o processo filho.
+3. Quatro `400 credit balance is too low` seguidos. `scripts/check_credentials.py`
+   separou as hipóteses com endpoints gratuitos: `models` → 200 (chave válida,
+   org com API provisionada), `count_tokens` → 400 (não consome inferência; só o
+   portão de faturamento o bloqueia). Diagnóstico: crédito, não credencial.
+4. Após recarga, os três degraus em 200.
+
+**Custo medido antes de gastar** (via `count_tokens`, gratuito):
+
+| | |
 |---|---|
+| chamadas | 15 (12 novas — S5 reusa as gravações do S4) |
+| tokens de entrada | 194.996 |
+| custo estimado | US$ 1,72 (saída 2k/chamada) a US$ 3,97 (saída 8k) |
+
+**Achado de graça:** S5 usa o mesmo prompt do S4 — o gate de evidência é código,
+não prompt — então bate nas mesmas chaves de cache. Custa zero **e** mede o
+efeito do gate sobre saída idêntica do modelo. O delta do S5 é 100% atribuível
+ao gate, sem re-amostragem no meio.
+
+**Prioridade de economia declarada pelo Victor:** crédito de API (US$ 10) >
+assinatura Claude > Cursor.
+
+---|---|
 | `claude-opus-4-5` | **< US$ 2,00** |
 | `claude-sonnet-4-5` | < US$ 1,10 |
 | `gpt-4o-mini` | < US$ 0,05 |

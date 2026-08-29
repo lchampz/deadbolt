@@ -108,3 +108,54 @@ semântica. Nenhum número deste relatório afirma que o tipo previsto está cer
   `mutmut results --all`; o ground truth do HOLDOUT tem 288 dos 298 gerados.
 - Domínio: uma lib Python pura de manipulação de string e sua CLI. Nada aqui
   sustenta claim sobre código com I/O, concorrência ou framework.
+
+---
+
+## 8. Correção declarada — 2026-08-29, pós-medição
+
+R5 diz que o artefato congelado só muda com **abort declarado por escrito, com
+motivo**. Este é o registro desse abort. Nada foi ajustado em silêncio.
+
+### O que estava errado
+
+O construtor do ground truth reconhecia um único esquema de nome de mutante
+(`x_<funcao>`) e descartava tudo que não casasse — **sem erro, sem aviso**. Duas
+consequências:
+
+1. **Status de duas palavras eram jogados fora.** Os 10 mutantes `no tests` do
+   HOLDOUT nunca entraram no JSON. O conjunto congelado tinha 288 dos 298
+   gerados — isso estava declarado no § 7 original como limitação, mas eu tratei
+   como propriedade do `mutmut`, e era bug meu.
+2. **Métodos de classe eram jogados fora.** `mutmut` nomeia método como
+   `xǁClasseǁmetodoǁ__mutmut_N` (U+01C1). Num terceiro corpus de teste (`toolz`),
+   isso descartou **301 de 534 mutantes** em silêncio, com
+   `parse_errors: 0, line_mismatches: 0` — tudo aparentemente limpo.
+
+### A correção de classificação, que muda um número medido
+
+`no tests` significa que **nenhum teste executa aquela linha**. Isso é a forma
+mais pura de ponto cego, e a métrica o classificava como *linha coberta* (`K`).
+Um preditor que acertasse aquelas linhas era penalizado por acertar.
+
+São **6 linhas** do `main()` de `slugify/__main__.py` (87–94), nenhuma delas já
+contada como cega. O HOLDOUT passa de **|G| = 30 para |G| = 36**.
+
+### O que muda e o que não muda
+
+| Conjunto | Antes | Depois |
+|---|---|---|
+| DEV | 216 mutantes, 46 sobreviventes, \|G\|=17 | **idêntico** — `slugify.py` e `special.py` não têm classe nem mutante sem teste |
+| HOLDOUT | 288 mutantes, 99 sobreviventes, \|G\|=30 | 298 mutantes, 109 cegos, **\|G\|=36** |
+
+**Os números do DEV publicados antes desta correção permanecem válidos e não
+foram recalculados.** Os do HOLDOUT foram **remedidos sobre as mesmas gravações**
+— nenhuma chamada nova de modelo, nenhuma predição alterada. Só o gabarito foi
+corrigido. As duas tabelas ficam no changelog, lado a lado.
+
+### A defesa que faltava, agora instalada
+
+`eval/build_ground_truth.py` compara o total de mutantes listados pelo `mutmut`
+com o total que o parser reconheceu, e **sai com erro** se diferirem. Era a
+assertiva que faltava na fronteira entre ferramenta externa e métrica própria —
+a mesma lição do § "offset silencioso", que eu já tinha aprendido uma vez e não
+generalizei.

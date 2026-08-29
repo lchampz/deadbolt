@@ -1,0 +1,194 @@
+{
+  "label": "baseline-dev",
+  "set": "dev",
+  "stage": "baseline",
+  "predictions": [
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        114,
+        115
+      ],
+      "blind_spot_type": "unreachable defensive branch",
+      "evidence_quote": "        text = str(text, 'utf-8', 'ignore')",
+      "confidence": 0.9,
+      "rationale": "All tests pass str input, so the bytes-decoding branch is never executed and could be changed or deleted undetected."
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        128,
+        129
+      ],
+      "blind_spot_type": "unreachable defensive branch",
+      "evidence_quote": "    if not isinstance(text, str):",
+      "confidence": 0.9,
+      "rationale": "After normalization/unidecode the value is always str, so this second re-decode branch is never taken by any test."
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        136,
+        140
+      ],
+      "blind_spot_type": "untested exception handler",
+      "evidence_quote": "        except Exception:\n            pass",
+      "confidence": 0.85,
+      "rationale": "No test feeds an out-of-range decimal entity that raises inside the sub, so the try/except swallow path is never exercised."
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        143,
+        147
+      ],
+      "blind_spot_type": "untested exception handler",
+      "evidence_quote": "            text = HEX_PATTERN.sub(lambda m: chr(int(m.group(1), 16)), text)",
+      "confidence": 0.85,
+      "rationale": "Only valid hex entities are tested, so the except branch that ignores conversion errors is never triggered."
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        186,
+        188
+      ],
+      "blind_spot_type": "redundant post-processing pass",
+      "evidence_quote": "    # finalize user-specific replacements",
+      "confidence": 0.7,
+      "rationale": "Every replacement test already resolves during the pre-processing pass, so removing this second replacement loop changes no tested output."
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        49,
+        50
+      ],
+      "blind_spot_type": "boundary condition off-by-one",
+      "evidence_quote": "    if len(string) < max_length:",
+      "confidence": 0.55,
+      "rationale": "No test exercises the exact len(string) == max_length case where '<' vs '<=' would differ in observable output."
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        55,
+        56
+      ],
+      "blind_spot_type": "partially covered branch",
+      "evidence_quote": "        return string[:max_length]",
+      "confidence": 0.6,
+      "rationale": "The only separator-absent test uses max_length larger than the string so it returns earlier; this hard-cut return value is never verified."
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        70,
+        71
+      ],
+      "blind_spot_type": "unreached fallback",
+      "evidence_quote": "    if not truncated:\n        truncated = string[:max_length]",
+      "confidence": 0.65,
+      "rationale": "No test creates a first word longer than max_length, so this empty-truncation fallback never runs."
+    },
+    {
+      "file": "slugify/slugify.py",
+      "line_range": [
+        44,
+        44
+      ],
+      "blind_spot_type": "unverified pre-strip",
+      "evidence_quote": "    string = string.strip(separator)",
+      "confidence": 0.5,
+      "rationale": "slugify always passes already-stripped text and the direct smart_truncate tests use inputs without leading/trailing separators, so removing this strip is invisible."
+    },
+    {
+      "file": "slugify/special.py",
+      "line_range": [
+        10,
+        10
+      ],
+      "blind_spot_type": "redundant/unreachable guard clause",
+      "evidence_quote": "if upper_dict not in char_list and char != upper_dict[0]:",
+      "confidence": 0.6,
+      "rationale": "For every entry in the three built-in lists the already-uppercase cases are also blocked by the first `not in char_list` test, so dropping or inverting the `char != upper_dict[0]` clause leaves PRE_TRANSLATIONS byte-identical and the sole equality assertion still passes."
+    },
+    {
+      "file": "slugify/special.py",
+      "line_range": [
+        11,
+        12
+      ],
+      "blind_spot_type": "unobserved in-place mutation / aliasing",
+      "evidence_quote": "        return char_list",
+      "confidence": 0.5,
+      "rationale": "The test only compares the concatenated PRE_TRANSLATIONS value, so changing the function to copy the input instead of mutating and returning the same list object (or vice versa) is invisible."
+    },
+    {
+      "file": "slugify/special.py",
+      "line_range": [
+        4,
+        5
+      ],
+      "blind_spot_type": "untested API surface / annotations",
+      "evidence_quote": "def add_uppercase_char(char_list: list[tuple[str, str]]) -> list[tuple[str, str]]:",
+      "confidence": 0.45,
+      "rationale": "add_uppercase_char is never imported or called directly by the tests, only implicitly at import time with three fixed inputs, so its signature, annotations and behaviour on any other input are unverified."
+    },
+    {
+      "file": "slugify/special.py",
+      "line_range": [
+        26,
+        26
+      ],
+      "blind_spot_type": "unexported-name coverage gap",
+      "evidence_quote": "CYRILLIC = add_uppercase_char(_CYRILLIC)",
+      "confidence": 0.35,
+      "rationale": "No test imports CYRILLIC (or GERMAN/GREEK) individually, so the public constant could be renamed/removed as long as line 47 still builds the same combined list."
+    },
+    {
+      "file": "slugify/special.py",
+      "line_range": [
+        44,
+        44
+      ],
+      "blind_spot_type": "unexported-name coverage gap",
+      "evidence_quote": "GREEK = add_uppercase_char(_GREEK)",
+      "confidence": 0.35,
+      "rationale": "GREEK is only observed through the concatenated PRE_TRANSLATIONS assertion, so the individual constant's existence and name are never checked."
+    }
+  ],
+  "dropped_by_gate": [],
+  "meta": {
+    "n_calls": 2,
+    "input_tokens": 26607,
+    "output_tokens": 4965,
+    "cost_usd": 0.25716,
+    "wall_seconds": 62.839,
+    "model": "claude-opus-5",
+    "provider": "anthropic",
+    "mode": "live",
+    "effort": "high",
+    "stage": "baseline",
+    "gate_applied": false,
+    "sweep_applied": false,
+    "n_dropped_by_gate": 0,
+    "types_off_taxonomy": [
+      "boundary condition off-by-one",
+      "partially covered branch",
+      "redundant post-processing pass",
+      "redundant/unreachable guard clause",
+      "unexported-name coverage gap",
+      "unobserved in-place mutation / aliasing",
+      "unreachable defensive branch",
+      "unreached fallback",
+      "untested API surface / annotations",
+      "untested exception handler",
+      "unverified pre-strip"
+    ]
+  },
+  "raw_responses": {
+    "slugify/slugify.py": "[\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [114, 115],\n    \"blind_spot_type\": \"unreachable defensive branch\",\n    \"evidence_quote\": \"        text = str(text, 'utf-8', 'ignore')\",\n    \"confidence\": 0.9,\n    \"rationale\": \"All tests pass str input, so the bytes-decoding branch is never executed and could be changed or deleted undetected.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [128, 129],\n    \"blind_spot_type\": \"unreachable defensive branch\",\n    \"evidence_quote\": \"    if not isinstance(text, str):\",\n    \"confidence\": 0.9,\n    \"rationale\": \"After normalization/unidecode the value is always str, so this second re-decode branch is never taken by any test.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [136, 140],\n    \"blind_spot_type\": \"untested exception handler\",\n    \"evidence_quote\": \"        except Exception:\\n            pass\",\n    \"confidence\": 0.85,\n    \"rationale\": \"No test feeds an out-of-range decimal entity that raises inside the sub, so the try/except swallow path is never exercised.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [143, 147],\n    \"blind_spot_type\": \"untested exception handler\",\n    \"evidence_quote\": \"            text = HEX_PATTERN.sub(lambda m: chr(int(m.group(1), 16)), text)\",\n    \"confidence\": 0.85,\n    \"rationale\": \"Only valid hex entities are tested, so the except branch that ignores conversion errors is never triggered.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [186, 188],\n    \"blind_spot_type\": \"redundant post-processing pass\",\n    \"evidence_quote\": \"    # finalize user-specific replacements\",\n    \"confidence\": 0.7,\n    \"rationale\": \"Every replacement test already resolves during the pre-processing pass, so removing this second replacement loop changes no tested output.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [49, 50],\n    \"blind_spot_type\": \"boundary condition off-by-one\",\n    \"evidence_quote\": \"    if len(string) < max_length:\",\n    \"confidence\": 0.55,\n    \"rationale\": \"No test exercises the exact len(string) == max_length case where '<' vs '<=' would differ in observable output.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [55, 56],\n    \"blind_spot_type\": \"partially covered branch\",\n    \"evidence_quote\": \"        return string[:max_length]\",\n    \"confidence\": 0.6,\n    \"rationale\": \"The only separator-absent test uses max_length larger than the string so it returns earlier; this hard-cut return value is never verified.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [70, 71],\n    \"blind_spot_type\": \"unreached fallback\",\n    \"evidence_quote\": \"    if not truncated:\\n        truncated = string[:max_length]\",\n    \"confidence\": 0.65,\n    \"rationale\": \"No test creates a first word longer than max_length, so this empty-truncation fallback never runs.\"\n  },\n  {\n    \"file\": \"slugify/slugify.py\",\n    \"line_range\": [44, 44],\n    \"blind_spot_type\": \"unverified pre-strip\",\n    \"evidence_quote\": \"    string = string.strip(separator)\",\n    \"confidence\": 0.5,\n    \"rationale\": \"slugify always passes already-stripped text and the direct smart_truncate tests use inputs without leading/trailing separators, so removing this strip is invisible.\"\n  }\n]",
+    "slugify/special.py": "[\n  {\n    \"file\": \"slugify/special.py\",\n    \"line_range\": [10, 10],\n    \"blind_spot_type\": \"redundant/unreachable guard clause\",\n    \"evidence_quote\": \"if upper_dict not in char_list and char != upper_dict[0]:\",\n    \"confidence\": 0.6,\n    \"rationale\": \"For every entry in the three built-in lists the already-uppercase cases are also blocked by the first `not in char_list` test, so dropping or inverting the `char != upper_dict[0]` clause leaves PRE_TRANSLATIONS byte-identical and the sole equality assertion still passes.\"\n  },\n  {\n    \"file\": \"slugify/special.py\",\n    \"line_range\": [11, 12],\n    \"blind_spot_type\": \"unobserved in-place mutation / aliasing\",\n    \"evidence_quote\": \"        return char_list\",\n    \"confidence\": 0.5,\n    \"rationale\": \"The test only compares the concatenated PRE_TRANSLATIONS value, so changing the function to copy the input instead of mutating and returning the same list object (or vice versa) is invisible.\"\n  },\n  {\n    \"file\": \"slugify/special.py\",\n    \"line_range\": [4, 5],\n    \"blind_spot_type\": \"untested API surface / annotations\",\n    \"evidence_quote\": \"def add_uppercase_char(char_list: list[tuple[str, str]]) -> list[tuple[str, str]]:\",\n    \"confidence\": 0.45,\n    \"rationale\": \"add_uppercase_char is never imported or called directly by the tests, only implicitly at import time with three fixed inputs, so its signature, annotations and behaviour on any other input are unverified.\"\n  },\n  {\n    \"file\": \"slugify/special.py\",\n    \"line_range\": [26, 26],\n    \"blind_spot_type\": \"unexported-name coverage gap\",\n    \"evidence_quote\": \"CYRILLIC = add_uppercase_char(_CYRILLIC)\",\n    \"confidence\": 0.35,\n    \"rationale\": \"No test imports CYRILLIC (or GERMAN/GREEK) individually, so the public constant could be renamed/removed as long as line 47 still builds the same combined list.\"\n  },\n  {\n    \"file\": \"slugify/special.py\",\n    \"line_range\": [44, 44],\n    \"blind_spot_type\": \"unexported-name coverage gap\",\n    \"evidence_quote\": \"GREEK = add_uppercase_char(_GREEK)\",\n    \"confidence\": 0.35,\n    \"rationale\": \"GREEK is only observed through the concatenated PRE_TRANSLATIONS assertion, so the individual constant's existence and name are never checked.\"\n  }\n]"
+  }
+}

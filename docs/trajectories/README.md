@@ -4,8 +4,13 @@ Instrução → ações → feedback → resultado, por estágio. Geradas de
 `recordings/` e `results/` por `scripts/export_trajectories.py`.
 Nada aqui é redigido à mão; estágio sem gravação aparece como ausente.
 
-Gravações em `recordings/`: **0**
+Gravações em `recordings/`: **12**
 
-_Nenhuma trajetória exportada ainda._
-
-Ausentes (sem predição registrada): `baseline-dev`, `baseline-holdout`, `s4-dev`, `s4-holdout`, `s5-dev`, `s5-holdout`, `s6-dev`, `s6-holdout`
+- [baseline-dev.md](baseline-dev.md)
+- [baseline-holdout.md](baseline-holdout.md)
+- [s4-dev.md](s4-dev.md)
+- [s4-holdout.md](s4-holdout.md)
+- [s5-dev.md](s5-dev.md)
+- [s5-holdout.md](s5-holdout.md)
+- [s6-dev.md](s6-dev.md)
+- [s6-holdout.md](s6-holdout.md)

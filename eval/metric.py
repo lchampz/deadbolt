@@ -54,6 +54,10 @@ class GroundTruth:
         raw = json.loads((GROUND_TRUTH / f"mutants-{spec['corpus']}.json").read_text())
         files = set(spec["files"])
 
+        # `no tests` é a forma mais pura de ponto cego: nenhum teste sequer
+        # executa a linha. Ver METRIC.md § 8 — correção declarada de 2026-08-29.
+        BLIND = {"survived", "no tests"}
+
         surv: set[tuple[str, int]] = set()
         killed: set[tuple[str, int]] = set()
         by_line: dict[tuple[str, int], int] = {}
@@ -62,7 +66,7 @@ class GroundTruth:
             if m["file"] not in files:
                 continue
             key = (m["file"], m["line"])
-            if m["status"] == "survived":
+            if m["status"] in BLIND:
                 surv.add(key)
                 by_line[key] = by_line.get(key, 0) + 1
                 n_surv += 1

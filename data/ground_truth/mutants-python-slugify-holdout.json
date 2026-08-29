@@ -3,14 +3,17 @@
   "pinned_sha": "7b6d5d96c1995e6dccb39a19a13ba78d7d0a3ee4",
   "tool": "mutmut, version 3.7.0",
   "totals": {
-    "mutants": 288,
-    "parsed": 288,
+    "mutants": 298,
+    "listed_by_mutmut": 298,
+    "parsed": 298,
     "parse_errors": 0,
     "line_mismatches": 0,
     "killed": 189,
     "survived": 99,
-    "survivor_fraction": 0.3438,
-    "other_status": {}
+    "survivor_fraction": 0.3322,
+    "other_status": {
+      "no tests": 10
+    }
   },
   "survivor_lines": [
     {
@@ -3172,6 +3175,106 @@
       "line": 81,
       "original": "allow_unicode=args.allow_unicode",
       "mutated": ")"
+    },
+    {
+      "id": "slugify.__main__.x_main__mutmut_1",
+      "module": "slugify.__main__",
+      "function": "main",
+      "status": "no tests",
+      "file": "slugify/__main__.py",
+      "line": 87,
+      "original": "if argv is None:",
+      "mutated": "if argv is not None:"
+    },
+    {
+      "id": "slugify.__main__.x_main__mutmut_2",
+      "module": "slugify.__main__",
+      "function": "main",
+      "status": "no tests",
+      "file": "slugify/__main__.py",
+      "line": 88,
+      "original": "argv = sys.argv",
+      "mutated": "argv = None"
+    },
+    {
+      "id": "slugify.__main__.x_main__mutmut_3",
+      "module": "slugify.__main__",
+      "function": "main",
+      "status": "no tests",
+      "file": "slugify/__main__.py",
+      "line": 89,
+      "original": "args = parse_args(argv)",
+      "mutated": "args = None"
+    },
+    {
+      "id": "slugify.__main__.x_main__mutmut_4",
+      "module": "slugify.__main__",
+      "function": "main",
+      "status": "no tests",
+      "file": "slugify/__main__.py",
+      "line": 89,
+      "original": "args = parse_args(argv)",
+      "mutated": "args = parse_args(None)"
+    },
+    {
+      "id": "slugify.__main__.x_main__mutmut_5",
+      "module": "slugify.__main__",
+      "function": "main",
+      "status": "no tests",
+      "file": "slugify/__main__.py",
+      "line": 90,
+      "original": "params = slugify_params(args)",
+      "mutated": "params = None"
+    },
+    {
+      "id": "slugify.__main__.x_main__mutmut_6",
+      "module": "slugify.__main__",
+      "function": "main",
+      "status": "no tests",
+      "file": "slugify/__main__.py",
+      "line": 90,
+      "original": "params = slugify_params(args)",
+      "mutated": "params = slugify_params(None)"
+    },
+    {
+      "id": "slugify.__main__.x_main__mutmut_7",
+      "module": "slugify.__main__",
+      "function": "main",
+      "status": "no tests",
+      "file": "slugify/__main__.py",
+      "line": 92,
+      "original": "print(slugify(**params))",
+      "mutated": "print(None)"
+    },
+    {
+      "id": "slugify.__main__.x_main__mutmut_10",
+      "module": "slugify.__main__",
+      "function": "main",
+      "status": "no tests",
+      "file": "slugify/__main__.py",
+      "line": 94,
+      "original": "sys.exit(-1)",
+      "mutated": "sys.exit(-2)"
+    },
+    {
+      "id": "slugify.__main__.x_main__mutmut_8",
+      "module": "slugify.__main__",
+      "function": "main",
+      "status": "no tests",
+      "file": "slugify/__main__.py",
+      "line": 94,
+      "original": "sys.exit(-1)",
+      "mutated": "sys.exit(None)"
+    },
+    {
+      "id": "slugify.__main__.x_main__mutmut_9",
+      "module": "slugify.__main__",
+      "function": "main",
+      "status": "no tests",
+      "file": "slugify/__main__.py",
+      "line": 94,
+      "original": "sys.exit(-1)",
+      "mutated": "sys.exit(+1)"
     }
   ],
   "parse_errors": [],

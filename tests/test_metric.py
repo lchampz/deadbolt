@@ -28,10 +28,17 @@ def dev() -> GroundTruth:
 
 @pytest.mark.parametrize(
     "set_name,mutants,killed,survived,blind_lines",
-    [("dev", 216, 170, 46, 17), ("holdout", 288, 189, 99, 30)],
+    [
+        # DEV: inalterado desde o S1.
+        ("dev", 216, 170, 46, 17),
+        # HOLDOUT: corrigido em 2026-08-29 por abort declarado em METRIC.md § 8.
+        # Antes: 288/189/99/30 — 10 mutantes `no tests` eram descartados pelo
+        # parser e as 6 linhas deles contavam como COBERTAS.
+        ("holdout", 298, 189, 109, 36),
+    ],
 )
 def test_ground_truth_congelado(set_name, mutants, killed, survived, blind_lines):
-    """R5: o corpus não muda. Estes números são os do S1."""
+    """R5: o corpus só muda com abort declarado. Estes são os números vigentes."""
     gt = GroundTruth.load(set_name)
     assert gt.n_mutants == mutants
     assert gt.n_survivors == survived
@@ -42,6 +49,40 @@ def test_ground_truth_congelado(set_name, mutants, killed, survived, blind_lines
     assert raw["totals"]["killed"] == killed
     assert raw["totals"]["parse_errors"] == 0
     assert raw["totals"]["line_mismatches"] == 0, "mapeamento de linha quebrado"
+
+
+def test_parser_reconheceu_tudo_que_o_mutmut_listou():
+    """A defesa que faltava: silêncio no parser é indistinguível de corpus limpo.
+
+    Um esquema de nome desconhecido descartava mutantes sem erro — 10 no HOLDOUT,
+    301 num terceiro corpus — com parse_errors 0 e line_mismatches 0. O total
+    listado pelo mutmut e o total reconhecido têm que bater.
+    """
+    for corpus in ("python-slugify", "python-slugify-holdout"):
+        raw = json.loads(
+            (ROOT / "data" / "ground_truth" / f"mutants-{corpus}.json").read_text()
+        )
+        t = raw["totals"]
+        assert t["mutants"] == t["listed_by_mutmut"], (
+            f"{corpus}: {t['listed_by_mutmut']} listados, {t['mutants']} reconhecidos"
+        )
+        assert t["parsed"] == t["mutants"]
+
+
+def test_mutante_sem_teste_conta_como_cego():
+    """`no tests` = nenhum teste executa a linha. É o ponto cego mais puro.
+
+    Contá-lo como linha coberta penalizava o preditor por acertar. São as 6
+    linhas do main() de __main__.py — ver METRIC.md § 8.
+    """
+    gt = GroundTruth.load("holdout")
+    raw = json.loads(
+        (ROOT / "data" / "ground_truth" / "mutants-python-slugify-holdout.json").read_text()
+    )
+    sem_teste = {(m["file"], m["line"]) for m in raw["mutants"] if m["status"] == "no tests"}
+    assert sem_teste, "o corpus perdeu os mutantes sem teste"
+    assert sem_teste <= gt.survivor_lines, "linha sem teste nenhum não está marcada como cega"
+    assert not (sem_teste & gt.killed_lines), "linha sem teste contada como coberta"
 
 
 def test_linha_cega_e_linha_morta_sao_disjuntas(dev):

@@ -1,0 +1,118 @@
+{
+  "label": "s5-holdout",
+  "set": "holdout",
+  "stage": "s5",
+  "predictions": [
+    {
+      "file": "slugify/__main__.py",
+      "line_range": [
+        35,
+        36
+      ],
+      "blind_spot_type": "dead_config",
+      "evidence_quote": "parser.add_argument(\"--regex-pattern\",",
+      "confidence": 0.85,
+      "rationale": "No test passes --regex-pattern and slugify_params never forwards it, so renaming, removing or changing this option is invisible."
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line_range": [
+        41,
+        42
+      ],
+      "blind_spot_type": "dead_config",
+      "evidence_quote": "parser.add_argument(\"--allow-unicode\", action='store_true', default=False,",
+      "confidence": 0.8,
+      "rationale": "The CLI tests' DEFAULTS dict omits allow_unicode and assertParamsMatch only compares expected keys, so flipping this default or flag action is never observed."
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line_range": [
+        81,
+        81
+      ],
+      "blind_spot_type": "output_shape",
+      "evidence_quote": "allow_unicode=args.allow_unicode",
+      "confidence": 0.7,
+      "rationale": "assertParamsMatch reduces the produced dict to the expected keys only, so this entry's value (or its absence) is never inspected."
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line_range": [
+        62,
+        63
+      ],
+      "blind_spot_type": "unasserted_branch",
+      "evidence_quote": "    if not args.input_string:",
+      "confidence": 0.65,
+      "rationale": "test_defaults runs with no input so this branch executes, but 'text' is absent from the asserted DEFAULTS keys, so setting '' vs anything else is indistinguishable."
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line_range": [
+        54,
+        54
+      ],
+      "blind_spot_type": "boundary_condition",
+      "evidence_quote": "            return repl.split(SEP, 1)",
+      "confidence": 0.6,
+      "rationale": "Only replacements containing exactly one '->' are tested, so the maxsplit limit of 1 could be dropped or changed without any failure."
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line_range": [
+        11,
+        13
+      ],
+      "blind_spot_type": "dead_config",
+      "evidence_quote": "    input_group = parser.add_argument_group(description=\"Input\")",
+      "confidence": 0.5,
+      "rationale": "Parser description and argument-group text are never rendered or asserted by any test, so their values are interchangeable."
+    }
+  ],
+  "dropped_by_gate": [
+    {
+      "file": "slugify/__main__.py",
+      "line_range": [
+        85,
+        88
+      ],
+      "blind_spot_type": "default_argument",
+      "evidence_quote": "    if argv is None:\n        argv = sys.argv",
+      "confidence": 0.85,
+      "rationale": "main() is never invoked by the suite, so the argv=None default and its substitution with sys.argv are never exercised.",
+      "_drop_reason": "citação não encontrada no line_range"
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line_range": [
+        91,
+        94
+      ],
+      "blind_spot_type": "error_path",
+      "evidence_quote": "    except KeyboardInterrupt:\n        sys.exit(-1)",
+      "confidence": 0.9,
+      "rationale": "No test calls main() or raises KeyboardInterrupt, so the handler and its exit code can change freely.",
+      "_drop_reason": "citação não encontrada no line_range"
+    }
+  ],
+  "meta": {
+    "n_calls": 1,
+    "input_tokens": 13338,
+    "output_tokens": 3029,
+    "cost_usd": 0.142415,
+    "wall_seconds": 36.92,
+    "model": "claude-opus-5",
+    "provider": "anthropic",
+    "mode": "live",
+    "effort": "high",
+    "stage": "s5",
+    "gate_applied": true,
+    "sweep_applied": false,
+    "n_dropped_by_gate": 2,
+    "types_off_taxonomy": []
+  },
+  "raw_responses": {
+    "slugify/__main__.py": "[\n  {\n    \"file\": \"slugify/__main__.py\",\n    \"line_range\": [35, 36],\n    \"blind_spot_type\": \"dead_config\",\n    \"evidence_quote\": \"parser.add_argument(\\\"--regex-pattern\\\",\",\n    \"confidence\": 0.85,\n    \"rationale\": \"No test passes --regex-pattern and slugify_params never forwards it, so renaming, removing or changing this option is invisible.\"\n  },\n  {\n    \"file\": \"slugify/__main__.py\",\n    \"line_range\": [41, 42],\n    \"blind_spot_type\": \"dead_config\",\n    \"evidence_quote\": \"parser.add_argument(\\\"--allow-unicode\\\", action='store_true', default=False,\",\n    \"confidence\": 0.8,\n    \"rationale\": \"The CLI tests' DEFAULTS dict omits allow_unicode and assertParamsMatch only compares expected keys, so flipping this default or flag action is never observed.\"\n  },\n  {\n    \"file\": \"slugify/__main__.py\",\n    \"line_range\": [81, 81],\n    \"blind_spot_type\": \"output_shape\",\n    \"evidence_quote\": \"allow_unicode=args.allow_unicode\",\n    \"confidence\": 0.7,\n    \"rationale\": \"assertParamsMatch reduces the produced dict to the expected keys only, so this entry's value (or its absence) is never inspected.\"\n  },\n  {\n    \"file\": \"slugify/__main__.py\",\n    \"line_range\": [62, 63],\n    \"blind_spot_type\": \"unasserted_branch\",\n    \"evidence_quote\": \"    if not args.input_string:\",\n    \"confidence\": 0.65,\n    \"rationale\": \"test_defaults runs with no input so this branch executes, but 'text' is absent from the asserted DEFAULTS keys, so setting '' vs anything else is indistinguishable.\"\n  },\n  {\n    \"file\": \"slugify/__main__.py\",\n    \"line_range\": [54, 54],\n    \"blind_spot_type\": \"boundary_condition\",\n    \"evidence_quote\": \"            return repl.split(SEP, 1)\",\n    \"confidence\": 0.6,\n    \"rationale\": \"Only replacements containing exactly one '->' are tested, so the maxsplit limit of 1 could be dropped or changed without any failure.\"\n  },\n  {\n    \"file\": \"slugify/__main__.py\",\n    \"line_range\": [85, 88],\n    \"blind_spot_type\": \"default_argument\",\n    \"evidence_quote\": \"    if argv is None:\\n        argv = sys.argv\",\n    \"confidence\": 0.85,\n    \"rationale\": \"main() is never invoked by the suite, so the argv=None default and its substitution with sys.argv are never exercised.\"\n  },\n  {\n    \"file\": \"slugify/__main__.py\",\n    \"line_range\": [91, 94],\n    \"blind_spot_type\": \"error_path\",\n    \"evidence_quote\": \"    except KeyboardInterrupt:\\n        sys.exit(-1)\",\n    \"confidence\": 0.9,\n    \"rationale\": \"No test calls main() or raises KeyboardInterrupt, so the handler and its exit code can change freely.\"\n  },\n  {\n    \"file\": \"slugify/__main__.py\",\n    \"line_range\": [11, 13],\n    \"blind_spot_type\": \"dead_config\",\n    \"evidence_quote\": \"    input_group = parser.add_argument_group(description=\\\"Input\\\")\",\n    \"confidence\": 0.5,\n    \"rationale\": \"Parser description and argument-group text are never rendered or asserted by any test, so their values are interchangeable.\"\n  }\n]"
+  }
+}

@@ -4,6 +4,7 @@
   "tool": "mutmut, version 3.7.0",
   "totals": {
     "mutants": 216,
+    "listed_by_mutmut": 216,
     "parsed": 216,
     "parse_errors": 0,
     "line_mismatches": 0,
