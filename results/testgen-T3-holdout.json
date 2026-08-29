@@ -1,0 +1,1352 @@
+{
+  "meta": {
+    "n_calls": 16,
+    "input_tokens": 12862,
+    "output_tokens": 49844,
+    "cost_usd": 1.31041,
+    "wall_seconds": 542.923,
+    "model": "claude-opus-5",
+    "provider": "anthropic",
+    "mode": "live",
+    "effort": "high",
+    "cache_read_tokens": 183624,
+    "cache_write_tokens": 26232,
+    "set": "holdout",
+    "stage": "T3",
+    "mutants_total": 298,
+    "killed_before": 189,
+    "score_before": 0.6342,
+    "newly_killed": 107,
+    "of_which_timeout": 0,
+    "killed_after": 296,
+    "score_after": 0.9933,
+    "survivors_attacked": 109,
+    "cru_n_tests": 100,
+    "cru_suite_green": true,
+    "filtrado_n_tests": 99,
+    "dropped_duplicate_name": 1,
+    "dropped_failing_on_original": 0,
+    "n_generated": 108,
+    "n_rejected_by_guards": 1,
+    "n_model_declined": 8,
+    "repair_rounds": 1
+  },
+  "killed_ids": [
+    "slugify.__main__.x_main__mutmut_1",
+    "slugify.__main__.x_main__mutmut_10",
+    "slugify.__main__.x_main__mutmut_2",
+    "slugify.__main__.x_main__mutmut_3",
+    "slugify.__main__.x_main__mutmut_4",
+    "slugify.__main__.x_main__mutmut_5",
+    "slugify.__main__.x_main__mutmut_6",
+    "slugify.__main__.x_main__mutmut_7",
+    "slugify.__main__.x_main__mutmut_8",
+    "slugify.__main__.x_main__mutmut_9",
+    "slugify.__main__.x_parse_args__mutmut_10",
+    "slugify.__main__.x_parse_args__mutmut_103",
+    "slugify.__main__.x_parse_args__mutmut_107",
+    "slugify.__main__.x_parse_args__mutmut_108",
+    "slugify.__main__.x_parse_args__mutmut_109",
+    "slugify.__main__.x_parse_args__mutmut_113",
+    "slugify.__main__.x_parse_args__mutmut_116",
+    "slugify.__main__.x_parse_args__mutmut_117",
+    "slugify.__main__.x_parse_args__mutmut_123",
+    "slugify.__main__.x_parse_args__mutmut_124",
+    "slugify.__main__.x_parse_args__mutmut_125",
+    "slugify.__main__.x_parse_args__mutmut_129",
+    "slugify.__main__.x_parse_args__mutmut_13",
+    "slugify.__main__.x_parse_args__mutmut_132",
+    "slugify.__main__.x_parse_args__mutmut_133",
+    "slugify.__main__.x_parse_args__mutmut_139",
+    "slugify.__main__.x_parse_args__mutmut_140",
+    "slugify.__main__.x_parse_args__mutmut_141",
+    "slugify.__main__.x_parse_args__mutmut_145",
+    "slugify.__main__.x_parse_args__mutmut_149",
+    "slugify.__main__.x_parse_args__mutmut_153",
+    "slugify.__main__.x_parse_args__mutmut_154",
+    "slugify.__main__.x_parse_args__mutmut_155",
+    "slugify.__main__.x_parse_args__mutmut_158",
+    "slugify.__main__.x_parse_args__mutmut_16",
+    "slugify.__main__.x_parse_args__mutmut_161",
+    "slugify.__main__.x_parse_args__mutmut_165",
+    "slugify.__main__.x_parse_args__mutmut_166",
+    "slugify.__main__.x_parse_args__mutmut_167",
+    "slugify.__main__.x_parse_args__mutmut_169",
+    "slugify.__main__.x_parse_args__mutmut_171",
+    "slugify.__main__.x_parse_args__mutmut_173",
+    "slugify.__main__.x_parse_args__mutmut_174",
+    "slugify.__main__.x_parse_args__mutmut_175",
+    "slugify.__main__.x_parse_args__mutmut_176",
+    "slugify.__main__.x_parse_args__mutmut_181",
+    "slugify.__main__.x_parse_args__mutmut_185",
+    "slugify.__main__.x_parse_args__mutmut_186",
+    "slugify.__main__.x_parse_args__mutmut_194",
+    "slugify.__main__.x_parse_args__mutmut_195",
+    "slugify.__main__.x_parse_args__mutmut_196",
+    "slugify.__main__.x_parse_args__mutmut_199",
+    "slugify.__main__.x_parse_args__mutmut_2",
+    "slugify.__main__.x_parse_args__mutmut_20",
+    "slugify.__main__.x_parse_args__mutmut_202",
+    "slugify.__main__.x_parse_args__mutmut_207",
+    "slugify.__main__.x_parse_args__mutmut_208",
+    "slugify.__main__.x_parse_args__mutmut_209",
+    "slugify.__main__.x_parse_args__mutmut_21",
+    "slugify.__main__.x_parse_args__mutmut_211",
+    "slugify.__main__.x_parse_args__mutmut_212",
+    "slugify.__main__.x_parse_args__mutmut_213",
+    "slugify.__main__.x_parse_args__mutmut_218",
+    "slugify.__main__.x_parse_args__mutmut_219",
+    "slugify.__main__.x_parse_args__mutmut_22",
+    "slugify.__main__.x_parse_args__mutmut_220",
+    "slugify.__main__.x_parse_args__mutmut_221",
+    "slugify.__main__.x_parse_args__mutmut_227",
+    "slugify.__main__.x_parse_args__mutmut_235",
+    "slugify.__main__.x_parse_args__mutmut_241",
+    "slugify.__main__.x_parse_args__mutmut_242",
+    "slugify.__main__.x_parse_args__mutmut_243",
+    "slugify.__main__.x_parse_args__mutmut_25",
+    "slugify.__main__.x_parse_args__mutmut_251",
+    "slugify.__main__.x_parse_args__mutmut_252",
+    "slugify.__main__.x_parse_args__mutmut_28",
+    "slugify.__main__.x_parse_args__mutmut_3",
+    "slugify.__main__.x_parse_args__mutmut_33",
+    "slugify.__main__.x_parse_args__mutmut_34",
+    "slugify.__main__.x_parse_args__mutmut_35",
+    "slugify.__main__.x_parse_args__mutmut_4",
+    "slugify.__main__.x_parse_args__mutmut_40",
+    "slugify.__main__.x_parse_args__mutmut_44",
+    "slugify.__main__.x_parse_args__mutmut_45",
+    "slugify.__main__.x_parse_args__mutmut_5",
+    "slugify.__main__.x_parse_args__mutmut_53",
+    "slugify.__main__.x_parse_args__mutmut_54",
+    "slugify.__main__.x_parse_args__mutmut_55",
+    "slugify.__main__.x_parse_args__mutmut_60",
+    "slugify.__main__.x_parse_args__mutmut_64",
+    "slugify.__main__.x_parse_args__mutmut_65",
+    "slugify.__main__.x_parse_args__mutmut_7",
+    "slugify.__main__.x_parse_args__mutmut_73",
+    "slugify.__main__.x_parse_args__mutmut_74",
+    "slugify.__main__.x_parse_args__mutmut_75",
+    "slugify.__main__.x_parse_args__mutmut_8",
+    "slugify.__main__.x_parse_args__mutmut_80",
+    "slugify.__main__.x_parse_args__mutmut_84",
+    "slugify.__main__.x_parse_args__mutmut_85",
+    "slugify.__main__.x_parse_args__mutmut_9",
+    "slugify.__main__.x_parse_args__mutmut_93",
+    "slugify.__main__.x_parse_args__mutmut_94",
+    "slugify.__main__.x_parse_args__mutmut_95",
+    "slugify.__main__.x_parse_args__mutmut_99",
+    "slugify.__main__.x_slugify_params__mutmut_12",
+    "slugify.__main__.x_slugify_params__mutmut_24",
+    "slugify.__main__.x_slugify_params__mutmut_36"
+  ],
+  "timeout_ids": [],
+  "accepted": [
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_2",
+      "test": "def test_help_shows_parser_description(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    lines = [line.strip() for line in out.splitlines()]\n    assert 'Slug string' in lines",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_2"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_3",
+      "test": "def test_help_parser_description_has_no_marker_characters(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    lines = [line.strip() for line in out.splitlines()]\n    assert 'Slug string' in lines\n    assert 'XXSlug stringXX' not in lines",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_3"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_4",
+      "test": "def test_help_parser_description_is_capitalized(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    lines = [line.strip() for line in out.splitlines()]\n    assert 'Slug string' in lines\n    assert 'slug string' not in lines",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_4"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_5",
+      "test": "def test_help_parser_description_is_not_upper_case(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    lines = [line.strip() for line in out.splitlines()]\n    assert 'Slug string' in lines\n    assert 'SLUG STRING' not in lines",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_5"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_7",
+      "test": "def test_help_shows_input_group_description(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    lines = [line.strip() for line in out.splitlines()]\n    assert 'Input' in lines",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_7"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_8",
+      "test": "def test_help_input_group_description_has_no_marker_characters(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    lines = [line.strip() for line in out.splitlines()]\n    assert 'Input' in lines\n    assert 'XXInputXX' not in lines",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_8"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_9",
+      "test": "def test_help_input_group_description_is_capitalized(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    lines = [line.strip() for line in out.splitlines()]\n    assert 'Input' in lines\n    assert 'input' not in lines",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_9"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_10",
+      "test": "def test_help_input_group_description_is_not_upper_case(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    lines = [line.strip() for line in out.splitlines()]\n    assert 'Input' in lines\n    assert 'INPUT' not in lines",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_10"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_13",
+      "test": "def test_input_string_help_present_in_usage(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert \"input_string Text to slugify\" in normalized",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_13"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_16",
+      "test": "def test_input_string_help_not_omitted(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert \"input_string Text to slugify\" in normalized\n    assert \"input_string --stdin\" not in normalized",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_16"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_20",
+      "test": "def test_input_string_help_has_no_marker_prefix(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert \"input_string Text to slugify\" in normalized\n    assert \"XX\" not in normalized",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_20"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_21",
+      "test": "def test_input_string_help_is_capitalized(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert \"input_string Text to slugify\" in normalized\n    assert \"input_string text to slugify\" not in normalized",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_21"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_22",
+      "test": "def test_input_string_help_is_not_uppercased(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert \"input_string Text to slugify\" in normalized\n    assert \"TEXT TO SLUGIFY\" not in normalized",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_22"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_25",
+      "test": "def test_stdin_help_present_in_usage(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert \"--stdin Take the text from STDIN\" in normalized",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_25"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_28",
+      "test": "def test_stdin_help_not_omitted(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert \"--stdin Take the text from STDIN\" in normalized\n    assert \"--stdin --no-entities\" not in normalized",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_28"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_33",
+      "test": "def test_stdin_help_has_no_marker_prefix(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert \"--stdin Take the text from STDIN\" in normalized\n    assert \"XXTake\" not in normalized",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_33"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_34",
+      "test": "def test_help_shows_stdin_description_capitalized(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['slugify', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"Take the text from STDIN\" in out\n    assert \"take the text from stdin\" not in out\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_34"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_35",
+      "test": "def test_help_shows_stdin_description_not_shouted(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['slugify', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"Take the text from STDIN\" in out\n    assert \"TAKE THE TEXT FROM STDIN\" not in out\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_35"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_40",
+      "test": "def test_help_shows_no_entities_description(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['slugify', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--no-entities\" in out\n    assert \"Do not convert HTML entities to unicode\" in out\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_40"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_45",
+      "test": "def test_help_for_no_entities_is_not_empty(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['slugify', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--no-entities Do not convert HTML entities to unicode\" in out\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_45"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_53",
+      "test": "def test_help_for_no_entities_has_no_marker_prefix(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['slugify', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"Do not convert HTML entities to unicode\" in out\n    assert \"XX\" not in out\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_53"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_54",
+      "test": "def test_help_for_no_entities_keeps_original_case(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['slugify', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"Do not convert HTML entities to unicode\" in out\n    assert \"do not convert html entities to unicode\" not in out\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_54"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_55",
+      "test": "def test_help_for_no_entities_is_not_shouted(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['slugify', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"Do not convert HTML entities to unicode\" in out\n    assert \"DO NOT CONVERT HTML ENTITIES TO UNICODE\" not in out\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_55"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_60",
+      "test": "def test_no_decimal_help_is_documented(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = ' '.join(capsys.readouterr().out.split())\n    assert '--no-decimal Do not convert HTML decimal to unicode' in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_60"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_65",
+      "test": "def test_no_decimal_help_not_empty(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    out = ' '.join(capsys.readouterr().out.split())\n    assert '--no-decimal --no-hexadecimal' not in out\n    assert '--no-decimal Do not convert HTML decimal to unicode' in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_65"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_73",
+      "test": "def test_no_decimal_help_has_no_marker_prefix(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    out = ' '.join(capsys.readouterr().out.split())\n    assert 'XX' not in out\n    assert '--no-decimal Do not convert HTML decimal to unicode' in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_73"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_74",
+      "test": "def test_no_decimal_help_keeps_original_casing(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    out = ' '.join(capsys.readouterr().out.split())\n    assert 'do not convert html decimal to unicode' not in out\n    assert 'Do not convert HTML decimal to unicode' in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_74"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_75",
+      "test": "def test_no_decimal_help_is_not_uppercased(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    out = ' '.join(capsys.readouterr().out.split())\n    assert 'DO NOT CONVERT HTML DECIMAL TO UNICODE' not in out\n    assert 'Do not convert HTML decimal to unicode' in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_75"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_80",
+      "test": "def test_no_hexadecimal_help_is_documented(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = ' '.join(capsys.readouterr().out.split())\n    assert '--no-hexadecimal Do not convert HTML hexadecimal to unicode' in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_80"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_85",
+      "test": "def test_help_lists_no_hexadecimal_description(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--no-hexadecimal Do not convert HTML hexadecimal to unicode\" in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_85"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_93",
+      "test": "def test_help_no_hexadecimal_description_has_no_marker(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"XX\" not in out\n    assert \"--no-hexadecimal Do not convert HTML hexadecimal to unicode\" in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_93"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_94",
+      "test": "def test_help_no_hexadecimal_description_is_not_lowercased(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"do not convert html hexadecimal to unicode\" not in out\n    assert \"--no-hexadecimal Do not convert HTML hexadecimal to unicode\" in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_94"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_95",
+      "test": "def test_help_no_hexadecimal_description_is_not_uppercased(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"DO NOT CONVERT HTML HEXADECIMAL TO UNICODE\" not in out\n    assert \"--no-hexadecimal Do not convert HTML hexadecimal to unicode\" in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_95"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_103",
+      "test": "def test_help_lists_max_length_description(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--max-length MAX_LENGTH Output string length, 0 for no limit\" in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_103"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_107",
+      "test": "def test_help_max_length_description_has_no_marker(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"XX\" not in out\n    assert \"--max-length MAX_LENGTH Output string length, 0 for no limit\" in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_107"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_108",
+      "test": "def test_help_max_length_description_is_not_lowercased(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"output string length, 0 for no limit\" not in out\n    assert \"--max-length MAX_LENGTH Output string length, 0 for no limit\" in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_108"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_109",
+      "test": "def test_help_max_length_description_is_not_uppercased(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"OUTPUT STRING LENGTH, 0 FOR NO LIMIT\" not in out\n    assert \"--max-length MAX_LENGTH Output string length, 0 for no limit\" in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_109"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_99",
+      "test": "def test_help_shows_max_length_description(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--max-length\" in out\n    assert \"Output string length, 0 for no limit\" in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_99"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_113",
+      "test": "def test_help_shows_word_boundary_description(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--word-boundary\" in out\n    assert \"Truncate to complete word even if length ends up shorter than --max_length\" in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_113"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_117",
+      "test": "def test_help_word_boundary_description_is_not_empty(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--word-boundary Truncate to complete word\" in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_117"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_123",
+      "test": "def test_help_word_boundary_description_has_no_marker_prefix(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"Truncate to complete word\" in out\n    assert \"XXTruncate\" not in out\n    assert \"--max_lengthXX\" not in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_123"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_124",
+      "test": "def test_help_word_boundary_description_is_capitalized(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"Truncate to complete word even if length\" in out\n    assert \"truncate to complete word even if length\" not in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_124"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_125",
+      "test": "def test_help_word_boundary_description_is_not_upper_cased(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"Truncate to complete word even if length\" in out\n    assert \"TRUNCATE TO COMPLETE WORD\" not in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_125"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_129",
+      "test": "def test_save_order_help_text_is_present(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([\"prog\", \"--help\"])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"--save-order\" in out\n    assert \"When set and --max_length > 0 return whole words in the initial order\" in out\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_129"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_139",
+      "test": "def test_save_order_help_text_has_no_marker_padding(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = capsys.readouterr().out\n    assert \"When set and --max_length > 0 return whole words in the initial order\" in out\n    assert \"XX\" not in out\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_139"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_140",
+      "test": "def test_save_order_help_text_starts_capitalized(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = capsys.readouterr().out\n    assert \"When set and --max_length\" in out\n    assert \"when set and --max_length\" not in out\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_140"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_141",
+      "test": "def test_save_order_help_text_is_not_upper_cased(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = capsys.readouterr().out\n    assert \"When set and --max_length > 0 return whole words in the initial order\" in out\n    assert \"WHOLE WORDS IN THE INITIAL ORDER\" not in out\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_141"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_145",
+      "test": "def test_separator_help_text_mentions_default(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = capsys.readouterr().out\n    assert \"--separator\" in out\n    assert \"Separator between words. By default -\" in out\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_145"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_149",
+      "test": "def test_separator_help_text_present(capsys, monkeypatch):\n    from slugify.slugify import DEFAULT_SEPARATOR\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([None, '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"--separator\" in out\n    assert \"Separator between words. By default \" + DEFAULT_SEPARATOR in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_149"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_153",
+      "test": "def test_separator_help_text_has_no_marker(capsys, monkeypatch):\n    from slugify.slugify import DEFAULT_SEPARATOR\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([None, '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Separator between words. By default \" + DEFAULT_SEPARATOR in out\n    assert \"XX\" not in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_153"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_154",
+      "test": "def test_separator_help_text_not_lowercased(capsys, monkeypatch):\n    from slugify.slugify import DEFAULT_SEPARATOR\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([None, '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Separator between words. By default \" + DEFAULT_SEPARATOR in out\n    assert \"separator between words. by default \" + DEFAULT_SEPARATOR not in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_154"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_155",
+      "test": "def test_separator_help_text_not_uppercased(capsys, monkeypatch):\n    from slugify.slugify import DEFAULT_SEPARATOR\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([None, '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Separator between words. By default \" + DEFAULT_SEPARATOR in out\n    assert \"SEPARATOR BETWEEN WORDS. BY DEFAULT \" + DEFAULT_SEPARATOR not in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_155"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_158",
+      "test": "def test_stopwords_help_text_present(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([None, '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"--stopwords\" in out\n    assert \"Words to discount\" in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_158"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_161",
+      "test": "def test_stopwords_help_text_not_omitted(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([None, '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"--stopwords STOPWORDS\" in out\n    assert \"Words to discount\" in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_161"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_165",
+      "test": "def test_stopwords_help_text_has_no_marker(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([None, '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Words to discount\" in out\n    assert \"XXWords to discountXX\" not in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_165"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_166",
+      "test": "def test_stopwords_help_text_not_lowercased(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([None, '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Words to discount\" in out\n    assert \"words to discount\" not in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_166"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_167",
+      "test": "def test_stopwords_help_text_keeps_original_casing(monkeypatch, capsys):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([\"prog\", \"--help\"])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Words to discount\" in out\n    assert \"WORDS TO DISCOUNT\" not in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_167"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_173",
+      "test": "def test_regex_pattern_option_is_lowercase_and_parsed():\n    args = parse_args([\"prog\", \"--regex-pattern\", \"[^a-z0-9]+\"])\n    assert args.regex_pattern == \"[^a-z0-9]+\"\n    assert args.input_string == \"\"",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_173"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_169",
+      "test": "def test_regex_pattern_help_text_is_present(monkeypatch, capsys):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([\"prog\", \"--help\"])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Python regex pattern for disallowed characters\" in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_169"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_171",
+      "test": "def test_regex_pattern_help_text_is_not_omitted(monkeypatch, capsys):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([\"prog\", \"--help\"])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"disallowed characters\" in out\n    assert \"Python regex pattern for disallowed characters\" in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_171"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_174",
+      "test": "def test_regex_pattern_help_text_has_no_marker_characters(monkeypatch, capsys):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([\"prog\", \"--help\"])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Python regex pattern for disallowed characters\" in out\n    assert \"XX\" not in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_174"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_175",
+      "test": "def test_regex_pattern_help_text_starts_with_capital_python(monkeypatch, capsys):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([\"prog\", \"--help\"])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Python regex pattern\" in out\n    assert \"python regex pattern\" not in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_175"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_176",
+      "test": "def test_regex_pattern_help_text_is_not_uppercased(monkeypatch, capsys):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([\"prog\", \"--help\"])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Python regex pattern for disallowed characters\" in out\n    assert \"PYTHON REGEX PATTERN FOR DISALLOWED CHARACTERS\" not in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_176"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_181",
+      "test": "def test_help_output_documents_no_lowercase_option(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--no-lowercase Activate case sensitivity\" in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_181"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_186",
+      "test": "def test_help_output_no_lowercase_option_has_help_text(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--no-lowercase Activate case sensitivity\" in out\n    assert \"--no-lowercase --replacements\" not in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_186"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_194",
+      "test": "def test_help_output_no_lowercase_help_text_is_exact(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--no-lowercase Activate case sensitivity\" in out\n    assert \"XX\" not in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_194"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_195",
+      "test": "def test_help_output_no_lowercase_help_text_is_capitalized(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--no-lowercase Activate case sensitivity\" in out\n    assert \"--no-lowercase activate case sensitivity\" not in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_195"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_196",
+      "test": "def test_help_output_no_lowercase_help_text_is_not_uppercase(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--no-lowercase Activate case sensitivity\" in out\n    assert \"ACTIVATE CASE SENSITIVITY\" not in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_196"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_199",
+      "test": "def test_help_output_documents_replacements_option(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert 'Additional replacement rules e.g. \"|->or\", \"%->percent\".' in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_199"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_202",
+      "test": "def test_help_output_replacements_option_has_help_text(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert 'Additional replacement rules' in out\n    assert '\"|->or\"' in out",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_202"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_207",
+      "test": "def test_allow_unicode_is_a_boolean_flag():\n    args = parse_args([None, '--allow-unicode', 'Cool Text'])\n    params = slugify_params(args)\n    assert params['allow_unicode'] is True\n    assert params['text'] == 'Cool Text'",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_207"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_208",
+      "test": "def test_allow_unicode_default_is_exactly_false():\n    params = slugify_params(parse_args([None]))\n    assert params['allow_unicode'] is False",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_208"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_218",
+      "test": "def test_allow_unicode_default_does_not_keep_unicode(capsys):\n    main([None, 'Computeр'])\n    out = capsys.readouterr().out.strip()\n    assert out == 'computer'",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_218"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_209",
+      "test": "def test_allow_unicode_help_present(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert '--allow-unicode Allow unicode characters' in normalized",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_209"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_213",
+      "test": "def test_allow_unicode_help_not_omitted(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert 'Allow unicode characters' in normalized\n    assert '--allow-unicode Allow unicode characters' in normalized",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_213"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_219",
+      "test": "def test_allow_unicode_help_has_no_marker_prefix(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert 'XX' not in normalized\n    assert '--allow-unicode Allow unicode characters' in normalized",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_219"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_220",
+      "test": "def test_allow_unicode_help_is_capitalized(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert '--allow-unicode Allow unicode characters' in normalized\n    assert '--allow-unicode allow unicode characters' not in normalized",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_220"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_221",
+      "test": "def test_allow_unicode_help_text(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = ' '.join(capsys.readouterr().out.split())\n    assert '--allow-unicode' in out\n    assert 'Allow unicode characters' in out\n    assert 'ALLOW UNICODE CHARACTERS' not in out\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_221"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_227",
+      "test": "def test_two_text_sources_error_message(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--stdin', 'Text'])\n    assert err.value.code == 2\n    stderr = ' '.join(capsys.readouterr().err.split())\n    assert 'error: Input strings and --stdin cannot work together' in stderr\n    assert 'XX' not in stderr\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_227"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_235",
+      "test": "def test_replacements_error_message(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--replacements', 'A--B'])\n    assert err.value.code == 2\n    stderr = ' '.join(capsys.readouterr().err.split())\n    assert 'error: Replacements must be of the form: ORIGINAL->REPLACED' in stderr\n    assert 'XX' not in stderr\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_235"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_241",
+      "test": "def test_replacements_split_maxsplit_one():\n    args = parse_args(['prog', '--replacements', 'A->B->C'])\n    assert args.replacements == [['A', 'B->C']]\n    assert all(len(pair) == 2 for pair in args.replacements)\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_241"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_242",
+      "test": "def test_replacements_split_from_the_left():\n    args = parse_args(['prog', '--replacements', 'A->B->C'])\n    assert args.replacements == [['A', 'B->C']]\n    assert args.replacements[0][0] == 'A'\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_242"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_243",
+      "test": "def test_replacements_split_only_once():\n    args = parse_args(['prog', '--replacements', 'A->B->C'])\n    assert len(args.replacements[0]) == 2\n    assert args.replacements == [['A', 'B->C']]\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_243"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_251",
+      "test": "def test_empty_input_defaults_to_empty_string():\n    args = parse_args(['prog'])\n    assert args.input_string == ''\n    assert isinstance(args.input_string, str)\n    params = slugify_params(args)\n    assert params['text'] == ''\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_251"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_252",
+      "test": "def test_empty_input_has_no_placeholder_text():\n    args = parse_args(['prog'])\n    assert args.input_string == ''\n    assert len(args.input_string) == 0\n    params = slugify_params(args)\n    assert params['text'] == ''\n",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_252"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_slugify_params__mutmut_12",
+      "test": "def test_slugify_params_key_is_named_allow_unicode():\n    params = slugify_params(parse_args([None, 'Cool Text']))\n    assert 'allow_unicode' in params\n    assert 'allow_unicodeXX' not in params\n    assert params['allow_unicode'] is False",
+      "confirmed": [
+        "slugify.__main__.x_slugify_params__mutmut_12"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_slugify_params__mutmut_24",
+      "test": "def test_slugify_params_allow_unicode_flag_is_passed_through():\n    params = slugify_params(parse_args([None, '--allow-unicode', 'Cool Text']))\n    assert params['allow_unicode'] is True",
+      "confirmed": [
+        "slugify.__main__.x_slugify_params__mutmut_24"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_slugify_params__mutmut_36",
+      "test": "def test_slugify_params_contains_every_expected_key():\n    params = slugify_params(parse_args([None, 'Cool Text']))\n    expected_keys = [\n        'text', 'entities', 'decimal', 'hexadecimal', 'max_length',\n        'word_boundary', 'save_order', 'separator', 'stopwords',\n        'lowercase', 'replacements', 'allow_unicode',\n    ]\n    assert sorted(params.keys()) == sorted(expected_keys)",
+      "confirmed": [
+        "slugify.__main__.x_slugify_params__mutmut_36"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_6",
+      "test": "def test_main_uses_parsed_args_for_params(capsys):\n    main(['prog', '--separator', '_', 'Hello World'])\n    out = capsys.readouterr().out\n    assert out == 'hello_world\\n'",
+      "confirmed": [
+        "slugify.__main__.x_main__mutmut_6"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_7",
+      "test": "def test_main_prints_slugified_text(capsys):\n    main(['prog', 'Cool Text'])\n    out = capsys.readouterr().out\n    assert out == 'cool-text\\n'\n    assert 'None' not in out",
+      "confirmed": [
+        "slugify.__main__.x_main__mutmut_7"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_10",
+      "test": "def test_main_exit_code_on_keyboard_interrupt_is_minus_one(monkeypatch):\n    class InterruptingStdout:\n        def write(self, text):\n            raise KeyboardInterrupt\n\n        def flush(self):\n            pass\n\n    monkeypatch.setattr(sys, 'stdout', InterruptingStdout())\n    with pytest.raises(SystemExit) as err:\n        main(['prog', 'Cool Text'])\n    assert err.value.code == -1",
+      "confirmed": [
+        "slugify.__main__.x_main__mutmut_10"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_8",
+      "test": "def test_main_exit_code_on_keyboard_interrupt_is_not_none(monkeypatch):\n    class InterruptingStdout:\n        def write(self, text):\n            raise KeyboardInterrupt\n\n        def flush(self):\n            pass\n\n    monkeypatch.setattr(sys, 'stdout', InterruptingStdout())\n    with pytest.raises(SystemExit) as err:\n        main(['prog', 'Cool Text'])\n    assert err.value.code is not None\n    assert err.value.code == -1",
+      "confirmed": [
+        "slugify.__main__.x_main__mutmut_8"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_9",
+      "test": "def test_main_exit_code_on_keyboard_interrupt_is_negative(monkeypatch):\n    class InterruptingStdout:\n        def write(self, text):\n            raise KeyboardInterrupt\n\n        def flush(self):\n            pass\n\n    monkeypatch.setattr(sys, 'stdout', InterruptingStdout())\n    with pytest.raises(SystemExit) as err:\n        main(['prog', 'Cool Text'])\n    assert isinstance(err.value.code, int)\n    assert err.value.code < 0\n    assert err.value.code == -1",
+      "confirmed": [
+        "slugify.__main__.x_main__mutmut_9"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_133",
+      "test": "def test_save_order_help_text_present(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = capsys.readouterr().out\n    assert \"--save-order\" in out\n    assert \"return whole words in the initial order\" in \" \".join(out.split())",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_133"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_1",
+      "test": "def test_main_uses_the_given_argv(capsys, monkeypatch):\n    monkeypatch.setattr(sys, 'argv', ['prog', 'Other Text'])\n    main(['prog', 'Hello World'])\n    out = capsys.readouterr().out.strip()\n    assert out == 'hello-world'",
+      "confirmed": [
+        "slugify.__main__.x_main__mutmut_1"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_2",
+      "test": "def test_main_falls_back_to_sys_argv(capsys, monkeypatch):\n    monkeypatch.setattr(sys, 'argv', ['prog', 'From Argv'])\n    main()\n    out = capsys.readouterr().out.strip()\n    assert out == 'from-argv'",
+      "confirmed": [
+        "slugify.__main__.x_main__mutmut_2"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_3",
+      "test": "def test_main_parses_arguments_into_args(capsys, monkeypatch):\n    monkeypatch.setattr(sys, 'argv', ['slugify', 'Other Text'])\n    main(['slugify', '--separator', '+', 'Cool Text'])\n    out = capsys.readouterr().out.strip()\n    assert out == 'cool+text'",
+      "confirmed": [
+        "slugify.__main__.x_main__mutmut_3"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_4",
+      "test": "def test_main_passes_argv_to_parse_args(capsys, monkeypatch):\n    monkeypatch.setattr(sys, 'argv', ['slugify', 'Other Text'])\n    main(['slugify', 'Complètement Déjà'])\n    out = capsys.readouterr().out.strip()\n    assert out == 'completement-deja'",
+      "confirmed": [
+        "slugify.__main__.x_main__mutmut_4"
+      ]
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_5",
+      "test": "def test_main_builds_slugify_params(capsys, monkeypatch):\n    monkeypatch.setattr(sys, 'argv', ['slugify', 'Other Text'])\n    main(['slugify', '--max-length', '9', 'jaja lol memes'])\n    out = capsys.readouterr().out.strip()\n    assert out == 'jaja-lol'",
+      "confirmed": [
+        "slugify.__main__.x_main__mutmut_5"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_211",
+      "test": "def test_allow_unicode_is_a_boolean_flag():\n    args = parse_args([None, '--allow-unicode', 'Cool Text'])\n    assert args.allow_unicode is True\n    assert args.input_string == 'Cool Text'",
+      "confirmed": [
+        "slugify.__main__.x_parse_args__mutmut_211"
+      ],
+      "reason": "nome de teste repetido: test_allow_unicode_is_a_boolean_flag"
+    }
+  ],
+  "model_declined": [
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_44",
+      "why": "The mutation only drops `default=True` from the `--no-entities` argument, but argparse's 'store_false' action already uses `default=True` as its own default. The namespace value for `entities` is therefore True when the flag is absent and False when given, exactly as in the original; help output and parsing behaviour are unchanged, so no input can distinguish it."
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_64",
+      "why": "Both mutants only drop the explicit `default=True` from an `action='store_false'` argument. argparse's `_StoreFalseAction.__init__` already declares `default=True`, so the resulting parser default for `decimal` (and `hexadecimal`) is identical, and the help string is preserved on the merged line. No input can distinguish the mutated parser from the original."
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_84",
+      "why": "Same reason as mutmut_64: removing `default=True` from a `store_false` action is a no-op because argparse's `_StoreFalseAction` defaults to True already; the flag's behaviour and help text are unchanged."
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_116",
+      "why": "The mutation only drops `default=False` from an argument declared with action='store_true'. argparse already uses False as the implicit default for 'store_true' actions, so args.word_boundary is False when the flag is absent and True when present in both the original and the mutant; no observable behaviour (parsed namespace, slugify params, or help text) differs."
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_132",
+      "why": "Same situation as for --word-boundary: removing `default=False` from a 'store_true' argument is a no-op because argparse supplies False as the default for that action, so args.save_order is identical in the original and the mutant for every possible argv."
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_143",
+      "why": "For --separator, argparse resolves `type=None` (and an omitted `type`) through its registry to the identity function, while `type=str` calls `str()` on an argument that is already a `str` (which returns the very same object). Both the parsed value for any command-line input and the string default '-' are therefore identical, and neither the produced Namespace, the slugify_params dict, nor the generated --help/metavar/error text differ in any way, so the mutation is semantically identical for every possible input."
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_185",
+      "why": "The mutation only drops the explicit `default=True` from the `--no-lowercase` option. argparse's `_StoreFalseAction.__init__` already declares `default=True`, so the resulting namespace value is True when the flag is absent and False when it is given, exactly as in the original. The help string is unchanged too, so no input (CLI parse or --help output) can distinguish the two versions."
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_212",
+      "why": "argparse gives an action='store_true' argument an implicit default of False, so writing default=False explicitly or omitting it produces identical Namespace values for every possible argv; the help text is unchanged too, so no observable difference exists."
+    }
+  ],
+  "generated": [
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_2",
+      "test": "def test_help_shows_parser_description(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    lines = [line.strip() for line in out.splitlines()]\n    assert 'Slug string' in lines"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_3",
+      "test": "def test_help_parser_description_has_no_marker_characters(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    lines = [line.strip() for line in out.splitlines()]\n    assert 'Slug string' in lines\n    assert 'XXSlug stringXX' not in lines"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_4",
+      "test": "def test_help_parser_description_is_capitalized(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    lines = [line.strip() for line in out.splitlines()]\n    assert 'Slug string' in lines\n    assert 'slug string' not in lines"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_5",
+      "test": "def test_help_parser_description_is_not_upper_case(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    lines = [line.strip() for line in out.splitlines()]\n    assert 'Slug string' in lines\n    assert 'SLUG STRING' not in lines"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_7",
+      "test": "def test_help_shows_input_group_description(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    lines = [line.strip() for line in out.splitlines()]\n    assert 'Input' in lines"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_8",
+      "test": "def test_help_input_group_description_has_no_marker_characters(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    lines = [line.strip() for line in out.splitlines()]\n    assert 'Input' in lines\n    assert 'XXInputXX' not in lines"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_9",
+      "test": "def test_help_input_group_description_is_capitalized(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    lines = [line.strip() for line in out.splitlines()]\n    assert 'Input' in lines\n    assert 'input' not in lines"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_10",
+      "test": "def test_help_input_group_description_is_not_upper_case(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    lines = [line.strip() for line in out.splitlines()]\n    assert 'Input' in lines\n    assert 'INPUT' not in lines"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_13",
+      "test": "def test_input_string_help_present_in_usage(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert \"input_string Text to slugify\" in normalized"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_16",
+      "test": "def test_input_string_help_not_omitted(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert \"input_string Text to slugify\" in normalized\n    assert \"input_string --stdin\" not in normalized"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_20",
+      "test": "def test_input_string_help_has_no_marker_prefix(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert \"input_string Text to slugify\" in normalized\n    assert \"XX\" not in normalized"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_21",
+      "test": "def test_input_string_help_is_capitalized(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert \"input_string Text to slugify\" in normalized\n    assert \"input_string text to slugify\" not in normalized"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_22",
+      "test": "def test_input_string_help_is_not_uppercased(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert \"input_string Text to slugify\" in normalized\n    assert \"TEXT TO SLUGIFY\" not in normalized"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_25",
+      "test": "def test_stdin_help_present_in_usage(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert \"--stdin Take the text from STDIN\" in normalized"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_28",
+      "test": "def test_stdin_help_not_omitted(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert \"--stdin Take the text from STDIN\" in normalized\n    assert \"--stdin --no-entities\" not in normalized"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_33",
+      "test": "def test_stdin_help_has_no_marker_prefix(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert \"--stdin Take the text from STDIN\" in normalized\n    assert \"XXTake\" not in normalized"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_34",
+      "test": "def test_help_shows_stdin_description_capitalized(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['slugify', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"Take the text from STDIN\" in out\n    assert \"take the text from stdin\" not in out\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_35",
+      "test": "def test_help_shows_stdin_description_not_shouted(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['slugify', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"Take the text from STDIN\" in out\n    assert \"TAKE THE TEXT FROM STDIN\" not in out\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_40",
+      "test": "def test_help_shows_no_entities_description(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['slugify', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--no-entities\" in out\n    assert \"Do not convert HTML entities to unicode\" in out\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_45",
+      "test": "def test_help_for_no_entities_is_not_empty(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['slugify', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--no-entities Do not convert HTML entities to unicode\" in out\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_53",
+      "test": "def test_help_for_no_entities_has_no_marker_prefix(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['slugify', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"Do not convert HTML entities to unicode\" in out\n    assert \"XX\" not in out\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_54",
+      "test": "def test_help_for_no_entities_keeps_original_case(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['slugify', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"Do not convert HTML entities to unicode\" in out\n    assert \"do not convert html entities to unicode\" not in out\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_55",
+      "test": "def test_help_for_no_entities_is_not_shouted(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['slugify', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"Do not convert HTML entities to unicode\" in out\n    assert \"DO NOT CONVERT HTML ENTITIES TO UNICODE\" not in out\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_44",
+      "targets": [
+        "slugify.__main__.x_parse_args__mutmut_44"
+      ],
+      "test": null,
+      "why": "The mutation only drops `default=True` from the `--no-entities` argument, but argparse's 'store_false' action already uses `default=True` as its own default. The namespace value for `entities` is therefore True when the flag is absent and False when given, exactly as in the original; help output and parsing behaviour are unchanged, so no input can distinguish it."
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_64",
+      "targets": [
+        "slugify.__main__.x_parse_args__mutmut_64",
+        "slugify.__main__.x_parse_args__mutmut_84"
+      ],
+      "test": null,
+      "why": "Both mutants only drop the explicit `default=True` from an `action='store_false'` argument. argparse's `_StoreFalseAction.__init__` already declares `default=True`, so the resulting parser default for `decimal` (and `hexadecimal`) is identical, and the help string is preserved on the merged line. No input can distinguish the mutated parser from the original."
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_84",
+      "targets": [
+        "slugify.__main__.x_parse_args__mutmut_64",
+        "slugify.__main__.x_parse_args__mutmut_84"
+      ],
+      "test": null,
+      "why": "Same reason as mutmut_64: removing `default=True` from a `store_false` action is a no-op because argparse's `_StoreFalseAction` defaults to True already; the flag's behaviour and help text are unchanged."
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_60",
+      "test": "def test_no_decimal_help_is_documented(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = ' '.join(capsys.readouterr().out.split())\n    assert '--no-decimal Do not convert HTML decimal to unicode' in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_65",
+      "test": "def test_no_decimal_help_not_empty(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    out = ' '.join(capsys.readouterr().out.split())\n    assert '--no-decimal --no-hexadecimal' not in out\n    assert '--no-decimal Do not convert HTML decimal to unicode' in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_73",
+      "test": "def test_no_decimal_help_has_no_marker_prefix(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    out = ' '.join(capsys.readouterr().out.split())\n    assert 'XX' not in out\n    assert '--no-decimal Do not convert HTML decimal to unicode' in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_74",
+      "test": "def test_no_decimal_help_keeps_original_casing(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    out = ' '.join(capsys.readouterr().out.split())\n    assert 'do not convert html decimal to unicode' not in out\n    assert 'Do not convert HTML decimal to unicode' in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_75",
+      "test": "def test_no_decimal_help_is_not_uppercased(capsys):\n    with pytest.raises(SystemExit):\n        parse_args(['prog', '--help'])\n    out = ' '.join(capsys.readouterr().out.split())\n    assert 'DO NOT CONVERT HTML DECIMAL TO UNICODE' not in out\n    assert 'Do not convert HTML decimal to unicode' in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_80",
+      "test": "def test_no_hexadecimal_help_is_documented(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = ' '.join(capsys.readouterr().out.split())\n    assert '--no-hexadecimal Do not convert HTML hexadecimal to unicode' in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_85",
+      "test": "def test_help_lists_no_hexadecimal_description(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--no-hexadecimal Do not convert HTML hexadecimal to unicode\" in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_93",
+      "test": "def test_help_no_hexadecimal_description_has_no_marker(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"XX\" not in out\n    assert \"--no-hexadecimal Do not convert HTML hexadecimal to unicode\" in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_94",
+      "test": "def test_help_no_hexadecimal_description_is_not_lowercased(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"do not convert html hexadecimal to unicode\" not in out\n    assert \"--no-hexadecimal Do not convert HTML hexadecimal to unicode\" in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_95",
+      "test": "def test_help_no_hexadecimal_description_is_not_uppercased(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"DO NOT CONVERT HTML HEXADECIMAL TO UNICODE\" not in out\n    assert \"--no-hexadecimal Do not convert HTML hexadecimal to unicode\" in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_103",
+      "test": "def test_help_lists_max_length_description(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--max-length MAX_LENGTH Output string length, 0 for no limit\" in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_107",
+      "test": "def test_help_max_length_description_has_no_marker(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"XX\" not in out\n    assert \"--max-length MAX_LENGTH Output string length, 0 for no limit\" in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_108",
+      "test": "def test_help_max_length_description_is_not_lowercased(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"output string length, 0 for no limit\" not in out\n    assert \"--max-length MAX_LENGTH Output string length, 0 for no limit\" in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_109",
+      "test": "def test_help_max_length_description_is_not_uppercased(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"OUTPUT STRING LENGTH, 0 FOR NO LIMIT\" not in out\n    assert \"--max-length MAX_LENGTH Output string length, 0 for no limit\" in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_99",
+      "test": "def test_help_shows_max_length_description(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--max-length\" in out\n    assert \"Output string length, 0 for no limit\" in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_113",
+      "test": "def test_help_shows_word_boundary_description(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--word-boundary\" in out\n    assert \"Truncate to complete word even if length ends up shorter than --max_length\" in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_117",
+      "test": "def test_help_word_boundary_description_is_not_empty(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--word-boundary Truncate to complete word\" in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_123",
+      "test": "def test_help_word_boundary_description_has_no_marker_prefix(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"Truncate to complete word\" in out\n    assert \"XXTruncate\" not in out\n    assert \"--max_lengthXX\" not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_124",
+      "test": "def test_help_word_boundary_description_is_capitalized(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"Truncate to complete word even if length\" in out\n    assert \"truncate to complete word even if length\" not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_125",
+      "test": "def test_help_word_boundary_description_is_not_upper_cased(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"Truncate to complete word even if length\" in out\n    assert \"TRUNCATE TO COMPLETE WORD\" not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_116",
+      "test": null,
+      "targets": [
+        "slugify.__main__.x_parse_args__mutmut_116"
+      ],
+      "why": "The mutation only drops `default=False` from an argument declared with action='store_true'. argparse already uses False as the implicit default for 'store_true' actions, so args.word_boundary is False when the flag is absent and True when present in both the original and the mutant; no observable behaviour (parsed namespace, slugify params, or help text) differs."
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_132",
+      "test": null,
+      "targets": [
+        "slugify.__main__.x_parse_args__mutmut_132"
+      ],
+      "why": "Same situation as for --word-boundary: removing `default=False` from a 'store_true' argument is a no-op because argparse supplies False as the default for that action, so args.save_order is identical in the original and the mutant for every possible argv."
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_129",
+      "test": "def test_save_order_help_text_is_present(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([\"prog\", \"--help\"])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"--save-order\" in out\n    assert \"When set and --max_length > 0 return whole words in the initial order\" in out\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_133",
+      "test": "def test_save_order_help_text_not_empty(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = capsys.readouterr().out\n    save_order_lines = [line for line in out.splitlines() if \"--save-order\" in line]\n    assert save_order_lines\n    assert save_order_lines[0].strip() != \"--save-order\"\n    assert \"return whole words in the initial order\" in save_order_lines[0]\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_139",
+      "test": "def test_save_order_help_text_has_no_marker_padding(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = capsys.readouterr().out\n    assert \"When set and --max_length > 0 return whole words in the initial order\" in out\n    assert \"XX\" not in out\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_140",
+      "test": "def test_save_order_help_text_starts_capitalized(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = capsys.readouterr().out\n    assert \"When set and --max_length\" in out\n    assert \"when set and --max_length\" not in out\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_141",
+      "test": "def test_save_order_help_text_is_not_upper_cased(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = capsys.readouterr().out\n    assert \"When set and --max_length > 0 return whole words in the initial order\" in out\n    assert \"WHOLE WORDS IN THE INITIAL ORDER\" not in out\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_145",
+      "test": "def test_separator_help_text_mentions_default(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit):\n        parse_args([\"prog\", \"--help\"])\n    out = capsys.readouterr().out\n    assert \"--separator\" in out\n    assert \"Separator between words. By default -\" in out\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_143",
+      "test": null,
+      "targets": [
+        "slugify.__main__.x_parse_args__mutmut_143",
+        "slugify.__main__.x_parse_args__mutmut_147"
+      ],
+      "why": "For --separator, argparse resolves `type=None` (and an omitted `type`) through its registry to the identity function, while `type=str` calls `str()` on an argument that is already a `str` (which returns the very same object). Both the parsed value for any command-line input and the string default '-' are therefore identical, and neither the produced Namespace, the slugify_params dict, nor the generated --help/metavar/error text differ in any way, so the mutation is semantically identical for every possible input."
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_149",
+      "test": "def test_separator_help_text_present(capsys, monkeypatch):\n    from slugify.slugify import DEFAULT_SEPARATOR\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([None, '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"--separator\" in out\n    assert \"Separator between words. By default \" + DEFAULT_SEPARATOR in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_153",
+      "test": "def test_separator_help_text_has_no_marker(capsys, monkeypatch):\n    from slugify.slugify import DEFAULT_SEPARATOR\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([None, '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Separator between words. By default \" + DEFAULT_SEPARATOR in out\n    assert \"XX\" not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_154",
+      "test": "def test_separator_help_text_not_lowercased(capsys, monkeypatch):\n    from slugify.slugify import DEFAULT_SEPARATOR\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([None, '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Separator between words. By default \" + DEFAULT_SEPARATOR in out\n    assert \"separator between words. by default \" + DEFAULT_SEPARATOR not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_155",
+      "test": "def test_separator_help_text_not_uppercased(capsys, monkeypatch):\n    from slugify.slugify import DEFAULT_SEPARATOR\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([None, '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Separator between words. By default \" + DEFAULT_SEPARATOR in out\n    assert \"SEPARATOR BETWEEN WORDS. BY DEFAULT \" + DEFAULT_SEPARATOR not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_158",
+      "test": "def test_stopwords_help_text_present(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([None, '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"--stopwords\" in out\n    assert \"Words to discount\" in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_161",
+      "test": "def test_stopwords_help_text_not_omitted(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([None, '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"--stopwords STOPWORDS\" in out\n    assert \"Words to discount\" in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_165",
+      "test": "def test_stopwords_help_text_has_no_marker(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([None, '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Words to discount\" in out\n    assert \"XXWords to discountXX\" not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_166",
+      "test": "def test_stopwords_help_text_not_lowercased(capsys, monkeypatch):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([None, '--help'])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Words to discount\" in out\n    assert \"words to discount\" not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_167",
+      "test": "def test_stopwords_help_text_keeps_original_casing(monkeypatch, capsys):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([\"prog\", \"--help\"])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Words to discount\" in out\n    assert \"WORDS TO DISCOUNT\" not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_173",
+      "test": "def test_regex_pattern_option_is_lowercase_and_parsed():\n    args = parse_args([\"prog\", \"--regex-pattern\", \"[^a-z0-9]+\"])\n    assert args.regex_pattern == \"[^a-z0-9]+\"\n    assert args.input_string == \"\""
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_169",
+      "test": "def test_regex_pattern_help_text_is_present(monkeypatch, capsys):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([\"prog\", \"--help\"])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Python regex pattern for disallowed characters\" in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_171",
+      "test": "def test_regex_pattern_help_text_is_not_omitted(monkeypatch, capsys):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([\"prog\", \"--help\"])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"disallowed characters\" in out\n    assert \"Python regex pattern for disallowed characters\" in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_174",
+      "test": "def test_regex_pattern_help_text_has_no_marker_characters(monkeypatch, capsys):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([\"prog\", \"--help\"])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Python regex pattern for disallowed characters\" in out\n    assert \"XX\" not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_175",
+      "test": "def test_regex_pattern_help_text_starts_with_capital_python(monkeypatch, capsys):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([\"prog\", \"--help\"])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Python regex pattern\" in out\n    assert \"python regex pattern\" not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_176",
+      "test": "def test_regex_pattern_help_text_is_not_uppercased(monkeypatch, capsys):\n    monkeypatch.setenv(\"COLUMNS\", \"200\")\n    with pytest.raises(SystemExit) as err:\n        parse_args([\"prog\", \"--help\"])\n    assert err.value.code == 0\n    out = capsys.readouterr().out\n    assert \"Python regex pattern for disallowed characters\" in out\n    assert \"PYTHON REGEX PATTERN FOR DISALLOWED CHARACTERS\" not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_185",
+      "test": null,
+      "targets": [
+        "slugify.__main__.x_parse_args__mutmut_185"
+      ],
+      "why": "The mutation only drops the explicit `default=True` from the `--no-lowercase` option. argparse's `_StoreFalseAction.__init__` already declares `default=True`, so the resulting namespace value is True when the flag is absent and False when it is given, exactly as in the original. The help string is unchanged too, so no input (CLI parse or --help output) can distinguish the two versions."
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_181",
+      "test": "def test_help_output_documents_no_lowercase_option(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--no-lowercase Activate case sensitivity\" in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_186",
+      "test": "def test_help_output_no_lowercase_option_has_help_text(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--no-lowercase Activate case sensitivity\" in out\n    assert \"--no-lowercase --replacements\" not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_194",
+      "test": "def test_help_output_no_lowercase_help_text_is_exact(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--no-lowercase Activate case sensitivity\" in out\n    assert \"XX\" not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_195",
+      "test": "def test_help_output_no_lowercase_help_text_is_capitalized(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--no-lowercase Activate case sensitivity\" in out\n    assert \"--no-lowercase activate case sensitivity\" not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_196",
+      "test": "def test_help_output_no_lowercase_help_text_is_not_uppercase(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert \"--no-lowercase Activate case sensitivity\" in out\n    assert \"ACTIVATE CASE SENSITIVITY\" not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_199",
+      "test": "def test_help_output_documents_replacements_option(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert 'Additional replacement rules e.g. \"|->or\", \"%->percent\".' in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_202",
+      "test": "def test_help_output_replacements_option_has_help_text(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    out = \" \".join(capsys.readouterr().out.split())\n    assert 'Additional replacement rules' in out\n    assert '\"|->or\"' in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_207",
+      "test": "def test_allow_unicode_is_a_boolean_flag():\n    args = parse_args([None, '--allow-unicode', 'Cool Text'])\n    params = slugify_params(args)\n    assert params['allow_unicode'] is True\n    assert params['text'] == 'Cool Text'"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_208",
+      "test": "def test_allow_unicode_default_is_exactly_false():\n    params = slugify_params(parse_args([None]))\n    assert params['allow_unicode'] is False"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_211",
+      "test": "def test_allow_unicode_is_a_boolean_flag():\n    args = parse_args([None, '--allow-unicode', 'Cool Text'])\n    assert args.allow_unicode is True\n    assert args.input_string == 'Cool Text'"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_212",
+      "test": null,
+      "targets": [
+        "slugify.__main__.x_parse_args__mutmut_212"
+      ],
+      "why": "argparse gives an action='store_true' argument an implicit default of False, so writing default=False explicitly or omitting it produces identical Namespace values for every possible argv; the help text is unchanged too, so no observable difference exists."
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_218",
+      "test": "def test_allow_unicode_default_does_not_keep_unicode(capsys):\n    main([None, 'Computeр'])\n    out = capsys.readouterr().out.strip()\n    assert out == 'computer'"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_209",
+      "test": "def test_allow_unicode_help_present(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert '--allow-unicode Allow unicode characters' in normalized"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_213",
+      "test": "def test_allow_unicode_help_not_omitted(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert 'Allow unicode characters' in normalized\n    assert '--allow-unicode Allow unicode characters' in normalized"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_219",
+      "test": "def test_allow_unicode_help_has_no_marker_prefix(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert 'XX' not in normalized\n    assert '--allow-unicode Allow unicode characters' in normalized"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_220",
+      "test": "def test_allow_unicode_help_is_capitalized(capsys):\n    with pytest.raises(SystemExit):\n        parse_args([None, '--help'])\n    normalized = \" \".join(capsys.readouterr().out.split())\n    assert '--allow-unicode Allow unicode characters' in normalized\n    assert '--allow-unicode allow unicode characters' not in normalized"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_221",
+      "test": "def test_allow_unicode_help_text(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--help'])\n    assert err.value.code == 0\n    out = ' '.join(capsys.readouterr().out.split())\n    assert '--allow-unicode' in out\n    assert 'Allow unicode characters' in out\n    assert 'ALLOW UNICODE CHARACTERS' not in out\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_227",
+      "test": "def test_two_text_sources_error_message(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--stdin', 'Text'])\n    assert err.value.code == 2\n    stderr = ' '.join(capsys.readouterr().err.split())\n    assert 'error: Input strings and --stdin cannot work together' in stderr\n    assert 'XX' not in stderr\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_235",
+      "test": "def test_replacements_error_message(capsys):\n    with pytest.raises(SystemExit) as err:\n        parse_args(['prog', '--replacements', 'A--B'])\n    assert err.value.code == 2\n    stderr = ' '.join(capsys.readouterr().err.split())\n    assert 'error: Replacements must be of the form: ORIGINAL->REPLACED' in stderr\n    assert 'XX' not in stderr\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_241",
+      "test": "def test_replacements_split_maxsplit_one():\n    args = parse_args(['prog', '--replacements', 'A->B->C'])\n    assert args.replacements == [['A', 'B->C']]\n    assert all(len(pair) == 2 for pair in args.replacements)\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_242",
+      "test": "def test_replacements_split_from_the_left():\n    args = parse_args(['prog', '--replacements', 'A->B->C'])\n    assert args.replacements == [['A', 'B->C']]\n    assert args.replacements[0][0] == 'A'\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_243",
+      "test": "def test_replacements_split_only_once():\n    args = parse_args(['prog', '--replacements', 'A->B->C'])\n    assert len(args.replacements[0]) == 2\n    assert args.replacements == [['A', 'B->C']]\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_251",
+      "test": "def test_empty_input_defaults_to_empty_string():\n    args = parse_args(['prog'])\n    assert args.input_string == ''\n    assert isinstance(args.input_string, str)\n    params = slugify_params(args)\n    assert params['text'] == ''\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_parse_args__mutmut_252",
+      "test": "def test_empty_input_has_no_placeholder_text():\n    args = parse_args(['prog'])\n    assert args.input_string == ''\n    assert len(args.input_string) == 0\n    params = slugify_params(args)\n    assert params['text'] == ''\n"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_slugify_params__mutmut_12",
+      "test": "def test_slugify_params_key_is_named_allow_unicode():\n    params = slugify_params(parse_args([None, 'Cool Text']))\n    assert 'allow_unicode' in params\n    assert 'allow_unicodeXX' not in params\n    assert params['allow_unicode'] is False"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_slugify_params__mutmut_24",
+      "test": "def test_slugify_params_allow_unicode_flag_is_passed_through():\n    params = slugify_params(parse_args([None, '--allow-unicode', 'Cool Text']))\n    assert params['allow_unicode'] is True"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_slugify_params__mutmut_36",
+      "test": "def test_slugify_params_contains_every_expected_key():\n    params = slugify_params(parse_args([None, 'Cool Text']))\n    expected_keys = [\n        'text', 'entities', 'decimal', 'hexadecimal', 'max_length',\n        'word_boundary', 'save_order', 'separator', 'stopwords',\n        'lowercase', 'replacements', 'allow_unicode',\n    ]\n    assert sorted(params.keys()) == sorted(expected_keys)"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_1",
+      "test": "def test_main_uses_the_given_argv(capsys, monkeypatch):\n    monkeypatch.setattr(sys, 'argv', [None, 'Other Text'])\n    main([None, 'Hello World'])\n    out = capsys.readouterr().out.strip()\n    assert out == 'hello-world'"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_2",
+      "test": "def test_main_falls_back_to_sys_argv(capsys, monkeypatch):\n    monkeypatch.setattr(sys, 'argv', [None, 'From Argv'])\n    main()\n    out = capsys.readouterr().out.strip()\n    assert out == 'from-argv'"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_3",
+      "test": "def test_main_parses_arguments_into_args(capsys, monkeypatch):\n    monkeypatch.setattr(sys, 'argv', [None, 'Other Text'])\n    main([None, '--separator', '+', 'Cool Text'])\n    out = capsys.readouterr().out.strip()\n    assert out == 'cool+text'"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_4",
+      "test": "def test_main_passes_argv_to_parse_args(capsys, monkeypatch):\n    monkeypatch.setattr(sys, 'argv', [None, 'Other Text'])\n    main([None, 'Complètement Déjà'])\n    out = capsys.readouterr().out.strip()\n    assert out == 'completement-deja'"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_5",
+      "test": "def test_main_builds_slugify_params(capsys, monkeypatch):\n    monkeypatch.setattr(sys, 'argv', [None, 'Other Text'])\n    main([None, '--max-length', '9', 'jaja lol memes'])\n    out = capsys.readouterr().out.strip()\n    assert out == 'jaja-lol'"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_6",
+      "test": "def test_main_uses_parsed_args_for_params(capsys):\n    main(['prog', '--separator', '_', 'Hello World'])\n    out = capsys.readouterr().out\n    assert out == 'hello_world\\n'"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_7",
+      "test": "def test_main_prints_slugified_text(capsys):\n    main(['prog', 'Cool Text'])\n    out = capsys.readouterr().out\n    assert out == 'cool-text\\n'\n    assert 'None' not in out"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_10",
+      "test": "def test_main_exit_code_on_keyboard_interrupt_is_minus_one(monkeypatch):\n    class InterruptingStdout:\n        def write(self, text):\n            raise KeyboardInterrupt\n\n        def flush(self):\n            pass\n\n    monkeypatch.setattr(sys, 'stdout', InterruptingStdout())\n    with pytest.raises(SystemExit) as err:\n        main(['prog', 'Cool Text'])\n    assert err.value.code == -1"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_8",
+      "test": "def test_main_exit_code_on_keyboard_interrupt_is_not_none(monkeypatch):\n    class InterruptingStdout:\n        def write(self, text):\n            raise KeyboardInterrupt\n\n        def flush(self):\n            pass\n\n    monkeypatch.setattr(sys, 'stdout', InterruptingStdout())\n    with pytest.raises(SystemExit) as err:\n        main(['prog', 'Cool Text'])\n    assert err.value.code is not None\n    assert err.value.code == -1"
+    },
+    {
+      "mutant_id": "slugify.__main__.x_main__mutmut_9",
+      "test": "def test_main_exit_code_on_keyboard_interrupt_is_negative(monkeypatch):\n    class InterruptingStdout:\n        def write(self, text):\n            raise KeyboardInterrupt\n\n        def flush(self):\n            pass\n\n    monkeypatch.setattr(sys, 'stdout', InterruptingStdout())\n    with pytest.raises(SystemExit) as err:\n        main(['prog', 'Cool Text'])\n    assert isinstance(err.value.code, int)\n    assert err.value.code < 0\n    assert err.value.code == -1"
+    }
+  ]
+}

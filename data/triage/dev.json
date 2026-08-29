@@ -1,0 +1,40 @@
+{
+  "set": "dev",
+  "protocol": "METRIC_TESTGEN.md § 8 — rótulo padrão é `dificil`; `equivalente` e `inalcancavel` exigem prova escrita",
+  "triaged_by": "assistente, sob o protocolo escrito; revisável pelo Victor",
+  "date": "2026-08-30",
+  "survivors": 46,
+  "killed_by_T3": 33,
+  "undetermined": 13,
+  "labels": [
+    {
+      "label": "inalcancavel",
+      "file": "slugify/slugify.py",
+      "line": 129,
+      "n_mutants": 11,
+      "claim": "A linha 129 nunca executa. É código morto.",
+      "proof": "Linha 128 guarda com `if not isinstance(text, str)`. As duas ramificações que a antecedem (121-125) terminam em `unicodedata.normalize(...)` ou em `text_unidecode.unidecode(...)`, e ambas devolvem `str` para toda entrada — verificado sobre ASCII, acentuado, CJK, plano astral e string vazia, com allow_unicode True e False. Logo o guard nunca é verdadeiro.",
+      "consequence": "Achado de produto: as linhas 127-129 podem ser removidas de `python-slugify`."
+    },
+    {
+      "label": "equivalente",
+      "file": "slugify/slugify.py",
+      "line": 115,
+      "n_mutants": 1,
+      "mutation": "'utf-8' -> 'UTF-8'",
+      "claim": "Comportamento idêntico para toda entrada.",
+      "proof": "Nome de codec em Python é normalizado antes da busca: `codecs.lookup('utf-8').name == codecs.lookup('UTF-8').name` é True, e `str(b,'utf-8','ignore') == str(b,'UTF-8','ignore')` é True. Nenhum teste pode distinguir.",
+      "consequence": "Mutante equivalente legítimo. Teto do conjunto é menor que 100% por causa dele."
+    },
+    {
+      "label": "dificil",
+      "file": "slugify/slugify.py",
+      "line": 62,
+      "n_mutants": 1,
+      "mutation": "if next_len < max_length -> <=",
+      "claim": "Matável em princípio; o agente não conseguiu em 1 rodada de reparo.",
+      "proof": "Nenhuma. É um limite off-by-one em `smart_truncate` e exige entrada em que `next_len == max_length` exatamente, com o acúmulo de separadores batendo. Não encontrei prova de equivalência, então o rótulo padrão do protocolo se aplica.",
+      "consequence": "Trabalho para humano — é exatamente o resíduo que a camada 2 promete entregar pequeno."
+    }
+  ]
+}

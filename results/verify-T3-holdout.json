@@ -1,0 +1,25 @@
+{
+  "set": "holdout",
+  "stage": "T3",
+  "tool": "mutmut 3.7.0 run from scratch",
+  "survivors_after": [
+    "slugify.__main__.x_parse_args__mutmut_116",
+    "slugify.__main__.x_parse_args__mutmut_132",
+    "slugify.__main__.x_parse_args__mutmut_143",
+    "slugify.__main__.x_parse_args__mutmut_147",
+    "slugify.__main__.x_parse_args__mutmut_185",
+    "slugify.__main__.x_parse_args__mutmut_212",
+    "slugify.__main__.x_parse_args__mutmut_44",
+    "slugify.__main__.x_parse_args__mutmut_64",
+    "slugify.__main__.x_parse_args__mutmut_84"
+  ],
+  "proxy_disagreements": [
+    "slugify.__main__.x_parse_args__mutmut_116",
+    "slugify.__main__.x_parse_args__mutmut_132",
+    "slugify.__main__.x_parse_args__mutmut_185",
+    "slugify.__main__.x_parse_args__mutmut_212",
+    "slugify.__main__.x_parse_args__mutmut_44",
+    "slugify.__main__.x_parse_args__mutmut_64",
+    "slugify.__main__.x_parse_args__mutmut_84"
+  ]
+}

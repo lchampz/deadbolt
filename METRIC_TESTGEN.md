@@ -219,3 +219,48 @@ US$ 10. Isto é limite de dinheiro, não resultado omitido.
 Não haverá comparação baseline-vs-solução no HOLDOUT nem no TRANSFER. Logo
 **nenhuma afirmação será feita sobre o baseline ingênuo transferir ou não**. O
 que transfere ou não, ali, é a configuração final — e só isso será dito.
+
+---
+
+## 12. Limitação medida do proxy incremental — 2026-08-30
+
+O pipeline mede rápido aplicando a mutação linha a linha e rodando só o arquivo
+gerado. `METRIC_TESTGEN.md` § 4 sempre disse que a manchete vem do `mutmut`
+rodando do zero; `eval/verify_mutmut.py` faz isso, e a divergência apareceu.
+
+| conjunto | proxy incremental | **mutmut, do zero** | divergência |
+|---|---:|---:|---:|
+| DEV | 0.9398 | **0.9398** | 0 mutantes |
+| HOLDOUT | 0.9933 | **0.9698** | **7 mutantes** |
+
+### Onde o proxy erra, exatamente
+
+Os 7 são **todos** `parser.add_argument(...)` de `__main__.py` — comandos que
+ocupam várias linhas. O proxy troca **uma linha** de um comando multi-linha; o
+mutante que resulta não é o que o `mutmut` gera. O proxy "detecta" esse mutante
+inválido, e o mutante real segue vivo.
+
+O DEV não tem comando multi-linha entre os sobreviventes, e por isso bateu exato
+— o proxy estava certo lá pelo motivo certo, e errado aqui pelo motivo errado.
+
+### O que isso invalida e o que não invalida
+
+**Não invalida o número reportado.** A manchete de todo conjunto vem do `mutmut`,
+não do proxy. Os números publicados são 0.9398 e 0.9698.
+
+**Invalida o proxy como autoridade.** Ele fica como sinal de desenvolvimento,
+rotulado como tal, e o relatório final marca qual número é verificado.
+
+**Afeta quais testes embarcam, não o que eles alcançam.** A guarda G2 usa o mesmo
+proxy, então alguns testes entraram no diff por um motivo errado. Mas quem mede
+o que o diff alcança é o `mutmut`, sobre o arquivo final — então o resultado
+segue correto, e o efeito da guarda é "escolheu testes por critério imperfeito",
+não "reportou número inflado".
+
+### Terceira vez que a mesma lição aparece
+
+Uma verificação que só olha o caminho feliz não vê o que sumiu. Aconteceu com o
+offset de linha do S1, com o parser que descartava mutantes em silêncio, e agora
+com a mutação de comando multi-linha. A defesa que funcionou nas três foi a
+mesma: **duas medições independentes e uma assertiva que falha alto quando elas
+discordam.** Ela existe agora e foi ela que pegou isto.
