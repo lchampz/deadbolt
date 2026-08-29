@@ -105,6 +105,33 @@ def test_replay_nao_degrada_para_live(tmp_path, monkeypatch):
         client.complete("sys", "outro prompt inédito")
 
 
+def test_chamada_que_falha_nunca_vira_cache(tmp_path, monkeypatch):
+    """Regressão real: uma 400 de saldo foi gravada como resposta vazia.
+
+    Gravada no cache, ela é indistinguível de um modelo que respondeu vazio, e a
+    execução seguinte em replay serviria o vazio como resultado. A falha tem que
+    ficar registrada FORA do caminho que alimenta a métrica.
+    """
+    def explode(*a, **k):
+        raise RuntimeError("400 saldo insuficiente")
+
+    monkeypatch.setattr(Client, "_live", explode)
+    client = Client(provider=PROVIDER, model=MODEL, mode="live", recordings=tmp_path)
+
+    with pytest.raises(RuntimeError, match="saldo"):
+        client.complete("sys", "prompt")
+
+    assert list(tmp_path.glob("*.json")) == [], "falha entrou no cache de replay"
+    falhas = list((tmp_path / "failed").glob("*.json"))
+    assert len(falhas) == 1, "falha não foi registrada"
+    assert "saldo" in json.loads(falhas[0].read_text())["error"]
+
+    # e o replay seguinte tem que continuar quebrando, não servir vazio
+    replay = Client(provider=PROVIDER, model=MODEL, mode="replay", recordings=tmp_path)
+    with pytest.raises(MissingRecording):
+        replay.complete("sys", "prompt")
+
+
 def test_gravacao_nunca_guarda_a_chave(tmp_path, monkeypatch):
     monkeypatch.setenv("ANTHROPIC_API_KEY", "segredo-que-nao-pode-vazar")
     client = _plant(tmp_path, "baseline", "dev", lambda unit: "[]")

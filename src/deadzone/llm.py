@@ -136,18 +136,38 @@ class Client:
         started = time.time()
         try:
             text, tin, tout, stop = self._live(system, prompt)
-            call.response, call.input_tokens, call.output_tokens = text, tin, tout
-            call.stop_reason = stop
-        except Exception as exc:  # noqa: BLE001 — o erro vira artefato, não é engolido
+        except Exception as exc:  # noqa: BLE001 — o erro vira artefato, mas NUNCA cache
             call.error = f"{type(exc).__name__}: {exc}"
-            raise
-        finally:
             call.wall_seconds = round(time.time() - started, 3)
-            call.cost_usd = _price(self.model, call.input_tokens, call.output_tokens)
             call.timestamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-            path.write_text(json.dumps(call.as_dict(), indent=2, ensure_ascii=False) + "\n")
-            self.calls.append(call)
+            self._record_failure(call)
+            raise
+
+        call.response, call.input_tokens, call.output_tokens = text, tin, tout
+        call.stop_reason = stop
+        call.wall_seconds = round(time.time() - started, 3)
+        call.cost_usd = _price(self.model, call.input_tokens, call.output_tokens)
+        call.timestamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        path.write_text(json.dumps(call.as_dict(), indent=2, ensure_ascii=False) + "\n")
+        self.calls.append(call)
         return call
+
+    def _record_failure(self, call: Call) -> None:
+        """Falha vai para recordings/failed/, nunca para o cache de replay.
+
+        A distinção não é cosmética. Uma chamada que morreu com resposta vazia,
+        gravada no cache, é indistinguível de um modelo que respondeu vazio: a
+        próxima execução em replay serviria o vazio como se fosse resultado. É
+        exatamente o modo de falha que este projeto existe para expor, e ele
+        apareceu aqui primeiro. As falhas ficam registradas — o brief pede o
+        histórico de erro — mas fora do caminho que alimenta a métrica.
+        """
+        failed = self.recordings / "failed"
+        failed.mkdir(parents=True, exist_ok=True)
+        stamp = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
+        (failed / f"{call.key}-{stamp}.json").write_text(
+            json.dumps(call.as_dict(), indent=2, ensure_ascii=False) + "\n"
+        )
 
     def totals(self) -> dict:
         return {

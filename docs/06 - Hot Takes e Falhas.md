@@ -32,6 +32,28 @@
   `eval/report.py` agora imprime piso e teto em toda tabela — não como cortesia,
   como defesa. **Número sem piso não é resultado.**
 
+## A chamada morta que virou cache (2026-08-29, primeira tentativa de S3)
+
+- **Falha observada:** a primeira chamada real morreu com `400 ... credit balance
+  is too low`. O `finally` do cliente gravou a chamada assim mesmo, com
+  `response: ""`, `input_tokens: 0`, dentro de `recordings/` — o mesmo diretório
+  que alimenta o modo replay.
+- **Causa:** eu usei `try/except/finally` para garantir que o erro virasse
+  artefato (o brief pede histórico de falha). O `finally` não distingue "gravar
+  para auditoria" de "gravar para reuso". São dois destinos, escrevi um.
+- **Por que é grave:** uma gravação com resposta vazia é **indistinguível** de um
+  modelo que respondeu vazio. A execução seguinte em replay serviria o vazio
+  como se fosse resultado, com o erro de saldo apagado do caminho. O número
+  sairia — e sairia errado, por um motivo que não aparece em lugar nenhum.
+- **Correção:** falha vai para `recordings/failed/<key>-<timestamp>.json`, nunca
+  para o cache. Teste de regressão `test_chamada_que_falha_nunca_vira_cache`
+  afirma as duas metades: nada no cache, e o replay seguinte continua quebrando.
+- **Lição:** "registrar o erro" e "guardar a resposta" parecem a mesma escrita e
+  não são. Todo cache que também serve de log precisa de dois destinos, porque
+  um deles alimenta uma métrica. É o mesmo modo de falha que o projeto audita —
+  agente que declara sucesso sem verificar — e ele apareceu no meu código antes
+  de aparecer no do modelo.
+
 ## Risco declarado do harness desta sessão
 
 O plano previa três papéis separados: Claude pensa, Cursor executa, Claude
