@@ -1,0 +1,3179 @@
+{
+  "corpus": "python-slugify-holdout",
+  "pinned_sha": "7b6d5d96c1995e6dccb39a19a13ba78d7d0a3ee4",
+  "tool": "mutmut, version 3.7.0",
+  "totals": {
+    "mutants": 288,
+    "parsed": 288,
+    "parse_errors": 0,
+    "line_mismatches": 0,
+    "killed": 189,
+    "survived": 99,
+    "survivor_fraction": 0.3438,
+    "other_status": {}
+  },
+  "survivor_lines": [
+    {
+      "file": "slugify/__main__.py",
+      "line": 11
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 13
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 15
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 17
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 19
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 20
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 21
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 22
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 23
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 24
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 26
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 27
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 28
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 29
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 30
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 31
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 32
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 34
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 35
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 36
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 37
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 38
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 40
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 41
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 42
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 47
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 53
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 54
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 63
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 81
+    }
+  ],
+  "killed_lines": [
+    {
+      "file": "slugify/__main__.py",
+      "line": 11
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 13
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 14
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 16
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 19
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 21
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 23
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 25
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 27
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 29
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 31
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 32
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 33
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 35
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 37
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 39
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 41
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 44
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 46
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 47
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 51
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 52
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 53
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 54
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 55
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 58
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 60
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 62
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 70
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 71
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 72
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 73
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 74
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 75
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 76
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 77
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 78
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 79
+    },
+    {
+      "file": "slugify/__main__.py",
+      "line": 80
+    }
+  ],
+  "mutants": [
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_1",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 11,
+      "original": "parser = argparse.ArgumentParser(description=\"Slug string\")",
+      "mutated": "parser = None"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_2",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 11,
+      "original": "parser = argparse.ArgumentParser(description=\"Slug string\")",
+      "mutated": "parser = argparse.ArgumentParser(description=None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_3",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 11,
+      "original": "parser = argparse.ArgumentParser(description=\"Slug string\")",
+      "mutated": "parser = argparse.ArgumentParser(description=\"XXSlug stringXX\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_4",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 11,
+      "original": "parser = argparse.ArgumentParser(description=\"Slug string\")",
+      "mutated": "parser = argparse.ArgumentParser(description=\"slug string\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_5",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 11,
+      "original": "parser = argparse.ArgumentParser(description=\"Slug string\")",
+      "mutated": "parser = argparse.ArgumentParser(description=\"SLUG STRING\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_10",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 13,
+      "original": "input_group = parser.add_argument_group(description=\"Input\")",
+      "mutated": "input_group = parser.add_argument_group(description=\"INPUT\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_6",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 13,
+      "original": "input_group = parser.add_argument_group(description=\"Input\")",
+      "mutated": "input_group = None"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_7",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 13,
+      "original": "input_group = parser.add_argument_group(description=\"Input\")",
+      "mutated": "input_group = parser.add_argument_group(description=None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_8",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 13,
+      "original": "input_group = parser.add_argument_group(description=\"Input\")",
+      "mutated": "input_group = parser.add_argument_group(description=\"XXInputXX\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_9",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 13,
+      "original": "input_group = parser.add_argument_group(description=\"Input\")",
+      "mutated": "input_group = parser.add_argument_group(description=\"input\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_11",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 14,
+      "original": "input_group.add_argument(\"input_string\", nargs='*',",
+      "mutated": "input_group.add_argument(None, nargs='*',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_12",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 14,
+      "original": "input_group.add_argument(\"input_string\", nargs='*',",
+      "mutated": "input_group.add_argument(\"input_string\", nargs=None,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_14",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 14,
+      "original": "input_group.add_argument(\"input_string\", nargs='*',",
+      "mutated": "input_group.add_argument(nargs='*',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_15",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 14,
+      "original": "input_group.add_argument(\"input_string\", nargs='*',",
+      "mutated": "input_group.add_argument(\"input_string\", help='Text to slugify')"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_17",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 14,
+      "original": "input_group.add_argument(\"input_string\", nargs='*',",
+      "mutated": "input_group.add_argument(\"XXinput_stringXX\", nargs='*',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_18",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 14,
+      "original": "input_group.add_argument(\"input_string\", nargs='*',",
+      "mutated": "input_group.add_argument(\"INPUT_STRING\", nargs='*',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_19",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 14,
+      "original": "input_group.add_argument(\"input_string\", nargs='*',",
+      "mutated": "input_group.add_argument(\"input_string\", nargs='XX*XX',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_13",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 15,
+      "original": "help='Text to slugify')",
+      "mutated": "help=None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_16",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 15,
+      "original": "help='Text to slugify')",
+      "mutated": ")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_20",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 15,
+      "original": "help='Text to slugify')",
+      "mutated": "help='XXText to slugifyXX')"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_21",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 15,
+      "original": "help='Text to slugify')",
+      "mutated": "help='text to slugify')"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_22",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 15,
+      "original": "help='Text to slugify')",
+      "mutated": "help='TEXT TO SLUGIFY')"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_23",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 16,
+      "original": "input_group.add_argument(\"--stdin\", action='store_true',",
+      "mutated": "input_group.add_argument(None, action='store_true',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_24",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 16,
+      "original": "input_group.add_argument(\"--stdin\", action='store_true',",
+      "mutated": "input_group.add_argument(\"--stdin\", action=None,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_26",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 16,
+      "original": "input_group.add_argument(\"--stdin\", action='store_true',",
+      "mutated": "input_group.add_argument(action='store_true',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_27",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 16,
+      "original": "input_group.add_argument(\"--stdin\", action='store_true',",
+      "mutated": "input_group.add_argument(\"--stdin\", help=\"Take the text from STDIN\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_29",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 16,
+      "original": "input_group.add_argument(\"--stdin\", action='store_true',",
+      "mutated": "input_group.add_argument(\"XX--stdinXX\", action='store_true',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_30",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 16,
+      "original": "input_group.add_argument(\"--stdin\", action='store_true',",
+      "mutated": "input_group.add_argument(\"--STDIN\", action='store_true',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_31",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 16,
+      "original": "input_group.add_argument(\"--stdin\", action='store_true',",
+      "mutated": "input_group.add_argument(\"--stdin\", action='XXstore_trueXX',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_32",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 16,
+      "original": "input_group.add_argument(\"--stdin\", action='store_true',",
+      "mutated": "input_group.add_argument(\"--stdin\", action='STORE_TRUE',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_25",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 17,
+      "original": "help=\"Take the text from STDIN\")",
+      "mutated": "help=None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_28",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 17,
+      "original": "help=\"Take the text from STDIN\")",
+      "mutated": ")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_33",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 17,
+      "original": "help=\"Take the text from STDIN\")",
+      "mutated": "help=\"XXTake the text from STDINXX\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_34",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 17,
+      "original": "help=\"Take the text from STDIN\")",
+      "mutated": "help=\"take the text from stdin\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_35",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 17,
+      "original": "help=\"Take the text from STDIN\")",
+      "mutated": "help=\"TAKE THE TEXT FROM STDIN\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_36",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 19,
+      "original": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=True,",
+      "mutated": "parser.add_argument(None, action='store_false', dest='entities', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_37",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 19,
+      "original": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=True,",
+      "mutated": "parser.add_argument(\"--no-entities\", action=None, dest='entities', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_38",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 19,
+      "original": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=True,",
+      "mutated": "parser.add_argument(\"--no-entities\", action='store_false', dest=None, default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_39",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 19,
+      "original": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=True,",
+      "mutated": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=None,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_41",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 19,
+      "original": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=True,",
+      "mutated": "parser.add_argument(action='store_false', dest='entities', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_42",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 19,
+      "original": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=True,",
+      "mutated": "parser.add_argument(\"--no-entities\", dest='entities', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_43",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 19,
+      "original": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=True,",
+      "mutated": "parser.add_argument(\"--no-entities\", action='store_false', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_44",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 19,
+      "original": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=True,",
+      "mutated": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', help=\"Do not convert HTML entities to unicode\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_46",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 19,
+      "original": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=True,",
+      "mutated": "parser.add_argument(\"XX--no-entitiesXX\", action='store_false', dest='entities', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_47",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 19,
+      "original": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=True,",
+      "mutated": "parser.add_argument(\"--NO-ENTITIES\", action='store_false', dest='entities', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_48",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 19,
+      "original": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=True,",
+      "mutated": "parser.add_argument(\"--no-entities\", action='XXstore_falseXX', dest='entities', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_49",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 19,
+      "original": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=True,",
+      "mutated": "parser.add_argument(\"--no-entities\", action='STORE_FALSE', dest='entities', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_50",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 19,
+      "original": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=True,",
+      "mutated": "parser.add_argument(\"--no-entities\", action='store_false', dest='XXentitiesXX', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_51",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 19,
+      "original": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=True,",
+      "mutated": "parser.add_argument(\"--no-entities\", action='store_false', dest='ENTITIES', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_52",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 19,
+      "original": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=True,",
+      "mutated": "parser.add_argument(\"--no-entities\", action='store_false', dest='entities', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_40",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 20,
+      "original": "help=\"Do not convert HTML entities to unicode\")",
+      "mutated": "help=None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_45",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 20,
+      "original": "help=\"Do not convert HTML entities to unicode\")",
+      "mutated": ")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_53",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 20,
+      "original": "help=\"Do not convert HTML entities to unicode\")",
+      "mutated": "help=\"XXDo not convert HTML entities to unicodeXX\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_54",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 20,
+      "original": "help=\"Do not convert HTML entities to unicode\")",
+      "mutated": "help=\"do not convert html entities to unicode\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_55",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 20,
+      "original": "help=\"Do not convert HTML entities to unicode\")",
+      "mutated": "help=\"DO NOT CONVERT HTML ENTITIES TO UNICODE\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_56",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 21,
+      "original": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=True,",
+      "mutated": "parser.add_argument(None, action='store_false', dest='decimal', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_57",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 21,
+      "original": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-decimal\", action=None, dest='decimal', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_58",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 21,
+      "original": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-decimal\", action='store_false', dest=None, default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_59",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 21,
+      "original": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=None,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_61",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 21,
+      "original": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=True,",
+      "mutated": "parser.add_argument(action='store_false', dest='decimal', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_62",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 21,
+      "original": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-decimal\", dest='decimal', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_63",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 21,
+      "original": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-decimal\", action='store_false', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_64",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 21,
+      "original": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', help=\"Do not convert HTML decimal to unicode\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_66",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 21,
+      "original": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=True,",
+      "mutated": "parser.add_argument(\"XX--no-decimalXX\", action='store_false', dest='decimal', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_67",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 21,
+      "original": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=True,",
+      "mutated": "parser.add_argument(\"--NO-DECIMAL\", action='store_false', dest='decimal', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_68",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 21,
+      "original": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-decimal\", action='XXstore_falseXX', dest='decimal', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_69",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 21,
+      "original": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-decimal\", action='STORE_FALSE', dest='decimal', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_70",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 21,
+      "original": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-decimal\", action='store_false', dest='XXdecimalXX', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_71",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 21,
+      "original": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-decimal\", action='store_false', dest='DECIMAL', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_72",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 21,
+      "original": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-decimal\", action='store_false', dest='decimal', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_60",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 22,
+      "original": "help=\"Do not convert HTML decimal to unicode\")",
+      "mutated": "help=None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_65",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 22,
+      "original": "help=\"Do not convert HTML decimal to unicode\")",
+      "mutated": ")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_73",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 22,
+      "original": "help=\"Do not convert HTML decimal to unicode\")",
+      "mutated": "help=\"XXDo not convert HTML decimal to unicodeXX\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_74",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 22,
+      "original": "help=\"Do not convert HTML decimal to unicode\")",
+      "mutated": "help=\"do not convert html decimal to unicode\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_75",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 22,
+      "original": "help=\"Do not convert HTML decimal to unicode\")",
+      "mutated": "help=\"DO NOT CONVERT HTML DECIMAL TO UNICODE\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_76",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 23,
+      "original": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=True,",
+      "mutated": "parser.add_argument(None, action='store_false', dest='hexadecimal', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_77",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 23,
+      "original": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-hexadecimal\", action=None, dest='hexadecimal', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_78",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 23,
+      "original": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest=None, default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_79",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 23,
+      "original": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=None,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_81",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 23,
+      "original": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=True,",
+      "mutated": "parser.add_argument(action='store_false', dest='hexadecimal', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_82",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 23,
+      "original": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-hexadecimal\", dest='hexadecimal', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_83",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 23,
+      "original": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-hexadecimal\", action='store_false', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_84",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 23,
+      "original": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', help=\"Do not convert HTML hexadecimal to unicode\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_86",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 23,
+      "original": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=True,",
+      "mutated": "parser.add_argument(\"XX--no-hexadecimalXX\", action='store_false', dest='hexadecimal', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_87",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 23,
+      "original": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=True,",
+      "mutated": "parser.add_argument(\"--NO-HEXADECIMAL\", action='store_false', dest='hexadecimal', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_88",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 23,
+      "original": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-hexadecimal\", action='XXstore_falseXX', dest='hexadecimal', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_89",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 23,
+      "original": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-hexadecimal\", action='STORE_FALSE', dest='hexadecimal', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_90",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 23,
+      "original": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='XXhexadecimalXX', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_91",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 23,
+      "original": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='HEXADECIMAL', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_92",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 23,
+      "original": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=True,",
+      "mutated": "parser.add_argument(\"--no-hexadecimal\", action='store_false', dest='hexadecimal', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_80",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 24,
+      "original": "help=\"Do not convert HTML hexadecimal to unicode\")",
+      "mutated": "help=None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_85",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 24,
+      "original": "help=\"Do not convert HTML hexadecimal to unicode\")",
+      "mutated": ")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_93",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 24,
+      "original": "help=\"Do not convert HTML hexadecimal to unicode\")",
+      "mutated": "help=\"XXDo not convert HTML hexadecimal to unicodeXX\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_94",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 24,
+      "original": "help=\"Do not convert HTML hexadecimal to unicode\")",
+      "mutated": "help=\"do not convert html hexadecimal to unicode\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_95",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 24,
+      "original": "help=\"Do not convert HTML hexadecimal to unicode\")",
+      "mutated": "help=\"DO NOT CONVERT HTML HEXADECIMAL TO UNICODE\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_100",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 25,
+      "original": "parser.add_argument(\"--max-length\", type=int, default=0,",
+      "mutated": "parser.add_argument(type=int, default=0,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_101",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 25,
+      "original": "parser.add_argument(\"--max-length\", type=int, default=0,",
+      "mutated": "parser.add_argument(\"--max-length\", default=0,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_102",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 25,
+      "original": "parser.add_argument(\"--max-length\", type=int, default=0,",
+      "mutated": "parser.add_argument(\"--max-length\", type=int, help=\"Output string length, 0 for no limit\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_104",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 25,
+      "original": "parser.add_argument(\"--max-length\", type=int, default=0,",
+      "mutated": "parser.add_argument(\"XX--max-lengthXX\", type=int, default=0,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_105",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 25,
+      "original": "parser.add_argument(\"--max-length\", type=int, default=0,",
+      "mutated": "parser.add_argument(\"--MAX-LENGTH\", type=int, default=0,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_106",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 25,
+      "original": "parser.add_argument(\"--max-length\", type=int, default=0,",
+      "mutated": "parser.add_argument(\"--max-length\", type=int, default=1,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_96",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 25,
+      "original": "parser.add_argument(\"--max-length\", type=int, default=0,",
+      "mutated": "parser.add_argument(None, type=int, default=0,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_97",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 25,
+      "original": "parser.add_argument(\"--max-length\", type=int, default=0,",
+      "mutated": "parser.add_argument(\"--max-length\", type=None, default=0,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_98",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 25,
+      "original": "parser.add_argument(\"--max-length\", type=int, default=0,",
+      "mutated": "parser.add_argument(\"--max-length\", type=int, default=None,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_103",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 26,
+      "original": "help=\"Output string length, 0 for no limit\")",
+      "mutated": ")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_107",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 26,
+      "original": "help=\"Output string length, 0 for no limit\")",
+      "mutated": "help=\"XXOutput string length, 0 for no limitXX\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_108",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 26,
+      "original": "help=\"Output string length, 0 for no limit\")",
+      "mutated": "help=\"output string length, 0 for no limit\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_109",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 26,
+      "original": "help=\"Output string length, 0 for no limit\")",
+      "mutated": "help=\"OUTPUT STRING LENGTH, 0 FOR NO LIMIT\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_99",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 26,
+      "original": "help=\"Output string length, 0 for no limit\")",
+      "mutated": "help=None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_110",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 27,
+      "original": "parser.add_argument(\"--word-boundary\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(None, action='store_true', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_111",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 27,
+      "original": "parser.add_argument(\"--word-boundary\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--word-boundary\", action=None, default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_112",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 27,
+      "original": "parser.add_argument(\"--word-boundary\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--word-boundary\", action='store_true', default=None,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_114",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 27,
+      "original": "parser.add_argument(\"--word-boundary\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(action='store_true', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_115",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 27,
+      "original": "parser.add_argument(\"--word-boundary\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--word-boundary\", default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_116",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 27,
+      "original": "parser.add_argument(\"--word-boundary\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--word-boundary\", action='store_true', help=\"Truncate to complete word even if length ends up shorter than --max_length\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_118",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 27,
+      "original": "parser.add_argument(\"--word-boundary\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"XX--word-boundaryXX\", action='store_true', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_119",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 27,
+      "original": "parser.add_argument(\"--word-boundary\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--WORD-BOUNDARY\", action='store_true', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_120",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 27,
+      "original": "parser.add_argument(\"--word-boundary\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--word-boundary\", action='XXstore_trueXX', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_121",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 27,
+      "original": "parser.add_argument(\"--word-boundary\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--word-boundary\", action='STORE_TRUE', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_122",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 27,
+      "original": "parser.add_argument(\"--word-boundary\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--word-boundary\", action='store_true', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_113",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 28,
+      "original": "help=\"Truncate to complete word even if length ends up shorter than --max_length\")",
+      "mutated": "help=None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_117",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 28,
+      "original": "help=\"Truncate to complete word even if length ends up shorter than --max_length\")",
+      "mutated": ")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_123",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 28,
+      "original": "help=\"Truncate to complete word even if length ends up shorter than --max_length\")",
+      "mutated": "help=\"XXTruncate to complete word even if length ends up shorter than --max_lengthXX\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_124",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 28,
+      "original": "help=\"Truncate to complete word even if length ends up shorter than --max_length\")",
+      "mutated": "help=\"truncate to complete word even if length ends up shorter than --max_length\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_125",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 28,
+      "original": "help=\"Truncate to complete word even if length ends up shorter than --max_length\")",
+      "mutated": "help=\"TRUNCATE TO COMPLETE WORD EVEN IF LENGTH ENDS UP SHORTER THAN --MAX_LENGTH\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_126",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 29,
+      "original": "parser.add_argument(\"--save-order\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(None, action='store_true', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_127",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 29,
+      "original": "parser.add_argument(\"--save-order\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--save-order\", action=None, default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_128",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 29,
+      "original": "parser.add_argument(\"--save-order\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--save-order\", action='store_true', default=None,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_130",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 29,
+      "original": "parser.add_argument(\"--save-order\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(action='store_true', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_131",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 29,
+      "original": "parser.add_argument(\"--save-order\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--save-order\", default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_132",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 29,
+      "original": "parser.add_argument(\"--save-order\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--save-order\", action='store_true', help=\"When set and --max_length > 0 return whole words in the initial order\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_134",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 29,
+      "original": "parser.add_argument(\"--save-order\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"XX--save-orderXX\", action='store_true', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_135",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 29,
+      "original": "parser.add_argument(\"--save-order\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--SAVE-ORDER\", action='store_true', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_136",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 29,
+      "original": "parser.add_argument(\"--save-order\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--save-order\", action='XXstore_trueXX', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_137",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 29,
+      "original": "parser.add_argument(\"--save-order\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--save-order\", action='STORE_TRUE', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_138",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 29,
+      "original": "parser.add_argument(\"--save-order\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--save-order\", action='store_true', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_129",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 30,
+      "original": "help=\"When set and --max_length > 0 return whole words in the initial order\")",
+      "mutated": "help=None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_133",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 30,
+      "original": "help=\"When set and --max_length > 0 return whole words in the initial order\")",
+      "mutated": ")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_139",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 30,
+      "original": "help=\"When set and --max_length > 0 return whole words in the initial order\")",
+      "mutated": "help=\"XXWhen set and --max_length > 0 return whole words in the initial orderXX\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_140",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 30,
+      "original": "help=\"When set and --max_length > 0 return whole words in the initial order\")",
+      "mutated": "help=\"when set and --max_length > 0 return whole words in the initial order\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_141",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 30,
+      "original": "help=\"When set and --max_length > 0 return whole words in the initial order\")",
+      "mutated": "help=\"WHEN SET AND --MAX_LENGTH > 0 RETURN WHOLE WORDS IN THE INITIAL ORDER\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_142",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 31,
+      "original": "parser.add_argument(\"--separator\", type=str, default=DEFAULT_SEPARATOR,",
+      "mutated": "parser.add_argument(None, type=str, default=DEFAULT_SEPARATOR,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_143",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 31,
+      "original": "parser.add_argument(\"--separator\", type=str, default=DEFAULT_SEPARATOR,",
+      "mutated": "parser.add_argument(\"--separator\", type=None, default=DEFAULT_SEPARATOR,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_144",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 31,
+      "original": "parser.add_argument(\"--separator\", type=str, default=DEFAULT_SEPARATOR,",
+      "mutated": "parser.add_argument(\"--separator\", type=str, default=None,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_146",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 31,
+      "original": "parser.add_argument(\"--separator\", type=str, default=DEFAULT_SEPARATOR,",
+      "mutated": "parser.add_argument(type=str, default=DEFAULT_SEPARATOR,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_147",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 31,
+      "original": "parser.add_argument(\"--separator\", type=str, default=DEFAULT_SEPARATOR,",
+      "mutated": "parser.add_argument(\"--separator\", default=DEFAULT_SEPARATOR,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_148",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 31,
+      "original": "parser.add_argument(\"--separator\", type=str, default=DEFAULT_SEPARATOR,",
+      "mutated": "parser.add_argument(\"--separator\", type=str, help=\"Separator between words. By default \" + DEFAULT_SEPARATOR)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_150",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 31,
+      "original": "parser.add_argument(\"--separator\", type=str, default=DEFAULT_SEPARATOR,",
+      "mutated": "parser.add_argument(\"XX--separatorXX\", type=str, default=DEFAULT_SEPARATOR,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_151",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 31,
+      "original": "parser.add_argument(\"--separator\", type=str, default=DEFAULT_SEPARATOR,",
+      "mutated": "parser.add_argument(\"--SEPARATOR\", type=str, default=DEFAULT_SEPARATOR,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_145",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 32,
+      "original": "help=\"Separator between words. By default \" + DEFAULT_SEPARATOR)",
+      "mutated": "help=None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_149",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 32,
+      "original": "help=\"Separator between words. By default \" + DEFAULT_SEPARATOR)",
+      "mutated": ")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_152",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 32,
+      "original": "help=\"Separator between words. By default \" + DEFAULT_SEPARATOR)",
+      "mutated": "help=\"Separator between words. By default \" - DEFAULT_SEPARATOR)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_153",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 32,
+      "original": "help=\"Separator between words. By default \" + DEFAULT_SEPARATOR)",
+      "mutated": "help=\"XXSeparator between words. By default XX\" + DEFAULT_SEPARATOR)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_154",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 32,
+      "original": "help=\"Separator between words. By default \" + DEFAULT_SEPARATOR)",
+      "mutated": "help=\"separator between words. by default \" + DEFAULT_SEPARATOR)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_155",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 32,
+      "original": "help=\"Separator between words. By default \" + DEFAULT_SEPARATOR)",
+      "mutated": "help=\"SEPARATOR BETWEEN WORDS. BY DEFAULT \" + DEFAULT_SEPARATOR)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_156",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 33,
+      "original": "parser.add_argument(\"--stopwords\", nargs='+',",
+      "mutated": "parser.add_argument(None, nargs='+',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_157",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 33,
+      "original": "parser.add_argument(\"--stopwords\", nargs='+',",
+      "mutated": "parser.add_argument(\"--stopwords\", nargs=None,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_159",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 33,
+      "original": "parser.add_argument(\"--stopwords\", nargs='+',",
+      "mutated": "parser.add_argument(nargs='+',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_160",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 33,
+      "original": "parser.add_argument(\"--stopwords\", nargs='+',",
+      "mutated": "parser.add_argument(\"--stopwords\", help=\"Words to discount\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_162",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 33,
+      "original": "parser.add_argument(\"--stopwords\", nargs='+',",
+      "mutated": "parser.add_argument(\"XX--stopwordsXX\", nargs='+',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_163",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 33,
+      "original": "parser.add_argument(\"--stopwords\", nargs='+',",
+      "mutated": "parser.add_argument(\"--STOPWORDS\", nargs='+',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_164",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 33,
+      "original": "parser.add_argument(\"--stopwords\", nargs='+',",
+      "mutated": "parser.add_argument(\"--stopwords\", nargs='XX+XX',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_158",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 34,
+      "original": "help=\"Words to discount\")",
+      "mutated": "help=None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_161",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 34,
+      "original": "help=\"Words to discount\")",
+      "mutated": ")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_165",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 34,
+      "original": "help=\"Words to discount\")",
+      "mutated": "help=\"XXWords to discountXX\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_166",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 34,
+      "original": "help=\"Words to discount\")",
+      "mutated": "help=\"words to discount\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_167",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 34,
+      "original": "help=\"Words to discount\")",
+      "mutated": "help=\"WORDS TO DISCOUNT\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_168",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 35,
+      "original": "parser.add_argument(\"--regex-pattern\",",
+      "mutated": "parser.add_argument(None,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_170",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 35,
+      "original": "parser.add_argument(\"--regex-pattern\",",
+      "mutated": "parser.add_argument(help=\"Python regex pattern for disallowed characters\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_172",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 35,
+      "original": "parser.add_argument(\"--regex-pattern\",",
+      "mutated": "parser.add_argument(\"XX--regex-patternXX\","
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_173",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 35,
+      "original": "parser.add_argument(\"--regex-pattern\",",
+      "mutated": "parser.add_argument(\"--REGEX-PATTERN\","
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_169",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 36,
+      "original": "help=\"Python regex pattern for disallowed characters\")",
+      "mutated": "help=None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_171",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 36,
+      "original": "help=\"Python regex pattern for disallowed characters\")",
+      "mutated": ")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_174",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 36,
+      "original": "help=\"Python regex pattern for disallowed characters\")",
+      "mutated": "help=\"XXPython regex pattern for disallowed charactersXX\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_175",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 36,
+      "original": "help=\"Python regex pattern for disallowed characters\")",
+      "mutated": "help=\"python regex pattern for disallowed characters\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_176",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 36,
+      "original": "help=\"Python regex pattern for disallowed characters\")",
+      "mutated": "help=\"PYTHON REGEX PATTERN FOR DISALLOWED CHARACTERS\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_177",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 37,
+      "original": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=True,",
+      "mutated": "parser.add_argument(None, action='store_false', dest='lowercase', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_178",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 37,
+      "original": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=True,",
+      "mutated": "parser.add_argument(\"--no-lowercase\", action=None, dest='lowercase', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_179",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 37,
+      "original": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=True,",
+      "mutated": "parser.add_argument(\"--no-lowercase\", action='store_false', dest=None, default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_180",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 37,
+      "original": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=True,",
+      "mutated": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=None,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_182",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 37,
+      "original": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=True,",
+      "mutated": "parser.add_argument(action='store_false', dest='lowercase', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_183",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 37,
+      "original": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=True,",
+      "mutated": "parser.add_argument(\"--no-lowercase\", dest='lowercase', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_184",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 37,
+      "original": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=True,",
+      "mutated": "parser.add_argument(\"--no-lowercase\", action='store_false', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_185",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 37,
+      "original": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=True,",
+      "mutated": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', help=\"Activate case sensitivity\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_187",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 37,
+      "original": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=True,",
+      "mutated": "parser.add_argument(\"XX--no-lowercaseXX\", action='store_false', dest='lowercase', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_188",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 37,
+      "original": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=True,",
+      "mutated": "parser.add_argument(\"--NO-LOWERCASE\", action='store_false', dest='lowercase', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_189",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 37,
+      "original": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=True,",
+      "mutated": "parser.add_argument(\"--no-lowercase\", action='XXstore_falseXX', dest='lowercase', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_190",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 37,
+      "original": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=True,",
+      "mutated": "parser.add_argument(\"--no-lowercase\", action='STORE_FALSE', dest='lowercase', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_191",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 37,
+      "original": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=True,",
+      "mutated": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='XXlowercaseXX', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_192",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 37,
+      "original": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=True,",
+      "mutated": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='LOWERCASE', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_193",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 37,
+      "original": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=True,",
+      "mutated": "parser.add_argument(\"--no-lowercase\", action='store_false', dest='lowercase', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_181",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 38,
+      "original": "help=\"Activate case sensitivity\")",
+      "mutated": "help=None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_186",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 38,
+      "original": "help=\"Activate case sensitivity\")",
+      "mutated": ")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_194",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 38,
+      "original": "help=\"Activate case sensitivity\")",
+      "mutated": "help=\"XXActivate case sensitivityXX\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_195",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 38,
+      "original": "help=\"Activate case sensitivity\")",
+      "mutated": "help=\"activate case sensitivity\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_196",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 38,
+      "original": "help=\"Activate case sensitivity\")",
+      "mutated": "help=\"ACTIVATE CASE SENSITIVITY\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_197",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 39,
+      "original": "parser.add_argument(\"--replacements\", nargs='+',",
+      "mutated": "parser.add_argument(None, nargs='+',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_198",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 39,
+      "original": "parser.add_argument(\"--replacements\", nargs='+',",
+      "mutated": "parser.add_argument(\"--replacements\", nargs=None,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_200",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 39,
+      "original": "parser.add_argument(\"--replacements\", nargs='+',",
+      "mutated": "parser.add_argument(nargs='+',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_201",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 39,
+      "original": "parser.add_argument(\"--replacements\", nargs='+',",
+      "mutated": "parser.add_argument(\"--replacements\", help=\"\"\"Additional replacement rules e.g. \"|->or\", \"%%->percent\".\"\"\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_203",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 39,
+      "original": "parser.add_argument(\"--replacements\", nargs='+',",
+      "mutated": "parser.add_argument(\"XX--replacementsXX\", nargs='+',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_204",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 39,
+      "original": "parser.add_argument(\"--replacements\", nargs='+',",
+      "mutated": "parser.add_argument(\"--REPLACEMENTS\", nargs='+',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_205",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 39,
+      "original": "parser.add_argument(\"--replacements\", nargs='+',",
+      "mutated": "parser.add_argument(\"--replacements\", nargs='XX+XX',"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_199",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 40,
+      "original": "help=\"\"\"Additional replacement rules e.g. \"|->or\", \"%%->percent\".\"\"\")",
+      "mutated": "help=None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_202",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 40,
+      "original": "help=\"\"\"Additional replacement rules e.g. \"|->or\", \"%%->percent\".\"\"\")",
+      "mutated": ")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_206",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 41,
+      "original": "parser.add_argument(\"--allow-unicode\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(None, action='store_true', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_207",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 41,
+      "original": "parser.add_argument(\"--allow-unicode\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--allow-unicode\", action=None, default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_208",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 41,
+      "original": "parser.add_argument(\"--allow-unicode\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--allow-unicode\", action='store_true', default=None,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_210",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 41,
+      "original": "parser.add_argument(\"--allow-unicode\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(action='store_true', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_211",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 41,
+      "original": "parser.add_argument(\"--allow-unicode\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--allow-unicode\", default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_212",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 41,
+      "original": "parser.add_argument(\"--allow-unicode\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--allow-unicode\", action='store_true', help=\"Allow unicode characters\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_214",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 41,
+      "original": "parser.add_argument(\"--allow-unicode\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"XX--allow-unicodeXX\", action='store_true', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_215",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 41,
+      "original": "parser.add_argument(\"--allow-unicode\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--ALLOW-UNICODE\", action='store_true', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_216",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 41,
+      "original": "parser.add_argument(\"--allow-unicode\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--allow-unicode\", action='XXstore_trueXX', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_217",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 41,
+      "original": "parser.add_argument(\"--allow-unicode\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--allow-unicode\", action='STORE_TRUE', default=False,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_218",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 41,
+      "original": "parser.add_argument(\"--allow-unicode\", action='store_true', default=False,",
+      "mutated": "parser.add_argument(\"--allow-unicode\", action='store_true', default=True,"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_209",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 42,
+      "original": "help=\"Allow unicode characters\")",
+      "mutated": "help=None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_213",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 42,
+      "original": "help=\"Allow unicode characters\")",
+      "mutated": ")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_219",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 42,
+      "original": "help=\"Allow unicode characters\")",
+      "mutated": "help=\"XXAllow unicode charactersXX\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_220",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 42,
+      "original": "help=\"Allow unicode characters\")",
+      "mutated": "help=\"allow unicode characters\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_221",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 42,
+      "original": "help=\"Allow unicode characters\")",
+      "mutated": "help=\"ALLOW UNICODE CHARACTERS\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_222",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 44,
+      "original": "args = parser.parse_args(argv[1:])",
+      "mutated": "args = None"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_223",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 44,
+      "original": "args = parser.parse_args(argv[1:])",
+      "mutated": "args = parser.parse_args(None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_224",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 44,
+      "original": "args = parser.parse_args(argv[1:])",
+      "mutated": "args = parser.parse_args(argv[2:])"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_225",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 46,
+      "original": "if args.input_string and args.stdin:",
+      "mutated": "if args.input_string or args.stdin:"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_226",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 47,
+      "original": "parser.error(\"Input strings and --stdin cannot work together\")",
+      "mutated": "parser.error(None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_227",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 47,
+      "original": "parser.error(\"Input strings and --stdin cannot work together\")",
+      "mutated": "parser.error(\"XXInput strings and --stdin cannot work togetherXX\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_228",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 47,
+      "original": "parser.error(\"Input strings and --stdin cannot work together\")",
+      "mutated": "parser.error(\"input strings and --stdin cannot work together\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_229",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 47,
+      "original": "parser.error(\"Input strings and --stdin cannot work together\")",
+      "mutated": "parser.error(\"INPUT STRINGS AND --STDIN CANNOT WORK TOGETHER\")"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_230",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 51,
+      "original": "SEP = '->'",
+      "mutated": "SEP = None"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_231",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 51,
+      "original": "SEP = '->'",
+      "mutated": "SEP = 'XX->XX'"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_232",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 52,
+      "original": "if SEP not in repl:",
+      "mutated": "if SEP in repl:"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_233",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 53,
+      "original": "parser.error(\"Replacements must be of the form: ORIGINAL{SEP}REPLACED\".format(SEP=SEP))",
+      "mutated": "parser.error(None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_234",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 53,
+      "original": "parser.error(\"Replacements must be of the form: ORIGINAL{SEP}REPLACED\".format(SEP=SEP))",
+      "mutated": "parser.error(\"Replacements must be of the form: ORIGINAL{SEP}REPLACED\".format(SEP=None))"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_235",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 53,
+      "original": "parser.error(\"Replacements must be of the form: ORIGINAL{SEP}REPLACED\".format(SEP=SEP))",
+      "mutated": "parser.error(\"XXReplacements must be of the form: ORIGINAL{SEP}REPLACEDXX\".format(SEP=SEP))"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_236",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 53,
+      "original": "parser.error(\"Replacements must be of the form: ORIGINAL{SEP}REPLACED\".format(SEP=SEP))",
+      "mutated": "parser.error(\"replacements must be of the form: original{sep}replaced\".format(SEP=SEP))"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_237",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 53,
+      "original": "parser.error(\"Replacements must be of the form: ORIGINAL{SEP}REPLACED\".format(SEP=SEP))",
+      "mutated": "parser.error(\"REPLACEMENTS MUST BE OF THE FORM: ORIGINAL{SEP}REPLACED\".format(SEP=SEP))"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_238",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 54,
+      "original": "return repl.split(SEP, 1)",
+      "mutated": "return repl.split(None, 1)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_239",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 54,
+      "original": "return repl.split(SEP, 1)",
+      "mutated": "return repl.split(SEP, None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_240",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 54,
+      "original": "return repl.split(SEP, 1)",
+      "mutated": "return repl.split(1)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_241",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 54,
+      "original": "return repl.split(SEP, 1)",
+      "mutated": "return repl.split(SEP, )"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_242",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 54,
+      "original": "return repl.split(SEP, 1)",
+      "mutated": "return repl.rsplit(SEP, 1)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_243",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 54,
+      "original": "return repl.split(SEP, 1)",
+      "mutated": "return repl.split(SEP, 2)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_244",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 55,
+      "original": "args.replacements = [split_check(repl) for repl in args.replacements]",
+      "mutated": "args.replacements = None"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_245",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 55,
+      "original": "args.replacements = [split_check(repl) for repl in args.replacements]",
+      "mutated": "args.replacements = [split_check(None) for repl in args.replacements]"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_246",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 58,
+      "original": "args.input_string = \" \".join(args.input_string)",
+      "mutated": "args.input_string = None"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_247",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 58,
+      "original": "args.input_string = \" \".join(args.input_string)",
+      "mutated": "args.input_string = \" \".join(None)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_248",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 58,
+      "original": "args.input_string = \" \".join(args.input_string)",
+      "mutated": "args.input_string = \"XX XX\".join(args.input_string)"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_249",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 60,
+      "original": "args.input_string = sys.stdin.read()",
+      "mutated": "args.input_string = None"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_250",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 62,
+      "original": "if not args.input_string:",
+      "mutated": "if args.input_string:"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_251",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 63,
+      "original": "args.input_string = ''",
+      "mutated": "args.input_string = None"
+    },
+    {
+      "id": "slugify.__main__.x_parse_args__mutmut_252",
+      "module": "slugify.__main__",
+      "function": "parse_args",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 63,
+      "original": "args.input_string = ''",
+      "mutated": "args.input_string = 'XXXX'"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_1",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 70,
+      "original": "text=args.input_string,",
+      "mutated": "textXX=args.input_string,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_13",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 70,
+      "original": "text=args.input_string,",
+      "mutated": "text=None,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_25",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 70,
+      "original": "text=args.input_string,",
+      "mutated": ""
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_14",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 71,
+      "original": "entities=args.entities,",
+      "mutated": "entities=None,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_2",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 71,
+      "original": "entities=args.entities,",
+      "mutated": "entitiesXX=args.entities,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_26",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 71,
+      "original": "entities=args.entities,",
+      "mutated": ""
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_15",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 72,
+      "original": "decimal=args.decimal,",
+      "mutated": "decimal=None,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_27",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 72,
+      "original": "decimal=args.decimal,",
+      "mutated": ""
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_3",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 72,
+      "original": "decimal=args.decimal,",
+      "mutated": "decimalXX=args.decimal,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_16",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 73,
+      "original": "hexadecimal=args.hexadecimal,",
+      "mutated": "hexadecimal=None,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_28",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 73,
+      "original": "hexadecimal=args.hexadecimal,",
+      "mutated": ""
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_4",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 73,
+      "original": "hexadecimal=args.hexadecimal,",
+      "mutated": "hexadecimalXX=args.hexadecimal,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_17",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 74,
+      "original": "max_length=args.max_length,",
+      "mutated": "max_length=None,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_29",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 74,
+      "original": "max_length=args.max_length,",
+      "mutated": ""
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_5",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 74,
+      "original": "max_length=args.max_length,",
+      "mutated": "max_lengthXX=args.max_length,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_18",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 75,
+      "original": "word_boundary=args.word_boundary,",
+      "mutated": "word_boundary=None,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_30",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 75,
+      "original": "word_boundary=args.word_boundary,",
+      "mutated": ""
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_6",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 75,
+      "original": "word_boundary=args.word_boundary,",
+      "mutated": "word_boundaryXX=args.word_boundary,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_19",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 76,
+      "original": "save_order=args.save_order,",
+      "mutated": "save_order=None,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_31",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 76,
+      "original": "save_order=args.save_order,",
+      "mutated": ""
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_7",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 76,
+      "original": "save_order=args.save_order,",
+      "mutated": "save_orderXX=args.save_order,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_20",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 77,
+      "original": "separator=args.separator,",
+      "mutated": "separator=None,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_32",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 77,
+      "original": "separator=args.separator,",
+      "mutated": ""
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_8",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 77,
+      "original": "separator=args.separator,",
+      "mutated": "separatorXX=args.separator,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_21",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 78,
+      "original": "stopwords=args.stopwords,",
+      "mutated": "stopwords=None,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_33",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 78,
+      "original": "stopwords=args.stopwords,",
+      "mutated": ""
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_9",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 78,
+      "original": "stopwords=args.stopwords,",
+      "mutated": "stopwordsXX=args.stopwords,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_10",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 79,
+      "original": "lowercase=args.lowercase,",
+      "mutated": "lowercaseXX=args.lowercase,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_22",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 79,
+      "original": "lowercase=args.lowercase,",
+      "mutated": "lowercase=None,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_34",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 79,
+      "original": "lowercase=args.lowercase,",
+      "mutated": ""
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_11",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 80,
+      "original": "replacements=args.replacements,",
+      "mutated": "replacementsXX=args.replacements,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_23",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 80,
+      "original": "replacements=args.replacements,",
+      "mutated": "replacements=None,"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_35",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "killed",
+      "file": "slugify/__main__.py",
+      "line": 80,
+      "original": "replacements=args.replacements,",
+      "mutated": ""
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_12",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 81,
+      "original": "allow_unicode=args.allow_unicode",
+      "mutated": "allow_unicodeXX=args.allow_unicode"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_24",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 81,
+      "original": "allow_unicode=args.allow_unicode",
+      "mutated": "allow_unicode=None"
+    },
+    {
+      "id": "slugify.__main__.x_slugify_params__mutmut_36",
+      "module": "slugify.__main__",
+      "function": "slugify_params",
+      "status": "survived",
+      "file": "slugify/__main__.py",
+      "line": 81,
+      "original": "allow_unicode=args.allow_unicode",
+      "mutated": ")"
+    }
+  ],
+  "parse_errors": [],
+  "line_mismatches": []
+}

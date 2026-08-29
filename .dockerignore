@@ -1,0 +1,7 @@
+.venv
+corpus/*/.venv
+corpus/*/mutants
+**/__pycache__
+**/*.pyc
+.git
+.pytest_cache

@@ -1,0 +1,12 @@
+[project]
+name = "deadzone"
+version = "0.1.0"
+description = "Test blind spot predictor — predicts which lines a test suite cannot see, measured against mutation-testing ground truth"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+corpus = ["mutmut==3.7.0", "pytest>=8", "text-unidecode>=1.3"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
