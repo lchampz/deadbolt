@@ -80,6 +80,8 @@ class Call:
     input_tokens: int = 0
     output_tokens: int = 0
     cost_usd: float = 0.0
+    cache_read_tokens: int = 0
+    cache_write_tokens: int = 0
     wall_seconds: float = 0.0
     timestamp: str = ""
     stage: str = ""
@@ -90,10 +92,24 @@ class Call:
         return self.__dict__.copy()
 
 
-def _price(model: str, tin: int, tout: int) -> float:
+def _price(model: str, tin: int, tout: int, cache_read: int = 0, cache_write: int = 0) -> float:
+    """Custo real, com os tokens de cache incluídos.
+
+    A primeira versão somava só entrada e saída. Escrita de cache custa 1.25x a
+    entrada e leitura custa 0.1x — omiti-las faz o relatório afirmar um custo
+    menor que o cobrado, que é a direção errada para errar num item que o rubric
+    pontua. Custou um contador que dizia US$ 4,25 quando a conta real passava de
+    US$ 6,80.
+    """
     for name, (pin, pout) in PRICING.items():
         if model.startswith(name):
-            return round(tin / 1e6 * pin + tout / 1e6 * pout, 6)
+            return round(
+                tin / 1e6 * pin
+                + tout / 1e6 * pout
+                + cache_write / 1e6 * pin * 1.25
+                + cache_read / 1e6 * pin * 0.10,
+                6,
+            )
     return 0.0
 
 
@@ -118,6 +134,8 @@ class Client:
     calls: list[Call] = field(default_factory=list)
     cache_read: int = 0
     cache_write: int = 0
+    _last_cache_read: int = 0
+    _last_cache_write: int = 0
 
     def __post_init__(self) -> None:
         self.recordings.mkdir(parents=True, exist_ok=True)
@@ -160,6 +178,12 @@ class Client:
                                                effort=effort)
         except Exception as exc:  # noqa: BLE001 — o erro vira artefato, mas NUNCA cache
             call.error = f"{type(exc).__name__}: {exc}"
+            # Chamada truncada em max_tokens GEROU saída e FOI COBRADA. Registrar
+            # custo zero aqui é como o contador subestimou o gasto real: o custo
+            # só era calculado no caminho de sucesso.
+            call.input_tokens = getattr(exc, "_dz_in", 0)
+            call.output_tokens = getattr(exc, "_dz_out", 0)
+            call.cost_usd = _price(self.model, call.input_tokens, call.output_tokens)
             call.wall_seconds = round(time.time() - started, 3)
             call.timestamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
             self._record_failure(call)
@@ -168,7 +192,10 @@ class Client:
         call.response, call.input_tokens, call.output_tokens = text, tin, tout
         call.stop_reason = stop
         call.wall_seconds = round(time.time() - started, 3)
-        call.cost_usd = _price(self.model, call.input_tokens, call.output_tokens)
+        call.cache_read_tokens = self._last_cache_read
+        call.cache_write_tokens = self._last_cache_write
+        call.cost_usd = _price(self.model, call.input_tokens, call.output_tokens,
+                               call.cache_read_tokens, call.cache_write_tokens)
         call.timestamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
         path.write_text(json.dumps(call.as_dict(), indent=2, ensure_ascii=False) + "\n")
         self.calls.append(call)
@@ -210,6 +237,8 @@ class Client:
 
     def _live(self, system: str, prompt: str, *, cache_system: bool = False,
               effort: str | None = None) -> tuple[str, int, int, str]:
+        if self.provider == "cursor":
+            return self._live_cursor(system, prompt)
         if self.provider != "anthropic":
             raise NotImplementedError(
                 f"provider {self.provider!r} não implementado. Este projeto mede um "
@@ -244,16 +273,61 @@ class Client:
                 f"quebraria a comparação. Ver src/deadzone/llm.py."
             )
         if response.stop_reason == "max_tokens":
-            raise RuntimeError(
+            err = RuntimeError(
                 f"resposta truncada em max_tokens={MAX_TOKENS} (stage/unit na gravação). "
                 f"Predição truncada não é predição ruim, é predição ausente — "
                 f"aumente MAX_TOKENS e regrave, não pontue isto."
             )
+            err._dz_in, err._dz_out = u.input_tokens, u.output_tokens
+            raise err
 
         text = "".join(b.text for b in response.content if b.type == "text")
         u = response.usage
         # tokens lidos do cache custam ~0.1x; escritos custam ~1.25x. Somados à
         # entrada para que o custo reportado seja o real, não o otimista.
-        self.cache_read += getattr(u, "cache_read_input_tokens", 0) or 0
-        self.cache_write += getattr(u, "cache_creation_input_tokens", 0) or 0
+        self._last_cache_read = getattr(u, "cache_read_input_tokens", 0) or 0
+        self._last_cache_write = getattr(u, "cache_creation_input_tokens", 0) or 0
+        self.cache_read += self._last_cache_read
+        self.cache_write += self._last_cache_write
         return text, u.input_tokens, u.output_tokens, response.stop_reason or ""
+
+    def _live_cursor(self, system: str, prompt: str) -> tuple[str, int, int, str]:
+        """Mesmo modelo, harness diferente — declarado, não escondido.
+
+        Usado só quando o crédito de API acaba. O `cursor-agent` roda na
+        assinatura do usuário, com system prompt e scaffolding próprios, então um
+        número produzido aqui **não é comparável lado a lado** com um produzido
+        pela API. Vai reportado à parte e rotulado (METRIC_TESTGEN.md § 13).
+
+        `--mode ask` é obrigatório: sem ele o cursor-agent é um agente com
+        ferramentas de escrita e shell, e um gerador de teste não pode ter
+        permissão de editar o repositório que ele está medindo.
+        """
+        import shutil as _sh
+        import subprocess
+
+        exe = _sh.which("cursor-agent")
+        if not exe:
+            raise RuntimeError("cursor-agent não encontrado no PATH")
+
+        import tempfile
+
+        model = os.environ.get("DEADZONE_CURSOR_MODEL", "claude-opus-5-thinking-high")
+        junto = f"{system}\n\n---\n\n{prompt}"
+        # Roda num diretório vazio e descartável, nunca no repositório. `--mode ask`
+        # já é somente-leitura; o diretório vazio é a segunda tranca, para que
+        # `--trust` não signifique confiar com o repo que está sendo medido.
+        with tempfile.TemporaryDirectory(prefix="deadbolt-cursor-") as vazio:
+            proc = subprocess.run(
+                [exe, "-p", "--output-format", "text", "--mode", "ask",
+                 "--trust", "--model", model, junto],
+                capture_output=True, text=True, timeout=1800, cwd=vazio,
+            )
+        if proc.returncode != 0:
+            raise RuntimeError(f"cursor-agent falhou ({proc.returncode}): {proc.stderr[-400:]}")
+        texto = proc.stdout.strip()
+        if not texto:
+            raise RuntimeError(f"cursor-agent devolveu vazio. stderr: {proc.stderr[-400:]}")
+        # Sem contagem de tokens: assinatura não é medida por token, e inventar
+        # um número aqui seria pior do que não ter nenhum.
+        return texto, 0, 0, "end_turn"

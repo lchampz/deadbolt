@@ -264,3 +264,48 @@ offset de linha do S1, com o parser que descartava mutantes em silêncio, e agor
 com a mutação de comando multi-linha. A defesa que funcionou nas três foi a
 mesma: **duas medições independentes e uma assertiva que falha alto quando elas
 discordam.** Ela existe agora e foi ela que pegou isto.
+
+---
+
+## 13. Backend secundário e o desenho que ele exige — 2026-08-30, antes de rodar
+
+O crédito de API acabou com DEV e HOLDOUT medidos e TRANSFER pela metade. O
+TRANSFER foi retomado por um backend diferente: **`cursor-agent`**, que roda na
+assinatura do usuário. O Opus e o Codex do Cursor também estavam com cota
+esgotada; o modelo disponível foi **`composer-2.5`**.
+
+### Por que isso não pode ser colado na mesma tabela
+
+Trocar o backend muda **duas** coisas ao mesmo tempo: o modelo e o harness (o
+`cursor-agent` tem system prompt e scaffolding próprios). Um número do TRANSFER
+produzido assim, posto ao lado do DEV/API, confundiria "repositório diferente"
+com "modelo diferente" — exatamente o erro que este projeto existe para expor.
+
+### O desenho que recupera a comparação
+
+Rodar o backend secundário em **dois** conjuntos, não um:
+
+| execução | backend | serve para |
+|---|---|---|
+| DEV | API · `claude-opus-5` | linha principal, já medida |
+| HOLDOUT | API · `claude-opus-5` | linha principal, já medida |
+| **DEV (controle)** | Cursor · `composer-2.5` | isola o **efeito do backend** contra o DEV/API |
+| **TRANSFER** | Cursor · `composer-2.5` | isola o **efeito do repositório** contra o DEV/Cursor |
+
+Com o DEV medido nos dois backends, `DEV/Cursor → TRANSFER/Cursor` é uma
+comparação de transferência **limpa**: mesmo modelo, mesmo harness, repositórios
+diferentes. O backend deixa de ser variável confundida e vira eixo medido.
+
+### O que fica dito com todas as letras
+
+- O número do TRANSFER **não** é comparável linha a linha com DEV/API e
+  HOLDOUT/API. Toda tabela marca o backend.
+- `composer-2.5` é um modelo rápido de codificação, mais fraco que `claude-opus-5`.
+  Score menor no backend secundário é **esperado** e não é achado sobre o corpus.
+- **Reprodução:** o resultado replica de `recordings/` sem chave e sem
+  assinatura, e a verificação com `mutmut` é totalmente reproduzível. Apenas
+  **regerar** os testes do TRANSFER exige uma assinatura Cursor. Declarado no
+  guia de reprodução, não escondido.
+- O `cursor-agent` roda com `--mode ask` (somente leitura) e com diretório de
+  trabalho vazio e descartável. Um gerador de testes não recebe permissão de
+  escrita no repositório que está sendo medido.
