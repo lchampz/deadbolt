@@ -10,9 +10,13 @@ Measured on: macOS 15 (darwin 24.6.0), Apple Silicon. Container: `python:3.12-sl
 ## Path A — container, no API key (the one that matters)
 
 ```bash
+git clone https://github.com/lchampz/deadzone.git && cd deadzone
 docker build -t deadzone .
-docker run --rm deadzone
+docker run --rm --network none deadzone
 ```
+
+`--network none` is not decoration: the whole path is offline by construction,
+so a missing credential cannot be papered over by a silent live call.
 
 Runtime: build ~40s, run <5s. Cost: $0.00.
 

@@ -67,7 +67,8 @@ next to the measured numbers. A number without its floor is not a result.
 ## 4. Reproduce it — no API key
 
 ```bash
-docker build -t deadzone . && docker run --rm deadzone
+git clone https://github.com/lchampz/deadzone.git && cd deadzone
+docker build -t deadzone . && docker run --rm --network none deadzone
 ```
 
 That prints the sanity controls and the final table, reading the frozen ground
