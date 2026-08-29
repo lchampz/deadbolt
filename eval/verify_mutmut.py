@@ -30,21 +30,29 @@ COUNT = re.compile(r"(\d+)/(\d+)\s+🎉\s*(\d+).*?🙁\s*(\d+)", re.S)
 def main() -> int:
     set_name = sys.argv[1] if len(sys.argv) > 1 else "dev"
     stage = sys.argv[2] if len(sys.argv) > 2 else "T3"
+    suf = sys.argv[3] if len(sys.argv) > 3 else ""
 
     corpus = Corpus(set_name)
-    res = json.loads((ROOT / "results" / f"testgen-{stage}-{set_name}.json").read_text())
+    res = json.loads((ROOT / "results" / f"testgen-{stage}-{set_name}{suf}.json").read_text())
     tests = [g["test"] for g in res["accepted"]]
 
-    sb = Sandbox(corpus, f"verify-{stage}")
+    sb = Sandbox(corpus, f"verify-{stage}{suf}")
     sb.write_tests("test_deadbolt.py", tests)
 
-    # o mutmut do corpus lê testpaths do pyproject; o arquivo novo tem que entrar
-    pj = sb.path / "pyproject.toml"
-    if pj.exists():
-        txt = pj.read_text()
-        txt = txt.replace('testpaths = ["test.py"]',
-                          'testpaths = ["test.py", "test_deadbolt.py"]')
-        pj.write_text(txt)
+    # O mutmut roda pytest com a seleção de testes da própria config dele. Trocar
+    # `testpaths` no pyproject só funcionava para o layout do slugify; no toolz não
+    # casava nada, o arquivo gerado nunca era coletado, e a verificação reportou
+    # +0.0000 de melhoria — tão implausível quanto o 1.0000 de antes.
+    cfg = sb.path / "setup.cfg"
+    txt = cfg.read_text() if cfg.exists() else "[mutmut]\n"
+    if "pytest_add_cli_args_test_selection" not in txt:
+        txt = txt.rstrip() + (
+            f"\npytest_add_cli_args_test_selection=\n"
+            f"    {corpus.spec['test_file']}\n"
+            f"    test_deadbolt.py\n"
+        )
+    cfg.write_text(txt)
+    print(f"[mutmut] seleção de teste: {corpus.spec['test_file']} + test_deadbolt.py")
 
     green = sb.pytest(corpus.spec["test_file"], "test_deadbolt.py")
     print(f"suíte + testes gerados: {'VERDE' if green.returncode == 0 else 'VERMELHA'}")
@@ -81,7 +89,7 @@ def main() -> int:
                 print(f"       → {g['mutated'][:60]!r}")
             else:
                 print(f"  {i}")
-    (ROOT / "results" / f"verify-{stage}-{set_name}.json").write_text(json.dumps({
+    (ROOT / "results" / f"verify-{stage}-{set_name}{suf}.json").write_text(json.dumps({
         "set": set_name, "stage": stage, "tool": "mutmut 3.7.0 run from scratch",
         "survivors_after": sorted(vivos), "proxy_disagreements": discordam,
     }, indent=2) + "\n")

@@ -1,0 +1,1388 @@
+{
+  "meta": {
+    "n_calls": 36,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "cost_usd": 0.0,
+    "wall_seconds": 3402.051,
+    "model": "composer-2.5",
+    "provider": "cursor",
+    "mode": "live",
+    "effort": "high",
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "set": "transfer",
+    "stage": "T3",
+    "mutants_total": 534,
+    "killed_before": 416,
+    "score_before": 0.779,
+    "newly_killed": 76,
+    "of_which_timeout": 0,
+    "killed_after": 492,
+    "score_after": 0.9213,
+    "survivors_attacked": 118,
+    "cru_n_tests": 58,
+    "cru_suite_green": true,
+    "filtrado_n_tests": 53,
+    "dropped_duplicate_name": 5,
+    "dropped_failing_on_original": 0,
+    "n_generated": 118,
+    "n_rejected_by_guards": 26,
+    "n_model_declined": 39,
+    "repair_rounds": 2
+  },
+  "killed_ids": [
+    "toolz.functoolz.x_apply__mutmut_2",
+    "toolz.functoolz.x_apply__mutmut_3",
+    "toolz.functoolz.x_apply__mutmut_4",
+    "toolz.functoolz.x_apply__mutmut_9",
+    "toolz.functoolz.x_has_keywords__mutmut_2",
+    "toolz.functoolz.x_has_varargs__mutmut_2",
+    "toolz.functoolz.x_instanceproperty__mutmut_1",
+    "toolz.functoolz.x_instanceproperty__mutmut_10",
+    "toolz.functoolz.x_instanceproperty__mutmut_11",
+    "toolz.functoolz.x_instanceproperty__mutmut_12",
+    "toolz.functoolz.x_instanceproperty__mutmut_13",
+    "toolz.functoolz.x_instanceproperty__mutmut_15",
+    "toolz.functoolz.x_instanceproperty__mutmut_16",
+    "toolz.functoolz.x_instanceproperty__mutmut_17",
+    "toolz.functoolz.x_instanceproperty__mutmut_18",
+    "toolz.functoolz.x_instanceproperty__mutmut_2",
+    "toolz.functoolz.x_instanceproperty__mutmut_20",
+    "toolz.functoolz.x_instanceproperty__mutmut_21",
+    "toolz.functoolz.x_instanceproperty__mutmut_3",
+    "toolz.functoolz.x_instanceproperty__mutmut_5",
+    "toolz.functoolz.x_instanceproperty__mutmut_6",
+    "toolz.functoolz.x_instanceproperty__mutmut_7",
+    "toolz.functoolz.x_instanceproperty__mutmut_8",
+    "toolz.functoolz.x_is_arity__mutmut_15",
+    "toolz.functoolz.x_is_arity__mutmut_17",
+    "toolz.functoolz.x_is_arity__mutmut_2",
+    "toolz.functoolz.x_is_valid_args__mutmut_2",
+    "toolz.functoolz.x_is_valid_args__mutmut_5",
+    "toolz.functoolz.x_is_valid_args__mutmut_7",
+    "toolz.functoolz.x_num_required_args__mutmut_2",
+    "toolz.functoolz.xǁComposeǁ__eq____mutmut_1",
+    "toolz.functoolz.xǁComposeǁ__hash____mutmut_1",
+    "toolz.functoolz.xǁComposeǁ__hash____mutmut_2",
+    "toolz.functoolz.xǁComposeǁ__hash____mutmut_3",
+    "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_1",
+    "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_11",
+    "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_4",
+    "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_6",
+    "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_9",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_10",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_11",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_12",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_13",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_2",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_3",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_4",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_60",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_62",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_66",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_67",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_68",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_69",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_70",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_71",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_76",
+    "toolz.functoolz.xǁcurryǁ__init____mutmut_77",
+    "toolz.functoolz.xǁcurryǁ__reduce____mutmut_15",
+    "toolz.functoolz.xǁcurryǁ__reduce____mutmut_19",
+    "toolz.functoolz.xǁcurryǁ__reduce____mutmut_20",
+    "toolz.functoolz.xǁcurryǁ__reduce____mutmut_21",
+    "toolz.functoolz.xǁcurryǁ__reduce____mutmut_22",
+    "toolz.functoolz.xǁcurryǁ__reduce____mutmut_23",
+    "toolz.functoolz.xǁcurryǁ__reduce____mutmut_25",
+    "toolz.functoolz.xǁcurryǁ__reduce____mutmut_26",
+    "toolz.functoolz.xǁcurryǁ__reduce____mutmut_27",
+    "toolz.functoolz.xǁcurryǁ__reduce____mutmut_28",
+    "toolz.functoolz.xǁcurryǁ__reduce____mutmut_60",
+    "toolz.functoolz.xǁcurryǁ__reduce____mutmut_61",
+    "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_10",
+    "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_7",
+    "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_9",
+    "toolz.functoolz.xǁcurryǁcall__mutmut_2",
+    "toolz.functoolz.xǁexceptsǁ__call____mutmut_2",
+    "toolz.functoolz.xǁjuxtǁ__call____mutmut_3",
+    "toolz.functoolz.xǁjuxtǁ__init____mutmut_1",
+    "toolz.functoolz.xǁjuxtǁ__init____mutmut_5"
+  ],
+  "timeout_ids": [],
+  "accepted": [
+    {
+      "mutant_id": "toolz.functoolz.x_apply__mutmut_2",
+      "test": "def test_apply_no_func_error_message():\n    with pytest.raises(TypeError, match=r'^func argument is required$'):\n        apply()",
+      "confirmed": [
+        "toolz.functoolz.x_apply__mutmut_2"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_apply__mutmut_3",
+      "test": "def test_apply_no_func_error_message_exact():\n    with pytest.raises(TypeError, match=r'^func argument is required$'):\n        apply()",
+      "confirmed": [
+        "toolz.functoolz.x_apply__mutmut_3"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_apply__mutmut_4",
+      "test": "def test_apply_no_func_error_message_case():\n    with pytest.raises(TypeError, match=r'^func argument is required$'):\n        apply()",
+      "confirmed": [
+        "toolz.functoolz.x_apply__mutmut_4"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_apply__mutmut_9",
+      "test": "def test_apply_forwards_kwargs():\n    assert apply(lambda x, y: x + y, 1, y=2) == 3",
+      "confirmed": [
+        "toolz.functoolz.x_apply__mutmut_9"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_10",
+      "test": "def test_instanceproperty_forwards_doc():\n    class C:\n        @toolz.functoolz.instanceproperty(doc='custom doc', classval='class doc')\n        def prop(self):\n            pass\n    assert C.__dict__['prop'].__doc__ == 'custom doc'",
+      "confirmed": [
+        "toolz.functoolz.x_instanceproperty__mutmut_10"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_2",
+      "test": "def test_excepts_class_doc_from_instanceproperty():\n    assert 'dispatch to a handler' in excepts.__doc__",
+      "confirmed": [
+        "toolz.functoolz.x_instanceproperty__mutmut_2"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_3",
+      "test": "def test_instanceproperty_forwards_fset():\n    calls = []\n    def setter(self, value):\n        calls.append(value)\n    def getter(self):\n        return calls[-1]\n    class C:\n        prop = toolz.functoolz.instanceproperty(fset=setter)(getter)\n    c = C()\n    c.prop = 7\n    assert calls == [7]\n    assert c.prop == 7",
+      "confirmed": [
+        "toolz.functoolz.x_instanceproperty__mutmut_3"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_16",
+      "test": "def test_excepts_class_doc_instanceproperty_classval():\n    assert excepts.__doc__ is not None\n    assert 'wrapper around a function' in excepts.__doc__",
+      "confirmed": [
+        "toolz.functoolz.x_instanceproperty__mutmut_16"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_1",
+      "test": "def test_instanceproperty_stores_classval():\n    assert excepts.__doc__ is not None\n    assert 'wrapper around a function' in excepts.__doc__.lower()",
+      "confirmed": [
+        "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_1"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_2",
+      "test": "def test_curry_init_missing_func_error_message():\n    with pytest.raises(TypeError) as excinfo:\n        curry()\n    assert excinfo.value.args == ('__init__() takes at least 2 arguments (1 given)',)",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_2"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_3",
+      "test": "def test_curry_init_missing_func_error_message_mutmut_3():\n    with pytest.raises(TypeError) as excinfo:\n        curry()\n    assert excinfo.value.args == ('__init__() takes at least 2 arguments (1 given)',)",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_3"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_4",
+      "test": "def test_curry_init_missing_func_error_message_mutmut_4():\n    with pytest.raises(TypeError) as excinfo:\n        curry()\n    assert excinfo.value.args == ('__init__() takes at least 2 arguments (1 given)',)",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_4"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_10",
+      "test": "def test_curry_init_non_callable_error_message():\n    with pytest.raises(TypeError) as excinfo:\n        curry(1)\n    assert excinfo.value.args == ('Input must be callable',)",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_10"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_11",
+      "test": "def test_curry_init_non_callable_error_message_mutmut_11():\n    with pytest.raises(TypeError) as excinfo:\n        curry(1)\n    assert excinfo.value.args == ('Input must be callable',)",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_11"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_12",
+      "test": "def test_curry_init_non_callable_error_message_mutmut_12():\n    with pytest.raises(TypeError) as excinfo:\n        curry(1)\n    assert excinfo.value.args == ('Input must be callable',)",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_12"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_13",
+      "test": "def test_curry_non_callable_error_message():\n    with pytest.raises(TypeError, match='Input must be callable'):\n        curry(1)",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_13"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_60",
+      "test": "def test_curry_name_from_wrapped_function():\n    def myfunc(x, y):\n        return x + y\n    assert curry(myfunc).__name__ == 'myfunc'",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_60"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_62",
+      "test": "def test_curry_name_default_for_callable_without_name():\n    class CallableWithoutName:\n        def __call__(self, x):\n            return x\n    assert curry(CallableWithoutName()).__name__ == '<curry>'",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_62"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_66",
+      "test": "def test_curry_name_reads_func_dunder_name():\n    def myfunc(x, y):\n        return x + y\n    assert curry(myfunc).__name__ == 'myfunc'",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_66"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_67",
+      "test": "def test_curry_name_not_from_wrong_attribute():\n    def myfunc(x, y):\n        return x + y\n    assert curry(myfunc).__name__ == 'myfunc'",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_67"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_68",
+      "test": "def test_curry_name_fallback_is_curry_marker():\n    class CallableWithoutName:\n        def __call__(self, x):\n            return x\n    assert curry(CallableWithoutName()).__name__ == '<curry>'",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_68"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_69",
+      "test": "def test_curry_name_fallback_is_lowercase_curry():\n    class CallableWithoutName:\n        def __call__(self, x):\n            return x\n    assert curry(CallableWithoutName()).__name__ == '<curry>'",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_69"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_70",
+      "test": "def test_curry_inherits_func_module():\n    def foo(a, b):\n        return a + b\n    foo.__module__ = 'this.is.foo'\n    assert curry(foo).__module__ == 'this.is.foo'",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_70"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁcall__mutmut_2",
+      "test": "def test_curry_call_with_kwargs():\n    def f(a, b, c=10):\n        return (a + b) * c\n\n    cf = curry(f)\n    assert cf(1, 2, c=3) == 9\n    assert cf.call(1, 2, c=3) == 9",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁcall__mutmut_2"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_19",
+      "test": "def test_curry_reduce_fallback_to_name_without_qualname_mutmut_19():\n    import pickle\n\n    class NamedCallable:\n        __module__ = __name__\n\n        def __call__(self, x, y=0):\n            return x + y\n\n    target = NamedCallable()\n    target.__name__ = 'curry_reduce_fallback_named_curry_mutmut_19'\n    globals()['curry_reduce_fallback_named_curry_mutmut_19'] = curry(target)\n    c = curry_reduce_fallback_named_curry_mutmut_19\n    assert pickle.loads(pickle.dumps(c)) is c",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__reduce____mutmut_19"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_20",
+      "test": "def test_curry_reduce_fallback_to_name_without_qualname_mutmut_20():\n    import pickle\n\n    class NamedCallable:\n        __module__ = __name__\n\n        def __call__(self, x, y=0):\n            return x + y\n\n    target = NamedCallable()\n    target.__name__ = 'curry_reduce_fallback_named_curry_mutmut_20'\n    globals()['curry_reduce_fallback_named_curry_mutmut_20'] = curry(target)\n    c = curry_reduce_fallback_named_curry_mutmut_20\n    assert pickle.loads(pickle.dumps(c)) is c",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__reduce____mutmut_20"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_21",
+      "test": "def test_curry_reduce_fallback_to_name_without_qualname_mutmut_21():\n    import pickle\n\n    class NamedCallable:\n        __module__ = __name__\n\n        def __call__(self, x, y=0):\n            return x + y\n\n    target = NamedCallable()\n    target.__name__ = 'curry_reduce_fallback_named_curry_mutmut_21'\n    globals()['curry_reduce_fallback_named_curry_mutmut_21'] = curry(target)\n    c = curry_reduce_fallback_named_curry_mutmut_21\n    assert pickle.loads(pickle.dumps(c)) is c",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__reduce____mutmut_21"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_22",
+      "test": "def test_curry_reduce_fallback_to_name_without_qualname_mutmut_22():\n    import pickle\n\n    class NamedCallable:\n        __module__ = __name__\n\n        def __call__(self, x, y=0):\n            return x + y\n\n    target = NamedCallable()\n    target.__name__ = 'curry_reduce_fallback_named_curry_mutmut_22'\n    globals()['curry_reduce_fallback_named_curry_mutmut_22'] = curry(target)\n    c = curry_reduce_fallback_named_curry_mutmut_22\n    assert pickle.loads(pickle.dumps(c)) is c",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__reduce____mutmut_22"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_23",
+      "test": "def test_curry_reduce_fallback_to_name_without_qualname_mutmut_23():\n    import pickle\n\n    class NamedCallable:\n        __module__ = __name__\n\n        def __call__(self, x, y=0):\n            return x + y\n\n    target = NamedCallable()\n    target.__name__ = 'curry_reduce_fallback_named_curry_mutmut_23'\n    globals()['curry_reduce_fallback_named_curry_mutmut_23'] = curry(target)\n    c = curry_reduce_fallback_named_curry_mutmut_23\n    assert pickle.loads(pickle.dumps(c)) is c",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__reduce____mutmut_23"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_25",
+      "test": "def test_curry_reduce_fallback_to_name_without_qualname_mutmut_25():\n    import pickle\n\n    class NamedCallable:\n        __module__ = __name__\n\n        def __call__(self, x, y=0):\n            return x + y\n\n    target = NamedCallable()\n    target.__name__ = 'curry_reduce_fallback_named_curry_mutmut_25'\n    globals()['curry_reduce_fallback_named_curry_mutmut_25'] = curry(target)\n    c = curry_reduce_fallback_named_curry_mutmut_25\n    assert pickle.loads(pickle.dumps(c)) is c",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__reduce____mutmut_25"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_26",
+      "test": "def test_curry_reduce_fallback_to_name_without_qualname_mutmut_26():\n    import pickle\n\n    class NamedCallable:\n        __module__ = __name__\n\n        def __call__(self, x, y=0):\n            return x + y\n\n    target = NamedCallable()\n    target.__name__ = 'curry_reduce_fallback_named_curry_mutmut_26'\n    globals()['curry_reduce_fallback_named_curry_mutmut_26'] = curry(target)\n    c = curry_reduce_fallback_named_curry_mutmut_26\n    assert pickle.loads(pickle.dumps(c)) is c",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__reduce____mutmut_26"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁComposeǁ__eq____mutmut_1",
+      "test": "def test_compose_eq_requires_first_and_funcs():\n    def f(x):\n        return x\n\n    def g(x):\n        return x + 1\n\n    def h(x):\n        return x + 2\n\n    assert compose(f, g) != compose(f, h)\n    assert not (compose(f, g) == compose(f, h))",
+      "confirmed": [
+        "toolz.functoolz.xǁComposeǁ__eq____mutmut_1"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁexceptsǁ__call____mutmut_2",
+      "test": "def test_excepts_passes_kwargs():\n    def divide(a, b=1):\n        return a // b\n\n    assert excepts(ValueError, divide)(10, b=2) == 5",
+      "confirmed": [
+        "toolz.functoolz.xǁexceptsǁ__call____mutmut_2"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_num_required_args__mutmut_2",
+      "test": "def test_num_required_args_uses_sigspec():\n    import inspect\n\n    def f(a, b):\n        return a + b\n\n    sig = inspect.Signature([\n        inspect.Parameter('a', inspect.Parameter.POSITIONAL_OR_KEYWORD),\n    ])\n    assert toolz.functoolz.num_required_args(f, sig) == 1",
+      "confirmed": [
+        "toolz.functoolz.x_num_required_args__mutmut_2"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_has_varargs__mutmut_2",
+      "test": "def test_has_varargs_uses_sigspec():\n    import inspect\n\n    def f(x):\n        return x\n\n    sig = inspect.Signature([\n        inspect.Parameter('args', inspect.Parameter.VAR_POSITIONAL),\n    ])\n    assert toolz.functoolz.has_varargs(f, sig) is True",
+      "confirmed": [
+        "toolz.functoolz.x_has_varargs__mutmut_2"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_has_keywords__mutmut_2",
+      "test": "def test_has_keywords_uses_sigspec():\n    import inspect\n\n    def f(x):\n        return x\n\n    sig = inspect.Signature([\n        inspect.Parameter('x', inspect.Parameter.POSITIONAL_OR_KEYWORD, default=0),\n    ])\n    assert toolz.functoolz.has_keywords(f, sig) is True",
+      "confirmed": [
+        "toolz.functoolz.x_has_keywords__mutmut_2"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_valid_args__mutmut_2",
+      "test": "def test_is_valid_args_uses_sigspec():\n    import inspect\n\n    def f(a, b):\n        return a + b\n\n    sig = inspect.Signature([\n        inspect.Parameter('a', inspect.Parameter.POSITIONAL_OR_KEYWORD),\n    ])\n    assert toolz.functoolz.is_valid_args(f, (1, 2), {}, sig) is False",
+      "confirmed": [
+        "toolz.functoolz.x_is_valid_args__mutmut_2"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_valid_args__mutmut_5",
+      "test": "def test_is_valid_args_classmethod():\n    assert toolz.functoolz.is_valid_args(classmethod, (lambda x: x,), {}) is True\n    assert toolz.functoolz.is_valid_args(classmethod, (), {}) is False",
+      "confirmed": [
+        "toolz.functoolz.x_is_valid_args__mutmut_5"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_valid_args__mutmut_7",
+      "test": "def test_is_valid_args_respects_kwargs_with_registry():\n    exc = ValueError('no signature')\n    assert toolz.functoolz.is_valid_args(max, ([1, 2],), {'key': len}, sigspec=exc) is True\n    assert toolz.functoolz.is_valid_args(max, ([1, 2],), {'extra': 1}, sigspec=exc) is False",
+      "confirmed": [
+        "toolz.functoolz.x_is_valid_args__mutmut_7"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_1",
+      "test": "def test_curry_instanceproperty_descriptor():\n    from operator import mul\n    assert curry.func is None\n    assert curry(mul).func is mul\n    assert curry(mul).func(2, 3) == 6",
+      "confirmed": [
+        "toolz.functoolz.x_instanceproperty__mutmut_1"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_7",
+      "test": "def test_instanceproperty_decorator_with_classval():\n    def inc(x):\n        return x + 1\n    def double(x):\n        return 2 * x\n    composed = compose(inc, double)\n    assert type(composed).__doc__ is not None\n    assert 'composition of functions' in type(composed).__doc__\n    assert excepts.__doc__ is not None\n    assert 'catch exceptions' in excepts.__doc__",
+      "confirmed": [
+        "toolz.functoolz.x_instanceproperty__mutmut_7"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_11",
+      "test": "def test_compose_class_doc_from_instanceproperty():\n    def inc(x):\n        return x + 1\n    def double(x):\n        return 2 * x\n    composed = compose(inc, double)\n    class_doc = type(composed).__doc__\n    assert class_doc is not None\n    assert 'composition of functions' in class_doc\n    assert composed.__doc__.startswith('lambda')",
+      "confirmed": [
+        "toolz.functoolz.x_instanceproperty__mutmut_11"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_17",
+      "test": "def test_curry_instanceproperty_fget():\n    def add(a, b):\n        return a + b\n    f = curry(add)\n    assert f.func is add\n    assert f.args == ()\n    bound = f(1)\n    assert bound.func is add\n    assert bound.args == (1,)",
+      "confirmed": [
+        "toolz.functoolz.x_instanceproperty__mutmut_17"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_7",
+      "test": "def test_curry_should_curry_includes_call_keywords():\n    @curry\n    def f(a, b, c=0):\n        return a + b + c\n    cf = f(a=1)\n    with pytest.raises(TypeError):\n        cf(b=2, d=5)",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_7"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_28",
+      "test": "def test_curry_reduce_skips_lookup_without_module():\n    class C:\n        __module__ = None\n        __name__ = 'ignored'\n\n        def __call__(self, x, y):\n            return x + y\n\n    c = curry(C())(1)\n    _, state = c.__reduce__()\n    func_ref, is_decorated = state[1], state[5]\n    assert is_decorated is None\n    assert not isinstance(func_ref, str)\n    assert callable(func_ref)",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__reduce____mutmut_28"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁComposeǁ__hash____mutmut_1",
+      "test": "def test_compose_hash_uses_bitwise_xor():\n    double_fn = lambda x: 2 * x\n    inc_fn = lambda x: x + 1\n    composed = compose(double_fn, inc_fn)\n    assert hash(composed) == hash(composed.first) ^ hash(composed.funcs)",
+      "confirmed": [
+        "toolz.functoolz.xǁComposeǁ__hash____mutmut_1"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁComposeǁ__hash____mutmut_2",
+      "test": "def test_compose_hash_includes_first():\n    double_fn = lambda x: 2 * x\n    c1 = compose(double_fn, lambda x: x + 1)\n    c2 = compose(double_fn, str)\n    assert c1 != c2\n    assert c1.funcs == c2.funcs\n    assert hash(c1) != hash(c2)",
+      "confirmed": [
+        "toolz.functoolz.xǁComposeǁ__hash____mutmut_2"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁComposeǁ__hash____mutmut_3",
+      "test": "def test_compose_hash_includes_funcs():\n    last = lambda x: x + 1\n    c1 = compose(lambda x: x * 2, last)\n    c2 = compose(str, last)\n    assert c1 != c2\n    assert hash(c1) != hash(c2)",
+      "confirmed": [
+        "toolz.functoolz.xǁComposeǁ__hash____mutmut_3"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁjuxtǁ__init____mutmut_5",
+      "test": "def test_juxt_single_callable_not_unwrapped():\n    assert juxt(lambda x: x + 1)(10) == (11,)",
+      "confirmed": [
+        "toolz.functoolz.xǁjuxtǁ__init____mutmut_5"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁjuxtǁ__call____mutmut_3",
+      "test": "def test_juxt_passes_kwargs():\n    assert juxt(lambda x, n=0: x, lambda x, n=0: x + n)(2, n=10) == (2, 12)",
+      "confirmed": [
+        "toolz.functoolz.xǁjuxtǁ__call____mutmut_3"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_12",
+      "test": "def test_curry_instanceproperty_reads_on_instance():\n    def mul(a, b):\n        return a * b\n    cm = curry(mul)\n    assert cm.func is mul\n    assert cm.args == ()\n    assert cm.keywords == {}\n    assert curry.func is None\n    assert curry.keywords is None",
+      "confirmed": [
+        "toolz.functoolz.x_instanceproperty__mutmut_12"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_60",
+      "test": "def test_curry_pickle_does_not_persist_sigspec():\n    import pickle\n    from operator import add\n\n    partial = curry(add)(1)\n    try:\n        partial(2, 3)\n    except TypeError:\n        pass\n    assert partial._sigspec is not None\n    restored = pickle.loads(pickle.dumps(partial))\n    assert restored._sigspec is None\n    assert restored(2) == 3",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__reduce____mutmut_60"
+      ]
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_2",
+      "test": "def test_is_arity_uses_provided_sigspec():\n    def f(x):\n        return x\n    sig = toolz.functoolz.inspect.signature(lambda a, b: a)\n    assert toolz.functoolz.is_arity(1, f, sigspec=sig) is False",
+      "confirmed": [
+        "toolz.functoolz.x_is_arity__mutmut_2"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_21",
+      "test": "def test_compose_instanceproperty_class_doc():\n    composed = compose(inc, double)\n    cls = type(composed)\n    assert cls.__name__ == 'Compose'\n    assert isinstance(cls.__doc__, str)\n    assert 'composition' in cls.__doc__.lower()\n    assert 'lambda' not in cls.__doc__.lower()\n    assert composed.__doc__.startswith('lambda')",
+      "reason": "G1: o teste falha no código ORIGINAL — a expectativa está errada",
+      "output": "F                                                                        [100%]\n=================================== FAILURES ===================================\n___________________ test_compose_instanceproperty_class_doc ____________________\n\n    def test_compose_instanceproperty_class_doc():\n>       composed = compose(inc, double)\n                           ^^^\nE       NameError: name 'inc' is not defined\n\ntest_probe.py:7: NameError\n=========================== short test summary info ============================\nFAILED test_probe.py::test_compose_instanceproperty_class_doc - NameError: na...\n1 failed in 0.03s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_9",
+      "test": "def test_instanceproperty_init_stores_classval():\n    assert isinstance(excepts.__doc__, str)\n    assert 'wrapper' in excepts.__doc__.lower()\n    cls = type(compose(inc, double))\n    assert isinstance(cls.__doc__, str)\n    assert 'composition' in cls.__doc__.lower()\n    assert curry.args is None",
+      "reason": "G1: o teste falha no código ORIGINAL — a expectativa está errada",
+      "output": "F                                                                        [100%]\n=================================== FAILURES ===================================\n__________________ test_instanceproperty_init_stores_classval __________________\n\n    def test_instanceproperty_init_stores_classval():\n        assert isinstance(excepts.__doc__, str)\n        assert 'wrapper' in excepts.__doc__.lower()\n>       cls = type(compose(inc, double))\n                           ^^^\nE       NameError: name 'inc' is not defined\n\ntest_probe.py:9: NameError\n=========================== short test summary info ============================\nFAILED test_probe.py::test_instanceproperty_init_stores_classval - NameError:...\n1 failed in 0.03s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_6",
+      "test": "def test_curry_should_curry_includes_call_args():\n    @curry\n    def f(a, b):\n        return a + b\n    with pytest.raises(TypeError):\n        f(1)(2, 3)",
+      "reason": "G2: o teste PASSA no código mutado — não detecta a mutação",
+      "output": ".                                                                        [100%]\n1 passed in 0.01s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_10",
+      "test": "def test_curry_should_curry_when_partial_args_unknown():\n    assert callable(curry(pow)())",
+      "reason": "G2: o teste PASSA no código mutado — não detecta a mutação",
+      "output": ".                                                                        [100%]\n1 passed in 0.02s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_12",
+      "test": "def test_curry_should_curry_when_more_args_needed():\n    @curry\n    def f(a, b):\n        return a + b\n    assert f()(1)(2) == 3",
+      "reason": "G2: o teste PASSA no código mutado — não detecta a mutação",
+      "output": ".                                                                        [100%]\n1 passed in 0.02s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_18",
+      "test": "def test_curry_sigspec_cached_for_repeated_calls():\n    @curry\n    def add2(x, y):\n        return x + y\n\n    cf = curry(add2)\n    assert cf(1)(9) == 10\n    assert cf(2)(8) == 10",
+      "reason": "G2: o teste PASSA no código mutado — não detecta a mutação",
+      "output": ".                                                                        [100%]\n1 passed in 0.02s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_22",
+      "test": "def test_curry_too_many_args_typeerror_raises():\n    @curry\n    def f(a, b):\n        raise TypeError('nope')\n\n    with pytest.raises(TypeError):\n        f(1, 2, 3)",
+      "reason": "G2: o teste PASSA no código mutado — não detecta a mutação",
+      "output": ".                                                                        [100%]\n1 passed in 0.01s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_26",
+      "test": "def test_curry_saturated_args_typeerror_raises():\n    @curry\n    def f(a, b):\n        raise TypeError('nope')\n\n    with pytest.raises(TypeError):\n        f(1, 2)",
+      "reason": "G2: o teste PASSA no código mutado — não detecta a mutação",
+      "output": ".                                                                        [100%]\n1 passed in 0.02s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_35",
+      "test": "def test_curry_varargs_delegation_typeerror_curries():\n    def pair(a, b):\n        return a, b\n    delegated = curry(lambda *args: pair(*args))\n    partial = delegated(1)\n    assert isinstance(partial, curry)\n    assert partial(2) == (1, 2)",
+      "reason": "G2: o teste PASSA no código mutado — não detecta a mutação",
+      "output": ".                                                                        [100%]\n1 passed in 0.02s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_39",
+      "test": "def test_curry_genuine_typeerror_with_valid_args():\n    @curry\n    def add(a, b):\n        return a + b\n    assert raises(TypeError, lambda: add('a', 2))",
+      "reason": "G1: o teste falha no código ORIGINAL — a expectativa está errada",
+      "output": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_________________ test_curry_genuine_typeerror_with_valid_args _________________\n\n    def test_curry_genuine_typeerror_with_valid_args():\n        @curry\n        def add(a, b):\n            return a + b\n>       assert raises(TypeError, lambda: add('a', 2))\n               ^^^^^^\nE       NameError: name 'raises' is not defined\n\ntest_probe.py:10: NameError\n=========================== short test summary info ============================\nFAILED test_probe.py::test_curry_genuine_typeerror_with_valid_args - NameErro...\n1 failed in 0.03s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_7",
+      "test": "def test_curry_pickle_decorated_identity():\n    import pickle\n    @curry\n    def add(x, y):\n        return x + y\n    restored = pickle.loads(pickle.dumps(add))\n    assert restored is add\n    assert restored(2, 3) == 5",
+      "reason": "G1: o teste falha no código ORIGINAL — a expectativa está errada",
+      "output": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_____________________ test_curry_pickle_decorated_identity _____________________\n\n    def test_curry_pickle_decorated_identity():\n        import pickle\n        @curry\n        def add(x, y):\n            return x + y\n>       restored = pickle.loads(pickle.dumps(add))\n                                ^^^^^^^^^^^^^^^^^\nE       AttributeError: Can't get local object 'test_curry_pickle_decorated_identity.<locals>.add'\n\ntest_probe.py:11: AttributeError\n=========================== short test summary info ============================\nFAILED test_probe.py::test_curry_pickle_decorated_identity - AttributeError: ...\n1 failed in 0.03s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_15",
+      "test": "def test_curry_reduce_name_fallback_when_qualname_is_none():\n    import sys\n    module = sys.modules[__name__]\n\n    @curry\n    def decorated_add(a, b):\n        return a + b\n\n    module.name_fallback_curry = decorated_add\n    raw = decorated_add.func\n    old_name, old_qual = raw.__name__, raw.__qualname__\n    try:\n        raw.__name__ = 'name_fallback_curry'\n        raw.__qualname__ = None\n        _, state = decorated_add.__reduce__()\n        assert isinstance(state[1], str)\n        assert state[1] == f'{raw.__module__}:name_fallback_curry'\n        assert state[5] is True\n    finally:\n        raw.__name__ = old_name\n        raw.__qualname__ = old_qual\n        del module.name_fallback_curry",
+      "reason": "G1: o teste falha no código ORIGINAL — a expectativa está errada",
+      "output": "F                                                                        [100%]\n=================================== FAILURES ===================================\n____________ test_curry_reduce_name_fallback_when_qualname_is_none _____________\n\n    def test_curry_reduce_name_fallback_when_qualname_is_none():\n        import sys\n        module = sys.modules[__name__]\n    \n        @curry\n        def decorated_add(a, b):\n            return a + b\n    \n        module.name_fallback_curry = decorated_add\n        raw = decorated_add.func\n        old_name, old_qual = raw.__name__, raw.__qualname__\n        try:\n            raw.__name__ = 'name_fallback_curry'\n>           raw.__qualname__ = None\n            ^^^^^^^^^^^^^^^^\nE           TypeError: __qualname__ must be set to a string object\n\ntest_probe.py:19: TypeError\n=========================== short test summary info ============================\nFAILED test_probe.py::test_curry_reduce_name_fallback_when_qualname_is_none\n1 failed in 0.03s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_24",
+      "test": "def test_curry_pickle_module_decorated_curry_is_identity():\n    import pickle\n    from toolz.functoolz import flip\n    assert pickle.loads(pickle.dumps(flip)) is flip",
+      "reason": "G2: o teste PASSA no código mutado — não detecta a mutação",
+      "output": ".                                                                        [100%]\n1 passed in 0.02s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_45",
+      "test": "def test_curry_pickle_partial_uses_undecorated_restore():\n    import pickle\n    import sys\n    module = sys.modules[__name__]\n\n    @curry\n    def decorated_add(a, b):\n        return a + b\n\n    module.partial_restore_curry = decorated_add\n    raw = decorated_add.func\n    old_name, old_qual = raw.__name__, raw.__qualname__\n    try:\n        raw.__name__ = 'partial_restore_curry'\n        raw.__qualname__ = 'partial_restore_curry'\n        c = curry(raw, 1)\n        _, state = c.__reduce__()\n        assert isinstance(state[1], str)\n        assert state[5] is False\n        assert pickle.loads(pickle.dumps(c))(2) == 3\n    finally:\n        raw.__name__ = old_name\n        raw.__qualname__ = old_qual\n        del module.partial_restore_curry",
+      "reason": "G2: o teste PASSA no código mutado — não detecta a mutação",
+      "output": ".                                                                        [100%]\n1 passed in 0.02s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x__restore_curry__mutmut_23",
+      "test": "def test_curry_pickle_restore_preserves_keywords():\n    import pickle\n\n    f = curry(sorted, key=int)\n    g = pickle.loads(pickle.dumps(f))\n    assert g(['b', 'a', 'c']) == ['a', 'b', 'c']\n    assert g.keywords == f.keywords",
+      "reason": "G1: o teste falha no código ORIGINAL — a expectativa está errada",
+      "output": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_________________ test_curry_pickle_restore_preserves_keywords _________________\n\n    def test_curry_pickle_restore_preserves_keywords():\n        import pickle\n    \n        f = curry(sorted, key=int)\n        g = pickle.loads(pickle.dumps(f))\n>       assert g(['b', 'a', 'c']) == ['a', 'b', 'c']\n               ^^^^^^^^^^^^^^^^^^\n\ntest_probe.py:11: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <built-in function sorted>, args = (['b', 'a', 'c'],), kwargs = {}\n\n    def __call__(self, *args, **kwargs):\n        try:\n>           return self._partial(*args, **kwargs)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE           ValueError: invalid literal for int() with base 10: 'b'\n\ntoolz/functoolz.py:304: ValueError\n=========================== short test summary info ============================\nFAILED test_probe.py::test_curry_pickle_restore_preserves_keywords - ValueErr...\n1 failed in 0.03s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x__restore_curry__mutmut_24",
+      "test": "def test_curry_pickle_preserves_keywords():\n    import pickle\n\n    def f(a, b, c=0):\n        return a + b + c\n\n    cf = curry(f, 1, c=2)\n    g = pickle.loads(pickle.dumps(cf))\n    assert g(3) == 6",
+      "reason": "G1: o teste falha no código ORIGINAL — a expectativa está errada",
+      "output": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_____________________ test_curry_pickle_preserves_keywords _____________________\n\n    def test_curry_pickle_preserves_keywords():\n        import pickle\n    \n        def f(a, b, c=0):\n            return a + b + c\n    \n        cf = curry(f, 1, c=2)\n>       g = pickle.loads(pickle.dumps(cf))\n                         ^^^^^^^^^^^^^^^^\nE       AttributeError: Can't get local object 'test_curry_pickle_preserves_keywords.<locals>.f'\n\ntest_probe.py:13: AttributeError\n=========================== short test summary info ============================\nFAILED test_probe.py::test_curry_pickle_preserves_keywords - AttributeError: ...\n1 failed in 0.03s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁjuxtǁ__init____mutmut_1",
+      "test": "def test_juxt_single_callable():\n    assert juxt(inc)(10) == 11",
+      "reason": "G1: o teste falha no código ORIGINAL — a expectativa está errada",
+      "output": "F                                                                        [100%]\n=================================== FAILURES ===================================\n__________________________ test_juxt_single_callable ___________________________\n\n    def test_juxt_single_callable():\n>       assert juxt(inc)(10) == 11\n                    ^^^\nE       NameError: name 'inc' is not defined\n\ntest_probe.py:7: NameError\n=========================== short test summary info ============================\nFAILED test_probe.py::test_juxt_single_callable - NameError: name 'inc' is no...\n1 failed in 0.03s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_partial_args__mutmut_2",
+      "test": "def test_is_partial_args_with_explicit_sigspec():\n    from operator import add\n    import inspect\n\n    sig = inspect.signature(add)\n    assert toolz.functoolz.is_partial_args(add, (1,), {}, sigspec=sig) is True\n    assert toolz.functoolz.is_partial_args(add, (1, 2, 3), {}, sigspec=sig) is False",
+      "reason": "G2: o teste PASSA no código mutado — não detecta a mutação",
+      "output": ".                                                                        [100%]\n1 passed in 0.02s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_15",
+      "test": "def test_is_arity_rejects_keywords_from_sigspec():\n    def f(x):\n        return x\n    sig = toolz.functoolz.inspect.signature(lambda a, y=0: a)\n    assert toolz.functoolz.is_arity(1, f, sigspec=sig) is False",
+      "reason": "G2: o teste PASSA no código mutado — não detecta a mutação",
+      "output": ".                                                                        [100%]\n1 passed in 0.02s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_17",
+      "test": "def test_is_arity_accepts_exact_unary_function():\n    assert toolz.functoolz.is_arity(1, lambda x: x) is True",
+      "reason": "G2: o teste PASSA no código mutado — não detecta a mutação",
+      "output": ".                                                                        [100%]\n1 passed in 0.02s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_25",
+      "test": "def test_is_arity_single_positional_argument():\n    def f(x):\n        return x\n    assert toolz.functoolz.is_arity(1, f) is True",
+      "reason": "G2: o teste PASSA no código mutado — não detecta a mutação",
+      "output": ".                                                                        [100%]\n1 passed in 0.02s\n"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_6",
+      "test": "def test_excepts_class_doc_from_instanceproperty():\n    class_doc = excepts.__doc__\n    assert class_doc is not None\n    assert 'catch exceptions' in class_doc",
+      "confirmed": [
+        "toolz.functoolz.x_instanceproperty__mutmut_6"
+      ],
+      "reason": "nome de teste repetido: test_excepts_class_doc_from_instanceproperty"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_71",
+      "test": "def test_curry_inherits_func_module():\n    def foo(a, b):\n        return a + b\n    foo.__module__ = 'this.is.foo'\n    assert curry(foo).__module__ == 'this.is.foo'",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_71"
+      ],
+      "reason": "nome de teste repetido: test_curry_inherits_func_module"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_76",
+      "test": "def test_curry_inherits_func_module():\n    def foo(a, b):\n        return a + b\n    foo.__module__ = 'this.is.foo'\n    assert curry(foo).__module__ == 'this.is.foo'",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_76"
+      ],
+      "reason": "nome de teste repetido: test_curry_inherits_func_module"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_77",
+      "test": "def test_curry_inherits_func_module():\n    def foo(a, b):\n        return a + b\n    foo.__module__ = 'this.is.foo'\n    assert curry(foo).__module__ == 'this.is.foo'",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_77"
+      ],
+      "reason": "nome de teste repetido: test_curry_inherits_func_module"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_61",
+      "test": "def test_curry_pickle_does_not_persist_sigspec():\n    import pickle\n    from operator import add\n\n    partial = curry(add)(1)\n    try:\n        partial(2, 3)\n    except TypeError:\n        pass\n    assert partial._sigspec is not None\n    restored = pickle.loads(pickle.dumps(partial))\n    assert restored._sigspec is None\n    assert restored(2) == 3",
+      "confirmed": [
+        "toolz.functoolz.xǁcurryǁ__reduce____mutmut_61"
+      ],
+      "reason": "nome de teste repetido: test_curry_pickle_does_not_persist_sigspec"
+    }
+  ],
+  "model_declined": [
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_4",
+      "why": "A linha 142 so e executada no caminho decorador `@instanceproperty(...)` com `fget is None`. Nenhum uso na API publica passa `fdel` nao nulo nesse caminho; forcar `fdel=None` no `partial` e semanticamente identico a omitir `fdel` quando o decorador e chamado sem esse argumento."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_5",
+      "why": "A linha 142 so e executada no caminho decorador `@instanceproperty(...)` com `fget is None`. Nenhum uso na API publica passa `doc` nao nulo nesse caminho; forcar `doc=None` no `partial` e identico ao valor padrao quando o decorador e invocado sem `doc`."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_8",
+      "why": "A linha 142 so e executada no caminho decorador `@instanceproperty(...)` com `fget is None`. Nenhum uso na API publica passa `fset` nao nulo nesse caminho; omitir `fset` no `partial` e identico a `fset=None` padrao."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_9",
+      "why": "A linha 142 so e executada no caminho decorador `@instanceproperty(...)` com `fget is None`. Nenhum uso na API publica passa `fdel` nao nulo nesse caminho; omitir `fdel` no `partial` e identico a `fdel=None` padrao."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_13",
+      "why": "Every public @instanceproperty usage is read-only with fset=None; hardcoding fset=None is identical to fset=fset when the decorator never supplies a setter."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_14",
+      "why": "No public API path uses instanceproperty with a deleter; fdel=None hardcoded matches fdel=fdel when fdel is always None."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_15",
+      "why": "All public @instanceproperty decorators omit doc, so doc is always None; explicit doc=None is the same as omitting it because property.__init__ falls back to fget.__doc__."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_18",
+      "why": "Omitting fset= in the InstanceProperty constructor still defaults fset to None; no public descriptor defines a setter."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_19",
+      "why": "Omitting fdel= in the InstanceProperty constructor still defaults fdel to None; no public descriptor defines a deleter."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_20",
+      "why": "Removing doc=doc only matters when a non-None doc is passed to instanceproperty(); all public decorators leave doc as None, so property still uses fget.__doc__."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_10",
+      "why": "Every InstanceProperty in this module is constructed with fdel=None; omitting fdel in property.__init__ is the same as passing fdel=None."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_11",
+      "why": "Every InstanceProperty is constructed with doc=None, and CPython copies fget.__doc__ in both cases when doc is omitted or explicitly None."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_4",
+      "why": "Every InstanceProperty in this module is constructed with fset=None; fset=None is identical to fset=fset for all reachable call sites."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_5",
+      "why": "Every InstanceProperty in this module is constructed with fdel=None; fdel=None is identical to fdel=fdel for all reachable call sites."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_6",
+      "why": "Every InstanceProperty is constructed with doc=None, and property.__init__ derives the docstring from fget whether doc=None is passed explicitly or by default."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__get____mutmut_4",
+      "why": "Na linha 161, obj nunca é None; property.__get__(self, obj, type) com instância ignora o terceiro argumento (objtype) e só chama fget(obj). Todos os acessos públicos a instanceproperty (curry.func, curry.args, compose.__wrapped__, etc.) são via instância, então passar None em vez de type é semanticamente idêntico."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__get____mutmut_7",
+      "why": "property.__get__(self, obj,) omite o terceiro argumento, que por padrão é None — equivalente a mutmut_4. Com obj não-None, CPython ignora objtype em property.__get__, então nenhum acesso público a instanceproperty distingue essa mutação."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_56",
+      "why": "A mutação introduz getattr(func, '__doc__', ) sem terceiro argumento, o que é SyntaxError em tempo de importação; nenhum teste comportamental passa no original e falha só neste mutante de forma distinguível."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_75",
+      "why": "A mutação introduz getattr(func, '__module__', ) sem valor padrão, o que é SyntaxError em Python; o módulo mutado nem carrega, logo nenhum teste em runtime pode distinguir o original do mutante."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_87",
+      "why": "_has_unknown_args é sempre recalculado na primeira chamada a _should_curry (quando _sigspec is None), antes de ser lido; o valor inicial do __init__ nunca influencia comportamento observável pela API pública."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__call____mutmut_5",
+      "why": "O parâmetro exc de _should_curry não é referenciado no corpo da função; passar None em vez da exceção capturada é semanticamente idêntico para qualquer entrada."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__call____mutmut_8",
+      "why": "A mutação produz _should_curry(args, kwargs, ) com argumento posicional ausente, o que é SyntaxError; o módulo mutado não executa e nenhum teste pode diferenciá-lo do original em runtime."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_9",
+      "why": "Setting self._sigspec to None still leaves has_varargs(func, None) and is_partial_args(func, args, kwargs, None) equivalent to the original cached signature for every reachable _should_curry call, so observable curry behavior is unchanged."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_13",
+      "why": "On the first _should_curry invocation sigspec was just computed from signature_or_spec(func); has_varargs(func, None) matches has_varargs(func, sigspec) for every public curry input."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_15",
+      "why": "has_varargs(func) defaults sigspec to None, which is the same path used when sigspec is freshly obtained; _has_unknown_args is therefore identical for all reachable calls."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_32",
+      "why": "Na linha 329, sigspec ja foi obtido do cache em _should_curry. Quando sigspec e um inspect.Signature valido, is_valid_args ignora o parametro func e usa apenas sigspec.bind; trocar func por None nao altera o resultado. Quando sigspec e um objeto TypeError em cache, _check_sigspec retorna (None, False) sem chamar _is_valid_args, de novo independente de func."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_27",
+      "why": "is_decorated is only consumed as `if is_decorated:` in _restore_curry; both None and the empty string are falsy, and whenever the decorated-curry branch runs it overwrites the initial value with the boolean `obj is self`."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x__restore_curry__mutmut_5",
+      "why": "_restore_curry is only reached with a string func of the form `modname:qualname`; qualname uses dots, not colons, so there is always exactly one colon and `rsplit(':')` unpacks to the same two parts as `rsplit(':', 1)`."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x__restore_curry__mutmut_6",
+      "why": "For every reachable pickled func string there is only one colon separator, so `split(':', 1)` and `rsplit(':', 1)` produce identical `(modname, qualname)` pairs on the original code paths that round-trip successfully."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x__restore_curry__mutmut_8",
+      "why": "Pickle restoration only uses single-colon strings (`module:qualname` with dot-separated qualname), so `rsplit(':', 2)` still returns two components and unpacks identically to `rsplit(':', 1)`."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x__check_sigspec__mutmut_8",
+      "why": "A condição mutada (hasattr(func, '__signature__') or hasattr(func.__signature__, '__get__')) and hasattr(func.__signature__, '__get__') é logicamente equivalente à original (hasattr(func, '__signature__') and hasattr(func.__signature__, '__get__')) para todo callable alcançável: se func não tem __signature__, ambas falham; se tem __signature__ sem __get__, ambas falham; se tem __signature__ com __get__, ambas passam. Não há entrada na API pública que produza resultados distintos."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_14",
+      "why": "num_required_args(None, sigspec) passes the already-resolved Signature as the first argument to _check_sigspec, which returns it immediately without using the mutated func=None argument; behavior is identical to num_required_args(func, sigspec) for every reachable input."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_24",
+      "why": "has_varargs(None, sigspec) passes the already-resolved Signature as the first argument to _check_sigspec, which returns it immediately without using the mutated func=None argument; behavior is identical to has_varargs(func, sigspec) for every reachable input."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_27",
+      "why": "is_arity only reaches line 940 after _check_sigspec returns a valid inspect.Signature for func. has_varargs(func, sigspec) and has_varargs(func) both resolve the same signature for that func and return a bool (never None), so is_arity’s result is unchanged. memoize is the only public entry point that calls is_arity, and no public input makes this branch observably different."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_30",
+      "why": "When is_arity calls has_keywords with a precomputed valid sigspec, _check_sigspec(sigspec, None, ...) returns that sigspec without consulting func. has_keywords(None, sigspec) and has_keywords(func, sigspec) therefore inspect the same parameter list and return the same bool. No memoize/cache-key behavior changes through the public API."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_31",
+      "why": "Inside is_arity, sigspec was just obtained from _check_sigspec(None, func, ...). Recomputing via has_keywords(func, None) uses the identical _check_sigspec(None, func, ...) path and yields the same signature and bool result. Observably equivalent for every func reachable via memoize."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_33",
+      "why": "Semantically identical to mutmut_31: omitting the sigspec argument to has_keywords forces a fresh _check_sigspec(None, func, ...) that matches the signature already computed in is_arity. keywords is always a bool here, so memoize’s unary-key selection cannot change."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_35",
+      "why": "With a valid inspect.Signature, num_required_args always returns an int (so num becomes True/False, never None) and has_varargs/has_keywords always return bools. Line 946’s guard (num/varargs/keywords is None) is therefore never entered, so changing `or`/`and` precedence cannot alter the returned value. Existing unary memoize tests already pass on this mutant for the same reason."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_36",
+      "why": "Same unreachable guard as mutmut_35: for any func where is_arity proceeds past the early _check_sigspec return, num is a bool and varargs/keywords are bools at line 946. The mutated condition only diverges when at least one of those names is None, which cannot happen on the valid-signature path that memoize exercises through the public API."
+    }
+  ],
+  "generated": [
+    {
+      "mutant_id": "toolz.functoolz.x_apply__mutmut_2",
+      "test": "def test_apply_no_func_error_message():\n    with pytest.raises(TypeError, match=r'^func argument is required$'):\n        apply()"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_apply__mutmut_3",
+      "test": "def test_apply_no_func_error_message_exact():\n    with pytest.raises(TypeError, match=r'^func argument is required$'):\n        apply()"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_apply__mutmut_4",
+      "test": "def test_apply_no_func_error_message_case():\n    with pytest.raises(TypeError, match=r'^func argument is required$'):\n        apply()"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_apply__mutmut_9",
+      "test": "def test_apply_forwards_kwargs():\n    assert apply(lambda x, y: x + y, 1, y=2) == 3"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_1",
+      "test": "def test_curry_instanceproperty_descriptor():\n    assert curry.func is None\n    assert curry(mul).func(2, 3) == 6"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_10",
+      "test": "def test_instanceproperty_forwards_doc():\n    class C:\n        @toolz.functoolz.instanceproperty(doc='custom doc', classval='class doc')\n        def prop(self):\n            pass\n    assert C.__dict__['prop'].__doc__ == 'custom doc'"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_2",
+      "test": "def test_excepts_class_doc_from_instanceproperty():\n    assert 'dispatch to a handler' in excepts.__doc__"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_3",
+      "test": "def test_instanceproperty_forwards_fset():\n    calls = []\n    def setter(self, value):\n        calls.append(value)\n    def getter(self):\n        return calls[-1]\n    class C:\n        prop = toolz.functoolz.instanceproperty(fset=setter)(getter)\n    c = C()\n    c.prop = 7\n    assert calls == [7]\n    assert c.prop == 7"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_4",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.x_instanceproperty__mutmut_4"
+      ],
+      "why": "A linha 142 so e executada no caminho decorador `@instanceproperty(...)` com `fget is None`. Nenhum uso na API publica passa `fdel` nao nulo nesse caminho; forcar `fdel=None` no `partial` e semanticamente identico a omitir `fdel` quando o decorador e chamado sem esse argumento."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_5",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.x_instanceproperty__mutmut_5"
+      ],
+      "why": "A linha 142 so e executada no caminho decorador `@instanceproperty(...)` com `fget is None`. Nenhum uso na API publica passa `doc` nao nulo nesse caminho; forcar `doc=None` no `partial` e identico ao valor padrao quando o decorador e invocado sem `doc`."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_7",
+      "test": "def test_instanceproperty_decorator_with_classval():\n    composed = compose(inc, double)\n    assert type(composed).__doc__ is not None\n    assert 'composition of functions' in type(composed).__doc__\n    assert excepts.__doc__ is not None\n    assert 'catch exceptions' in excepts.__doc__"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_8",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.x_instanceproperty__mutmut_8"
+      ],
+      "why": "A linha 142 so e executada no caminho decorador `@instanceproperty(...)` com `fget is None`. Nenhum uso na API publica passa `fset` nao nulo nesse caminho; omitir `fset` no `partial` e identico a `fset=None` padrao."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_9",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.x_instanceproperty__mutmut_9"
+      ],
+      "why": "A linha 142 so e executada no caminho decorador `@instanceproperty(...)` com `fget is None`. Nenhum uso na API publica passa `fdel` nao nulo nesse caminho; omitir `fdel` no `partial` e identico a `fdel=None` padrao."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_11",
+      "test": "def test_compose_class_doc_from_instanceproperty():\n    composed = compose(inc, double)\n    class_doc = type(composed).__doc__\n    assert class_doc is not None\n    assert 'composition of functions' in class_doc"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_6",
+      "test": "def test_excepts_class_doc_from_instanceproperty():\n    class_doc = excepts.__doc__\n    assert class_doc is not None\n    assert 'catch exceptions' in class_doc"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_12",
+      "test": "def test_curry_instanceproperty_reads_func():\n    cm = curry(mul)\n    assert cm.func is mul\n    assert cm.args == ()\n    assert cm.keywords is None\n    assert list(inspect.signature(cm).parameters) == ['a', 'b']"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_13",
+      "test": null,
+      "why": "Every public @instanceproperty usage is read-only with fset=None; hardcoding fset=None is identical to fset=fset when the decorator never supplies a setter."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_14",
+      "test": null,
+      "why": "No public API path uses instanceproperty with a deleter; fdel=None hardcoded matches fdel=fdel when fdel is always None."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_15",
+      "test": null,
+      "why": "All public @instanceproperty decorators omit doc, so doc is always None; explicit doc=None is the same as omitting it because property.__init__ falls back to fget.__doc__."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_16",
+      "test": "def test_excepts_class_doc_instanceproperty_classval():\n    assert excepts.__doc__ is not None\n    assert 'wrapper around a function' in excepts.__doc__"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_17",
+      "test": "def test_curry_instanceproperty_fget():\n    f = curry(add)\n    assert f.func is add\n    assert f.args == ()"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_18",
+      "test": null,
+      "why": "Omitting fset= in the InstanceProperty constructor still defaults fset to None; no public descriptor defines a setter."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_19",
+      "test": null,
+      "why": "Omitting fdel= in the InstanceProperty constructor still defaults fdel to None; no public descriptor defines a deleter."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_20",
+      "test": null,
+      "why": "Removing doc=doc only matters when a non-None doc is passed to instanceproperty(); all public decorators leave doc as None, so property still uses fget.__doc__."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_instanceproperty__mutmut_21",
+      "test": "def test_instanceproperty_forwards_classval():\n    C = type(compose(inc))\n    assert C.__doc__ is not None\n    assert 'composition' in C.__doc__.lower()"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_1",
+      "test": "def test_instanceproperty_stores_classval():\n    assert excepts.__doc__ is not None\n    assert 'wrapper around a function' in excepts.__doc__.lower()"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_10",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_10"
+      ],
+      "why": "Every InstanceProperty in this module is constructed with fdel=None; omitting fdel in property.__init__ is the same as passing fdel=None."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_11",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_11"
+      ],
+      "why": "Every InstanceProperty is constructed with doc=None, and CPython copies fget.__doc__ in both cases when doc is omitted or explicitly None."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_4",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_4"
+      ],
+      "why": "Every InstanceProperty in this module is constructed with fset=None; fset=None is identical to fset=fset for all reachable call sites."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_5",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_5"
+      ],
+      "why": "Every InstanceProperty in this module is constructed with fdel=None; fdel=None is identical to fdel=fdel for all reachable call sites."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_6",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_6"
+      ],
+      "why": "Every InstanceProperty is constructed with doc=None, and property.__init__ derives the docstring from fget whether doc=None is passed explicitly or by default."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__init____mutmut_9",
+      "test": "def test_instanceproperty_passes_fget_to_property():\n    c = curry(mul)\n    assert c.func is mul\n    assert c.args == ()\n    composed = compose(inc, double)\n    assert composed.__doc__.startswith('lambda')\n    assert composed.__wrapped__ is double"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__get____mutmut_4",
+      "targets": [
+        "toolz.functoolz.xǁInstancePropertyǁ__get____mutmut_4"
+      ],
+      "test": null,
+      "why": "Na linha 161, obj nunca é None; property.__get__(self, obj, type) com instância ignora o terceiro argumento (objtype) e só chama fget(obj). Todos os acessos públicos a instanceproperty (curry.func, curry.args, compose.__wrapped__, etc.) são via instância, então passar None em vez de type é semanticamente idêntico."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁInstancePropertyǁ__get____mutmut_7",
+      "targets": [
+        "toolz.functoolz.xǁInstancePropertyǁ__get____mutmut_7"
+      ],
+      "test": null,
+      "why": "property.__get__(self, obj,) omite o terceiro argumento, que por padrão é None — equivalente a mutmut_4. Com obj não-None, CPython ignora objtype em property.__get__, então nenhum acesso público a instanceproperty distingue essa mutação."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_2",
+      "test": "def test_curry_init_missing_func_error_message():\n    with pytest.raises(TypeError) as excinfo:\n        curry()\n    assert excinfo.value.args == ('__init__() takes at least 2 arguments (1 given)',)"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_3",
+      "test": "def test_curry_init_missing_func_error_message_mutmut_3():\n    with pytest.raises(TypeError) as excinfo:\n        curry()\n    assert excinfo.value.args == ('__init__() takes at least 2 arguments (1 given)',)"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_4",
+      "test": "def test_curry_init_missing_func_error_message_mutmut_4():\n    with pytest.raises(TypeError) as excinfo:\n        curry()\n    assert excinfo.value.args == ('__init__() takes at least 2 arguments (1 given)',)"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_10",
+      "test": "def test_curry_init_non_callable_error_message():\n    with pytest.raises(TypeError) as excinfo:\n        curry(1)\n    assert excinfo.value.args == ('Input must be callable',)"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_11",
+      "test": "def test_curry_init_non_callable_error_message_mutmut_11():\n    with pytest.raises(TypeError) as excinfo:\n        curry(1)\n    assert excinfo.value.args == ('Input must be callable',)"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_12",
+      "test": "def test_curry_init_non_callable_error_message_mutmut_12():\n    with pytest.raises(TypeError) as excinfo:\n        curry(1)\n    assert excinfo.value.args == ('Input must be callable',)"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_13",
+      "test": "def test_curry_non_callable_error_message():\n    with pytest.raises(TypeError, match='Input must be callable'):\n        curry(1)"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_56",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.xǁcurryǁ__init____mutmut_56"
+      ],
+      "why": "A mutação introduz getattr(func, '__doc__', ) sem terceiro argumento, o que é SyntaxError em tempo de importação; nenhum teste comportamental passa no original e falha só neste mutante de forma distinguível."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_60",
+      "test": "def test_curry_name_from_wrapped_function():\n    def myfunc(x, y):\n        return x + y\n    assert curry(myfunc).__name__ == 'myfunc'"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_62",
+      "test": "def test_curry_name_default_for_callable_without_name():\n    class CallableWithoutName:\n        def __call__(self, x):\n            return x\n    assert curry(CallableWithoutName()).__name__ == '<curry>'"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_66",
+      "test": "def test_curry_name_reads_func_dunder_name():\n    def myfunc(x, y):\n        return x + y\n    assert curry(myfunc).__name__ == 'myfunc'"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_67",
+      "test": "def test_curry_name_not_from_wrong_attribute():\n    def myfunc(x, y):\n        return x + y\n    assert curry(myfunc).__name__ == 'myfunc'"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_68",
+      "test": "def test_curry_name_fallback_is_curry_marker():\n    class CallableWithoutName:\n        def __call__(self, x):\n            return x\n    assert curry(CallableWithoutName()).__name__ == '<curry>'"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_69",
+      "test": "def test_curry_name_fallback_is_lowercase_curry():\n    class CallableWithoutName:\n        def __call__(self, x):\n            return x\n    assert curry(CallableWithoutName()).__name__ == '<curry>'"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_70",
+      "test": "def test_curry_inherits_func_module():\n    def foo(a, b):\n        return a + b\n    foo.__module__ = 'this.is.foo'\n    assert curry(foo).__module__ == 'this.is.foo'"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_71",
+      "test": "def test_curry_inherits_func_module():\n    def foo(a, b):\n        return a + b\n    foo.__module__ = 'this.is.foo'\n    assert curry(foo).__module__ == 'this.is.foo'"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_75",
+      "test": null,
+      "why": "A mutação introduz getattr(func, '__module__', ) sem valor padrão, o que é SyntaxError em Python; o módulo mutado nem carrega, logo nenhum teste em runtime pode distinguir o original do mutante."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_76",
+      "test": "def test_curry_inherits_func_module():\n    def foo(a, b):\n        return a + b\n    foo.__module__ = 'this.is.foo'\n    assert curry(foo).__module__ == 'this.is.foo'"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_77",
+      "test": "def test_curry_inherits_func_module():\n    def foo(a, b):\n        return a + b\n    foo.__module__ = 'this.is.foo'\n    assert curry(foo).__module__ == 'this.is.foo'"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__init____mutmut_87",
+      "test": null,
+      "why": "_has_unknown_args é sempre recalculado na primeira chamada a _should_curry (quando _sigspec is None), antes de ser lido; o valor inicial do __init__ nunca influencia comportamento observável pela API pública."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__call____mutmut_5",
+      "test": null,
+      "why": "O parâmetro exc de _should_curry não é referenciado no corpo da função; passar None em vez da exceção capturada é semanticamente idêntico para qualquer entrada."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__call____mutmut_8",
+      "test": null,
+      "why": "A mutação produz _should_curry(args, kwargs, ) com argumento posicional ausente, o que é SyntaxError; o módulo mutado não executa e nenhum teste pode diferenciá-lo do original em runtime."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_6",
+      "test": "def test_curry_should_curry_includes_bound_keywords():\n    @curry\n    def f(a, b):\n        return a + b\n    cf = f(a=1, b=2)\n    assert raises(TypeError, lambda: cf(3))"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_7",
+      "test": "def test_curry_should_curry_includes_call_keywords():\n    @curry\n    def f(a, b, c=0):\n        return a + b + c\n    cf = f(a=1)\n    assert raises(TypeError, lambda: cf(b=2, d=5))"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_10",
+      "test": "def test_curry_varargs_typeerror_continues_currying():\n    @curry\n    def f(*args):\n        if len(args) < 2:\n            raise TypeError('need 2 args')\n        return args[0] + args[1]\n    assert f(1)(2) == 3"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_9",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_9"
+      ],
+      "why": "Setting self._sigspec to None still leaves has_varargs(func, None) and is_partial_args(func, args, kwargs, None) equivalent to the original cached signature for every reachable _should_curry call, so observable curry behavior is unchanged."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_12",
+      "test": "def test_curry_varargs_typeerror_continues_currying_has_varargs_func():\n    @curry\n    def f(*args):\n        if len(args) < 2:\n            raise TypeError('need 2 args')\n        return args[0] + args[1]\n    assert f(1)(2) == 3"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_13",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_13"
+      ],
+      "why": "On the first _should_curry invocation sigspec was just computed from signature_or_spec(func); has_varargs(func, None) matches has_varargs(func, sigspec) for every public curry input."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_15",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_15"
+      ],
+      "why": "has_varargs(func) defaults sigspec to None, which is the same path used when sigspec is freshly obtained; _has_unknown_args is therefore identical for all reachable calls."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_18",
+      "test": "def test_curry_repeated_conflict_raises_typeerror():\n    @curry\n    def f(a, b):\n        return a + b\n    cf = f(a=1, b=2)\n    assert raises(TypeError, lambda: cf(3))\n    assert raises(TypeError, lambda: cf(3))"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_22",
+      "test": "def test_curry_zip_empty_call_curries():\n    cz = curry(zip)\n    curried = cz()\n    assert callable(curried)\n    assert list(curried([1], [2])) == [(1, 2)]"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_26",
+      "test": "def test_curry_zip_empty_call_curries():\n    cz = curry(zip)\n    curried = cz()\n    assert callable(curried)\n    assert list(curried([1], [2])) == [(1, 2)]"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_32",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_32"
+      ],
+      "why": "Na linha 329, sigspec ja foi obtido do cache em _should_curry. Quando sigspec e um inspect.Signature valido, is_valid_args ignora o parametro func e usa apenas sigspec.bind; trocar func por None nao altera o resultado. Quando sigspec e um objeto TypeError em cache, _check_sigspec retorna (None, False) sem chamar _is_valid_args, de novo independente de func."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_35",
+      "test": "def test_curry_zip_strict_after_curry():\n    cz = curry(zip)\n    curried = cz()\n    assert list(curried([1], [2], strict=True)) == [(1, 2)]"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ_should_curry__mutmut_39",
+      "test": "def test_curry_zip_strict_after_curry():\n    cz = curry(zip)\n    curried = cz()\n    assert list(curried([1], [2], strict=True)) == [(1, 2)]"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁcall__mutmut_2",
+      "test": "def test_curry_call_with_kwargs():\n    def f(a, b, c=10):\n        return (a + b) * c\n\n    cf = curry(f)\n    assert cf(1, 2, c=3) == 9\n    assert cf.call(1, 2, c=3) == 9"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_7",
+      "test": "def test_curry_pickle_callable_without_module():\n    import pickle\n\n    class Adder:\n        __name__ = 'Adder'\n\n        def __call__(self, x, y):\n            return x + y\n\n    c = curry(Adder())\n    assert pickle.loads(pickle.dumps(c))(3, 4) == 7"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_15",
+      "test": "def test_curry_pickle_callable_without_qualname():\n    import pickle\n\n    class Adder:\n        __name__ = 'Adder'\n\n        def __call__(self, x, y):\n            return x + y\n\n    c = curry(Adder())\n    assert pickle.loads(pickle.dumps(c))(3, 4) == 7"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_19",
+      "test": "def test_curry_reduce_fallback_to_name_without_qualname_mutmut_19():\n    import pickle\n\n    class NamedCallable:\n        __module__ = __name__\n\n        def __call__(self, x, y=0):\n            return x + y\n\n    target = NamedCallable()\n    target.__name__ = 'curry_reduce_fallback_named_curry_mutmut_19'\n    globals()['curry_reduce_fallback_named_curry_mutmut_19'] = curry(target)\n    c = curry_reduce_fallback_named_curry_mutmut_19\n    assert pickle.loads(pickle.dumps(c)) is c"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_20",
+      "test": "def test_curry_reduce_fallback_to_name_without_qualname_mutmut_20():\n    import pickle\n\n    class NamedCallable:\n        __module__ = __name__\n\n        def __call__(self, x, y=0):\n            return x + y\n\n    target = NamedCallable()\n    target.__name__ = 'curry_reduce_fallback_named_curry_mutmut_20'\n    globals()['curry_reduce_fallback_named_curry_mutmut_20'] = curry(target)\n    c = curry_reduce_fallback_named_curry_mutmut_20\n    assert pickle.loads(pickle.dumps(c)) is c"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_21",
+      "test": "def test_curry_reduce_fallback_to_name_without_qualname_mutmut_21():\n    import pickle\n\n    class NamedCallable:\n        __module__ = __name__\n\n        def __call__(self, x, y=0):\n            return x + y\n\n    target = NamedCallable()\n    target.__name__ = 'curry_reduce_fallback_named_curry_mutmut_21'\n    globals()['curry_reduce_fallback_named_curry_mutmut_21'] = curry(target)\n    c = curry_reduce_fallback_named_curry_mutmut_21\n    assert pickle.loads(pickle.dumps(c)) is c"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_22",
+      "test": "def test_curry_reduce_fallback_to_name_without_qualname_mutmut_22():\n    import pickle\n\n    class NamedCallable:\n        __module__ = __name__\n\n        def __call__(self, x, y=0):\n            return x + y\n\n    target = NamedCallable()\n    target.__name__ = 'curry_reduce_fallback_named_curry_mutmut_22'\n    globals()['curry_reduce_fallback_named_curry_mutmut_22'] = curry(target)\n    c = curry_reduce_fallback_named_curry_mutmut_22\n    assert pickle.loads(pickle.dumps(c)) is c"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_23",
+      "test": "def test_curry_reduce_fallback_to_name_without_qualname_mutmut_23():\n    import pickle\n\n    class NamedCallable:\n        __module__ = __name__\n\n        def __call__(self, x, y=0):\n            return x + y\n\n    target = NamedCallable()\n    target.__name__ = 'curry_reduce_fallback_named_curry_mutmut_23'\n    globals()['curry_reduce_fallback_named_curry_mutmut_23'] = curry(target)\n    c = curry_reduce_fallback_named_curry_mutmut_23\n    assert pickle.loads(pickle.dumps(c)) is c"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_24",
+      "test": "def test_curry_reduce_fallback_to_name_without_qualname_mutmut_24():\n    import pickle\n\n    class NamedCallable:\n        __module__ = __name__\n\n        def __call__(self, x, y=0):\n            return x + y\n\n    target = NamedCallable()\n    target.__name__ = 'curry_reduce_fallback_named_curry_mutmut_24'\n    globals()['curry_reduce_fallback_named_curry_mutmut_24'] = curry(target)\n    c = curry_reduce_fallback_named_curry_mutmut_24\n    assert pickle.loads(pickle.dumps(c)) is c"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_25",
+      "test": "def test_curry_reduce_fallback_to_name_without_qualname_mutmut_25():\n    import pickle\n\n    class NamedCallable:\n        __module__ = __name__\n\n        def __call__(self, x, y=0):\n            return x + y\n\n    target = NamedCallable()\n    target.__name__ = 'curry_reduce_fallback_named_curry_mutmut_25'\n    globals()['curry_reduce_fallback_named_curry_mutmut_25'] = curry(target)\n    c = curry_reduce_fallback_named_curry_mutmut_25\n    assert pickle.loads(pickle.dumps(c)) is c"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_26",
+      "test": "def test_curry_reduce_fallback_to_name_without_qualname_mutmut_26():\n    import pickle\n\n    class NamedCallable:\n        __module__ = __name__\n\n        def __call__(self, x, y=0):\n            return x + y\n\n    target = NamedCallable()\n    target.__name__ = 'curry_reduce_fallback_named_curry_mutmut_26'\n    globals()['curry_reduce_fallback_named_curry_mutmut_26'] = curry(target)\n    c = curry_reduce_fallback_named_curry_mutmut_26\n    assert pickle.loads(pickle.dumps(c)) is c"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_27",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.xǁcurryǁ__reduce____mutmut_27"
+      ],
+      "why": "is_decorated is only consumed as `if is_decorated:` in _restore_curry; both None and the empty string are falsy, and whenever the decorated-curry branch runs it overwrites the initial value with the boolean `obj is self`."
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_28",
+      "test": "def test_curry_reduce_skips_lookup_without_module():\n    import pickle\n\n    def f(x, y):\n        return x + y\n\n    f.__module__ = ''\n    c = curry(f)(1)\n    restored = pickle.loads(pickle.dumps(c))\n    assert restored(2) == 3"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_45",
+      "test": "def test_curry_reduce_survives_missing_qualname_attr():\n    import pickle\n\n    def f(x, y):\n        return x + y\n\n    f.__qualname__ = 'does_not_exist_anywhere'\n    f.__module__ = __name__\n    c = curry(f)\n    restored = pickle.loads(pickle.dumps(c))\n    assert restored(2, 3) == 5"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_60",
+      "test": "def test_curry_pickle_does_not_persist_sigspec():\n    import pickle\n\n    @curry\n    def add(x, y):\n        return x + y\n\n    partial = add(1)\n    assert partial._sigspec is not None\n    restored = pickle.loads(pickle.dumps(partial))\n    assert restored._sigspec is None\n    assert restored(2) == 3"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁcurryǁ__reduce____mutmut_61",
+      "test": "def test_curry_pickle_does_not_persist_sigspec():\n    import pickle\n\n    @curry\n    def add(x, y):\n        return x + y\n\n    partial = add(1)\n    assert partial._sigspec is not None\n    restored = pickle.loads(pickle.dumps(partial))\n    assert restored._sigspec is None\n    assert restored(2) == 3"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x__restore_curry__mutmut_5",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.x__restore_curry__mutmut_5"
+      ],
+      "why": "_restore_curry is only reached with a string func of the form `modname:qualname`; qualname uses dots, not colons, so there is always exactly one colon and `rsplit(':')` unpacks to the same two parts as `rsplit(':', 1)`."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x__restore_curry__mutmut_6",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.x__restore_curry__mutmut_6"
+      ],
+      "why": "For every reachable pickled func string there is only one colon separator, so `split(':', 1)` and `rsplit(':', 1)` produce identical `(modname, qualname)` pairs on the original code paths that round-trip successfully."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x__restore_curry__mutmut_8",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.x__restore_curry__mutmut_8"
+      ],
+      "why": "Pickle restoration only uses single-colon strings (`module:qualname` with dot-separated qualname), so `rsplit(':', 2)` still returns two components and unpacks identically to `rsplit(':', 1)`."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x__restore_curry__mutmut_23",
+      "test": "def test_curry_pickle_restore_preserves_keywords():\n    import pickle\n\n    def foo(a, b, c=1):\n        return a + b + c\n\n    f = curry(foo, 1, c=2)\n    g = pickle.loads(pickle.dumps(f))\n    assert g(3) == 6\n    assert g(3) == f(3)"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x__restore_curry__mutmut_24",
+      "test": "def test_curry_pickle_restore_without_keywords():\n    import pickle\n\n    def foo(a, b):\n        return a + b\n\n    f = curry(foo, 1)\n    g = pickle.loads(pickle.dumps(f))\n    assert g(2) == 3\n    assert g(2) == f(2)"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁComposeǁ__eq____mutmut_1",
+      "test": "def test_compose_eq_requires_first_and_funcs():\n    def f(x):\n        return x\n\n    def g(x):\n        return x + 1\n\n    def h(x):\n        return x + 2\n\n    assert compose(f, g) != compose(f, h)\n    assert not (compose(f, g) == compose(f, h))"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁComposeǁ__hash____mutmut_1",
+      "test": "def test_compose_hash_uses_bitwise_xor():\n    c1 = compose(inc, double)\n    c2 = compose(str, add)\n    assert hash(c1) != 0\n    assert hash(c1) != hash(c2)"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁComposeǁ__hash____mutmut_2",
+      "test": "def test_compose_hash_includes_first():\n    c1 = compose(inc, double)\n    c2 = compose(inc, str)\n    assert c1 != c2\n    assert hash(c1) != hash(c2)"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁComposeǁ__hash____mutmut_3",
+      "test": "def test_compose_hash_includes_funcs():\n    c1 = compose(double, inc)\n    c2 = compose(str, inc)\n    assert c1 != c2\n    assert hash(c1) != hash(c2)"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁjuxtǁ__init____mutmut_1",
+      "test": "def test_juxt_single_callable_not_unwrapped():\n    assert juxt(inc)(10) == (11,)"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁjuxtǁ__init____mutmut_5",
+      "test": "def test_juxt_single_callable():\n    assert juxt(inc)(10) == (11,)"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁjuxtǁ__call____mutmut_3",
+      "test": "def test_juxt_passes_kwargs():\n    assert juxt(lambda x, n=0: x + n)(2, n=10) == (2, 12)"
+    },
+    {
+      "mutant_id": "toolz.functoolz.xǁexceptsǁ__call____mutmut_2",
+      "test": "def test_excepts_passes_kwargs():\n    def divide(a, b=1):\n        return a // b\n\n    assert excepts(ValueError, divide)(10, b=2) == 5"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x__check_sigspec__mutmut_8",
+      "test": null,
+      "targets": [
+        "toolz.functoolz.x__check_sigspec__mutmut_8"
+      ],
+      "why": "A condição mutada (hasattr(func, '__signature__') or hasattr(func.__signature__, '__get__')) and hasattr(func.__signature__, '__get__') é logicamente equivalente à original (hasattr(func, '__signature__') and hasattr(func.__signature__, '__get__')) para todo callable alcançável: se func não tem __signature__, ambas falham; se tem __signature__ sem __get__, ambas falham; se tem __signature__ com __get__, ambas passam. Não há entrada na API pública que produza resultados distintos."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_num_required_args__mutmut_2",
+      "test": "def test_num_required_args_uses_sigspec():\n    import inspect\n\n    def f(a, b):\n        return a + b\n\n    sig = inspect.Signature([\n        inspect.Parameter('a', inspect.Parameter.POSITIONAL_OR_KEYWORD),\n    ])\n    assert toolz.functoolz.num_required_args(f, sig) == 1"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_has_varargs__mutmut_2",
+      "test": "def test_has_varargs_uses_sigspec():\n    import inspect\n\n    def f(x):\n        return x\n\n    sig = inspect.Signature([\n        inspect.Parameter('args', inspect.Parameter.VAR_POSITIONAL),\n    ])\n    assert toolz.functoolz.has_varargs(f, sig) is True"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_has_keywords__mutmut_2",
+      "test": "def test_has_keywords_uses_sigspec():\n    import inspect\n\n    def f(x):\n        return x\n\n    sig = inspect.Signature([\n        inspect.Parameter('x', inspect.Parameter.POSITIONAL_OR_KEYWORD, default=0),\n    ])\n    assert toolz.functoolz.has_keywords(f, sig) is True"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_valid_args__mutmut_2",
+      "test": "def test_is_valid_args_uses_sigspec():\n    import inspect\n\n    def f(a, b):\n        return a + b\n\n    sig = inspect.Signature([\n        inspect.Parameter('a', inspect.Parameter.POSITIONAL_OR_KEYWORD),\n    ])\n    assert toolz.functoolz.is_valid_args(f, (1, 2), {}, sig) is False"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_valid_args__mutmut_5",
+      "test": "def test_is_valid_args_classmethod():\n    assert toolz.functoolz.is_valid_args(classmethod, (lambda x: x,), {}) is True\n    assert toolz.functoolz.is_valid_args(classmethod, (), {}) is False"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_valid_args__mutmut_7",
+      "test": "def test_is_valid_args_respects_kwargs_with_registry():\n    exc = ValueError('no signature')\n    assert toolz.functoolz.is_valid_args(max, ([1, 2],), {'key': len}, sigspec=exc) is True\n    assert toolz.functoolz.is_valid_args(max, ([1, 2],), {'extra': 1}, sigspec=exc) is False"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_partial_args__mutmut_2",
+      "test": "def test_is_partial_args_honors_sigspec():\n    def f(a, b):\n        return a + b\n    wrong_sig = inspect.signature(lambda x: x)\n    assert toolz.functoolz.is_partial_args(f, (1, 2), {}, sigspec=wrong_sig) is False"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_2",
+      "test": "def test_is_arity_honors_sigspec_num_required():\n    def f(x):\n        return x\n    wrong_sig = inspect.signature(lambda a, b: a)\n    assert toolz.functoolz.is_arity(1, f, sigspec=wrong_sig) is False"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_14",
+      "test": null,
+      "why": "num_required_args(None, sigspec) passes the already-resolved Signature as the first argument to _check_sigspec, which returns it immediately without using the mutated func=None argument; behavior is identical to num_required_args(func, sigspec) for every reachable input."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_15",
+      "test": "def test_is_arity_honors_sigspec_num_required():\n    def f(x):\n        return x\n    wrong_sig = inspect.signature(lambda a, b: a)\n    assert toolz.functoolz.is_arity(1, f, sigspec=wrong_sig) is False"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_17",
+      "test": "def test_is_arity_honors_sigspec_num_required():\n    def f(x):\n        return x\n    wrong_sig = inspect.signature(lambda a, b: a)\n    assert toolz.functoolz.is_arity(1, f, sigspec=wrong_sig) is False"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_24",
+      "test": null,
+      "why": "has_varargs(None, sigspec) passes the already-resolved Signature as the first argument to _check_sigspec, which returns it immediately without using the mutated func=None argument; behavior is identical to has_varargs(func, sigspec) for every reachable input."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_25",
+      "test": "def test_is_arity_honors_sigspec_varargs():\n    def f(x):\n        return x\n    wrong_sig = inspect.signature(lambda *a: a)\n    assert toolz.functoolz.is_arity(1, f, sigspec=wrong_sig) is False"
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_27",
+      "test": null,
+      "why": "is_arity only reaches line 940 after _check_sigspec returns a valid inspect.Signature for func. has_varargs(func, sigspec) and has_varargs(func) both resolve the same signature for that func and return a bool (never None), so is_arity’s result is unchanged. memoize is the only public entry point that calls is_arity, and no public input makes this branch observably different."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_30",
+      "test": null,
+      "why": "When is_arity calls has_keywords with a precomputed valid sigspec, _check_sigspec(sigspec, None, ...) returns that sigspec without consulting func. has_keywords(None, sigspec) and has_keywords(func, sigspec) therefore inspect the same parameter list and return the same bool. No memoize/cache-key behavior changes through the public API."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_31",
+      "test": null,
+      "why": "Inside is_arity, sigspec was just obtained from _check_sigspec(None, func, ...). Recomputing via has_keywords(func, None) uses the identical _check_sigspec(None, func, ...) path and yields the same signature and bool result. Observably equivalent for every func reachable via memoize."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_33",
+      "test": null,
+      "why": "Semantically identical to mutmut_31: omitting the sigspec argument to has_keywords forces a fresh _check_sigspec(None, func, ...) that matches the signature already computed in is_arity. keywords is always a bool here, so memoize’s unary-key selection cannot change."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_35",
+      "test": null,
+      "why": "With a valid inspect.Signature, num_required_args always returns an int (so num becomes True/False, never None) and has_varargs/has_keywords always return bools. Line 946’s guard (num/varargs/keywords is None) is therefore never entered, so changing `or`/`and` precedence cannot alter the returned value. Existing unary memoize tests already pass on this mutant for the same reason."
+    },
+    {
+      "mutant_id": "toolz.functoolz.x_is_arity__mutmut_36",
+      "test": null,
+      "why": "Same unreachable guard as mutmut_35: for any func where is_arity proceeds past the early _check_sigspec return, num is a bool and varargs/keywords are bools at line 946. The mutated condition only diverges when at least one of those names is None, which cannot happen on the valid-signature path that memoize exercises through the public API."
+    }
+  ]
+}

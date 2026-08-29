@@ -309,3 +309,39 @@ diferentes. O backend deixa de ser variável confundida e vira eixo medido.
 - O `cursor-agent` roda com `--mode ask` (somente leitura) e com diretório de
   trabalho vazio e descartável. Um gerador de testes não recebe permissão de
   escrita no repositório que está sendo medido.
+
+---
+
+## 14. O proxy incremental está desqualificado — 2026-08-30
+
+O § 12 registrou a primeira divergência (7 mutantes no HOLDOUT). A segunda é
+grande demais para manter o proxy como número reportável.
+
+| conjunto | proxy incremental | **mutmut, do zero** | divergência |
+|---|---:|---:|---:|
+| DEV | 0.9398 | **0.9398** | 0 |
+| HOLDOUT | 0.9933 | **0.9698** | 7 mutantes |
+| TRANSFER | 0.9213 | **0.7996** | **65 mutantes** |
+
+O `toolz/functoolz.py` é cheio de classe, decorador e chamada multi-linha —
+exatamente onde a mutação linha-a-linha do proxy constrói um programa que não é
+o mutante que o `mutmut` gera. O proxy "detecta" o próprio artefato.
+
+**Decisão:** o proxy sai de todo número reportado. `eval/report_testgen.py` lê
+apenas `eval/verify_mutmut.py`. O proxy permanece no pipeline por uma razão só —
+ele alimenta a guarda G2 durante a geração, onde velocidade importa e onde um
+erro custa "escolher o teste errado", não "publicar o número errado".
+
+### O erro dentro do próprio verificador, e ele quase passou
+
+A primeira verificação do TRANSFER devolveu **+0.0000** — nenhuma melhoria. Tão
+implausível quanto o 1.0000 do começo, e pela mesma razão: o `mutmut` nunca
+coletou o arquivo gerado. O verificador trocava `testpaths` no `pyproject.toml`,
+o que casava com o layout do `python-slugify` e **não casava nada** no `toolz`.
+Agora a seleção de teste entra pela config do próprio `mutmut`
+(`pytest_add_cli_args_test_selection`), que é a via suportada e independente do
+layout do corpus.
+
+Vale registrar que o sinal que pegou os dois foi o mesmo: **um número redondo
+demais.** 1.0000 quando tudo morre; 0.0000 quando nada morre. Nas duas vezes a
+implausibilidade veio antes da prova.
