@@ -39,7 +39,8 @@ RESULTS = ROOT / "results"
 SANDBOXES = ROOT / ".sandboxes"
 
 BATCH = 8
-MAX_REPAIR = 3
+MAX_REPAIR = 2
+REPAIR_BATCH = 3
 STAGES = ("B", "T1", "T2", "T3")
 
 SYSTEM_TARGETED = """You write pytest tests that detect specific mutations.
@@ -64,9 +65,10 @@ at the top of the file:
 
 If you genuinely cannot distinguish a mutation from the original — because the
 mutated line is unreachable, or the change is semantically identical for every
-input — return that entry with `"test": null` and a `"why"` field explaining
-which condition makes it undetectable. A null with a reason is worth more than a
-test that does not detect anything.
+input — return an entry with `"test": null`, the ids under `"targets"`, and a
+`"why"` explaining which condition makes it undetectable. A null with a reason is
+worth more than a test that detects nothing: those entries are the output of this
+project's second layer, not its failures.
 
 ## The module under test: {file}
 
@@ -87,7 +89,7 @@ covering behaviour the current suite does not check.
 
 Return ONLY a JSON array, no prose and no markdown fence:
 
-[{{"mutant_id": "extra_<n>", "test": "def test_...():\\n    ..."}}]
+[{"mutant_id": "extra_<n>", "test": "def test_...():\\n    ..."}]
 
 Each `test` is a complete top-level function. Assume these imports already exist:
 
@@ -177,7 +179,7 @@ class Sandbox:
         dest.write_text(header + body + "\n")
         return dest
 
-    def pytest(self, target: str | None = None, timeout: int = 30) -> subprocess.CompletedProcess:
+    def pytest(self, *targets: str, timeout: int = 30) -> subprocess.CompletedProcess:
         """Timeout curto de propósito.
 
         Mutar um limite de laço produz mutante que NÃO TERMINA — `smart_truncate`
@@ -186,9 +188,13 @@ class Sandbox:
         de forma observável. Timeout é tratado como detecção, contado à parte, e
         o número final vem do `mutmut` de verdade, que tem a própria lógica.
         """
-        cmd = [self.corpus.python, "-m", "pytest", "-q", "-p", "no:cacheprovider"]
-        if target:
-            cmd.append(target)
+        # Alvos SEMPRE explícitos. O corpus tem `testpaths = ["test.py"]` no
+        # pyproject: um `pytest` pelado nunca coleta o arquivo gerado, e a
+        # checagem de suíte verde passa por vacuidade sem nunca olhar os testes
+        # novos. Custou um `suite_green: True` que não significava nada.
+        cmd = [self.corpus.python, "-m", "pytest", "-q", "-p", "no:cacheprovider",
+               "--override-ini=testpaths="]
+        cmd.extend(targets or [self.corpus.spec["test_file"]])
         try:
             return subprocess.run(cmd, cwd=self.path, capture_output=True,
                                   text=True, timeout=timeout)
@@ -287,11 +293,77 @@ def parse(raw: str) -> list[dict]:
     return json.loads(text[a : b + 1])
 
 
+def targets_of(entry: dict) -> list[str]:
+    """Alvos de uma entrada, aceitando as duas formas que o modelo usa.
+
+    O prompt pede `targets` (lista); o modelo às vezes devolve `mutant_id`
+    (único). Quebrar por causa de um sinônimo é fragilidade minha, não erro dele
+    — e custou uma rodada inteira rejeitando 33 testes bons com "nenhum alvo
+    conhecido".
+    """
+    t = entry.get("targets")
+    if isinstance(t, str):
+        return [t]
+    if isinstance(t, list) and t:
+        return [x for x in t if isinstance(x, str)]
+    single = entry.get("mutant_id")
+    return [single] if isinstance(single, str) else []
+
+
+def fill(template: str, **kw) -> str:
+    """Substituição literal em vez de str.format().
+
+    Os templates contêm exemplos de JSON, e `{"targets": ...}` faz o format()
+    tratar chave de objeto como campo. Duplicar chave em prompt é o tipo de coisa
+    que quebra semanas depois, quando alguém edita o exemplo.
+    """
+    out = template
+    for k, v in kw.items():
+        out = out.replace("{" + k + "}", str(v))
+    return out
+
+
 def numbered(text: str) -> str:
     return "\n".join(f"{i:>4} | {ln}" for i, ln in enumerate(text.splitlines(), 1))
 
 
 # ------------------------------------------------------------------- medição
+
+class UnmeasurableSuite(RuntimeError):
+    """Arquivo de teste vermelho no código original. Medir aqui é fabricar."""
+
+
+def dedupe(tests: list[dict]) -> tuple[list[dict], list[dict]]:
+    """Nomes de função repetidos se sobrescrevem em silêncio dentro do módulo.
+
+    O baseline gera em lotes independentes e repete os mesmos nomes em cada lote:
+    48 testes viraram 8 funções coletáveis. Manter o primeiro e CONTAR o resto é
+    o número honesto sobre o baseline, não um detalhe de arrumação.
+    """
+    seen, kept, dropped = set(), [], []
+    for t in tests:
+        m = re.search(r"def\s+(\w+)", t.get("test") or "")
+        name = m.group(1) if m else None
+        if name is None or name in seen:
+            dropped.append({**t, "reason": f"nome de teste repetido: {name}"})
+            continue
+        seen.add(name)
+        kept.append(t)
+    return kept, dropped
+
+
+def prune_failing(sandbox: Sandbox, tests: list[dict]) -> tuple[list[dict], list[dict]]:
+    """G1 aplicada ao conjunto: remove todo teste vermelho no código ORIGINAL."""
+    kept, dropped = [], []
+    for t in tests:
+        sandbox.write_tests("test_probe.py", [t["test"]])
+        r = sandbox.pytest("test_probe.py")
+        if r.returncode == 0:
+            kept.append(t)
+        else:
+            dropped.append({**t, "reason": "G1: falha no código original", "output": _tail(r, 500)})
+    return kept, dropped
+
 
 def measure(sandbox: Sandbox, survivors: list[dict], test_name: str) -> dict[str, object]:
     """Quais sobreviventes o arquivo de testes mata.
@@ -299,7 +371,19 @@ def measure(sandbox: Sandbox, survivors: list[dict], test_name: str) -> dict[str
     Só sobreviventes são testados: mutante já morto continua morto quando se
     ADICIONA teste (METRIC_TESTGEN.md § 2). Isso torna a medição incremental
     exata, não uma aproximação.
+
+    **Pré-condição verificada, não presumida:** o arquivo tem que estar VERDE no
+    código original. Um único teste quebrado deixa o arquivo vermelho para todo
+    mutante, e "vermelho" era o meu critério de morte — foi assim que uma
+    execução reportou 46/46 e score 1.0000, incluindo os 11 mutantes de uma linha
+    inalcançável que ninguém pode matar.
     """
+    baseline = sandbox.pytest(test_name)
+    if baseline.returncode != 0:
+        raise UnmeasurableSuite(
+            f"{test_name} está vermelho no código original — medir daqui produz "
+            f"morte falsa em todo mutante.\n{_tail(baseline, 900)}"
+        )
     killed = {}
     for m in survivors:
         restore = sandbox.mutate(m)
@@ -341,17 +425,17 @@ def generate(corpus: Corpus, stage: str, client: Client, sandbox: Sandbox) -> Ru
     if stage == "B":
         # Justiça: mesmo número de chamadas e mesmo orçamento de saída do T1.
         # O baseline não sabe quais mutantes existem — é essa a variável isolada.
-        system = SYSTEM_NAIVE.format(imports=imports, file=file, source=numbered(source), tests=tests)
+        system = fill(SYSTEM_NAIVE, imports=imports, file=file, source=numbered(source), tests=tests)
         for i in range(len(batches)):
-            call = client.complete(system, USER_NAIVE.format(n=BATCH, file=file),
+            call = client.complete(system, fill(USER_NAIVE, n=BATCH, file=file),
                                    stage=f"testgen-{stage}", unit=f"{corpus.set_name}#{i}",
                                    cache_system=True)
             run_.generated.extend(parse(call.response))
     else:
-        system = SYSTEM_TARGETED.format(imports=imports, file=file,
-                                        source=numbered(source), tests=tests)
+        system = fill(SYSTEM_TARGETED, imports=imports, file=file,
+                      source=numbered(source), tests=tests)
         for i, batch in enumerate(batches):
-            call = client.complete(system, USER_TARGETED.format(mutants=describe(batch)),
+            call = client.complete(system, fill(USER_TARGETED, mutants=describe(batch)),
                                    stage=f"testgen-{stage}", unit=f"{corpus.set_name}#{i}",
                                    cache_system=True)
             run_.generated.extend(parse(call.response))
@@ -371,48 +455,85 @@ def generate(corpus: Corpus, stage: str, client: Client, sandbox: Sandbox) -> Ru
         for round_ in range(MAX_REPAIR + 1):
             failures = []
             for g in pending:
-                mut = by_id.get(g.get("mutant_id"))
-                if mut is None:
-                    run_.rejected.append({**g, "reason": "id de mutante desconhecido"})
+                alvos = [by_id[i] for i in targets_of(g) if i in by_id]
+                if not alvos:
+                    run_.rejected.append({**g, "reason": "nenhum alvo conhecido"})
                     continue
-                v = check(sandbox, mut, g["test"])
-                if v.kills:
-                    run_.accepted.append(g)
+                # G1 uma vez; G2 contra cada alvo declarado. Basta detectar UM
+                # para o teste ganhar seu lugar — o resto vira alvo não coberto,
+                # que o loop de reparo recebe de volta.
+                vs = [check(sandbox, m, g["test"]) for m in alvos]
+                if not vs[0].g1_passes_original:
+                    failures.append({**g, "reason": vs[0].reason, "output": vs[0].output})
+                elif any(v.kills for v in vs):
+                    run_.accepted.append({**g, "confirmed": [v.mutant_id for v in vs if v.kills]})
+                    naocobertos = [v for v in vs if not v.kills]
+                    if naocobertos:
+                        failures.append({**g, "targets": [v.mutant_id for v in naocobertos],
+                                         "reason": naocobertos[0].reason,
+                                         "output": naocobertos[0].output})
                 else:
-                    failures.append({**g, "reason": v.reason, "output": v.output})
+                    failures.append({**g, "reason": vs[0].reason, "output": vs[0].output})
 
             if not failures or stage != "T3" or round_ == MAX_REPAIR:
                 run_.rejected.extend(failures)
                 break
 
             run_.repair_rounds = round_ + 1
-            blob = "\n\n".join(
-                f"### `{f['mutant_id']}`\n{f['reason']}\n\nYour test:\n```python\n{f['test']}\n```"
-                f"\n\nWhat happened:\n```\n{f['output'][-900:]}\n```"
-                for f in failures
-            )
-            call = client.complete(system, REPAIR.format(failures=blob),
-                                   stage=f"testgen-{stage}", unit=f"{corpus.set_name}#repair{round_}",
-                                   cache_system=True)
-            before = len(run_.accepted)
-            pending = [g for g in parse(call.response) if g.get("test")]
-            run_.repaired += 0  # contabilizado ao fim da rodada seguinte
-            del before
+            # Reparo em lotes pequenos, um punhado de falhas por chamada.
+            # Uma chamada com as 8 falhas juntas truncou em 16k e de novo em 32k:
+            # o raciocínio adaptativo consome o teto antes da resposta sair.
+            # Lote pequeno também isola o feedback — a falha que o modelo lê é a
+            # dele, não uma lista onde a dele se perde.
+            novos: list[dict] = []
+            for j in range(0, len(failures), REPAIR_BATCH):
+                pedaco = failures[j : j + REPAIR_BATCH]
+                blob = "\n\n".join(
+                    f"### `{', '.join(targets_of(f))}`\n{f['reason']}\n\n"
+                    f"Your test:\n```python\n{f['test']}\n```\n\n"
+                    f"What happened:\n```\n{f['output'][-700:]}\n```"
+                    for f in pedaco
+                )
+                call = client.complete(
+                    system, fill(REPAIR, failures=blob),
+                    stage=f"testgen-{stage}",
+                    unit=f"{corpus.set_name}#repair{round_}.{j // REPAIR_BATCH}",
+                    cache_system=True,
+                )
+                novos.extend(g for g in parse(call.response) if g.get("test"))
+            pending = novos
 
-    # G3 uma única vez, com o conjunto aceito inteiro
+    # ------------------------------------------------------------------
+    # Dois números, como METRIC_TESTGEN.md § 7 exige: CRU e FILTRADO.
+    # A diferença entre eles é o valor da guarda, e ela não é escondida.
+    # ------------------------------------------------------------------
     final = "test_deadbolt.py"
-    if run_.accepted:
-        sandbox.write_tests(final, [g["test"] for g in run_.accepted])
-        run_.suite_green = sandbox.pytest().returncode == 0
-    else:
-        sandbox.write_tests(final, ["def test_placeholder():\n    assert True"])
-        run_.suite_green = sandbox.pytest().returncode == 0
+    total, already = corpus.totals()
+
+    cru = list(run_.accepted)
+    sandbox.write_tests(final, [g["test"] for g in cru] or ["def test_noop():\n    assert True"])
+    g3_cru = sandbox.pytest(corpus.spec["test_file"], final)
+    run_.suite_green = g3_cru.returncode == 0
+
+    unicos, dups = dedupe(cru)
+    verdes, quebrados = prune_failing(sandbox, unicos)
+    run_.rejected.extend(dups)
+    run_.rejected.extend(quebrados)
+
+    sandbox.write_tests(final, [g["test"] for g in verdes] or ["def test_noop():\n    assert True"])
+    g3_filtrado = sandbox.pytest(corpus.spec["test_file"], final)
+    suite_green_filtrado = g3_filtrado.returncode == 0
+
+    if not suite_green_filtrado:
+        raise UnmeasurableSuite(
+            f"mesmo depois de dedupe e poda a suíte está vermelha:\n{_tail(g3_filtrado, 900)}"
+        )
 
     killed = measure(sandbox, survivors, final)
     run_.killed_ids = sorted(k for k, v in killed.items() if v)
     run_.timeout_ids = sorted(k for k, v in killed.items() if v == "timeout")
+    run_.accepted = verdes
 
-    total, already = corpus.totals()
     run_.meta = {
         **client.totals(),
         "set": corpus.set_name,
@@ -424,13 +545,18 @@ def generate(corpus: Corpus, stage: str, client: Client, sandbox: Sandbox) -> Ru
         "of_which_timeout": len(run_.timeout_ids),
         "killed_after": already + len(run_.killed_ids),
         "score_after": round((already + len(run_.killed_ids)) / total, 4),
-        "n_generated": len(run_.generated),
-        "n_accepted": len(run_.accepted),
-        "n_rejected": len(run_.rejected),
-        "n_model_declined": len(run_.undetermined),
-        "suite_green": run_.suite_green,
-        "repair_rounds": run_.repair_rounds,
         "survivors_attacked": len(survivors),
+        # cru: o que você commitaria sem nenhuma guarda
+        "cru_n_tests": len(cru),
+        "cru_suite_green": run_.suite_green,
+        # filtrado: depois de dedupe (nome repetido) e poda (G1)
+        "filtrado_n_tests": len(verdes),
+        "dropped_duplicate_name": len(dups),
+        "dropped_failing_on_original": len(quebrados),
+        "n_generated": len(run_.generated),
+        "n_rejected_by_guards": len(run_.rejected),
+        "n_model_declined": len(run_.undetermined),
+        "repair_rounds": run_.repair_rounds,
     }
     return run_
 

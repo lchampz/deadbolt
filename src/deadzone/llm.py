@@ -43,7 +43,10 @@ RECORDINGS = ROOT / "recordings"
 
 DEFAULT_MODEL = "claude-opus-5"
 DEFAULT_EFFORT = "high"
-MAX_TOKENS = 16000
+MAX_TOKENS = 48000
+# Saída longa vai por streaming: a rodada de reparo devolve o teste inteiro de
+# cada falha e estourou 16000 na primeira tentativa. Streaming evita o timeout
+# de HTTP que um max_tokens alto provoca em requisição normal.
 
 # USD por 1M tokens (entrada, saída). Fonte e data em REPRODUCTION.md § Cost model.
 PRICING = {
@@ -214,14 +217,15 @@ class Client:
             if cache_system
             else system
         )
-        response = client.messages.create(
+        with client.messages.stream(
             model=self.model,
             max_tokens=MAX_TOKENS,
             system=system_arg,
             thinking={"type": "adaptive"},
             output_config={"effort": self.effort},
             messages=[{"role": "user", "content": prompt}],
-        )
+        ) as stream:
+            response = stream.get_final_message()
 
         if response.stop_reason == "refusal":
             detail = getattr(response, "stop_details", None)
