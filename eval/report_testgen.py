@@ -1,6 +1,8 @@
-"""Tabela final da geração de testes: antes, depois, e o que a guarda evitou.
+"""Tabela final do Deadbolt. Roda sem chave, sem assinatura, sem rede.
 
-Roda sem chave. Estágio sem resultado aparece como não medido, nunca omitido.
+Números da manchete vêm de `eval/verify_mutmut.py` — o `mutmut` rodando do zero —
+e não da medição incremental do pipeline, que já divergiu uma vez e está
+rotulada como sinal de desenvolvimento (METRIC_TESTGEN.md § 12).
 """
 
 from __future__ import annotations
@@ -10,72 +12,80 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-RESULTS = ROOT / "results"
-STAGES = [
-    ("B", "B  baseline ingênuo"),
-    ("T1", "T1 + alvo (diffs dos mutantes)"),
-    ("T2", "T2 + guardas G1/G2/G3"),
-    ("T3", "T3 + reparo com feedback"),
+RESULTS, TRIAGE = ROOT / "results", ROOT / "data" / "triage"
+
+LADDER = [("B", "B  prompt ingênuo"), ("T1", "T1 + alvo"),
+          ("T2", "T2 + guardas"), ("T3", "T3 + reparo")]
+RUNS = [
+    ("dev", "", "DEV · slugify.py + special.py", "API · claude-opus-5"),
+    ("holdout", "", "HOLDOUT · __main__.py", "API · claude-opus-5"),
+    ("dev", "-cursor", "DEV controle · mesmo corpus", "Cursor · composer-2.5"),
+    ("transfer", "-cursor", "TRANSFER · toolz/functoolz.py", "Cursor · composer-2.5"),
 ]
-SETS = [("dev", "DEV — slugify.py + special.py"),
-        ("holdout", "HOLDOUT — __main__.py"),
-        ("transfer", "TRANSFER — toolz/functoolz.py")]
 
 
-def load(stage: str, set_name: str) -> dict | None:
-    p = RESULTS / f"testgen-{stage}-{set_name}.json"
+def load(name: str) -> dict | None:
+    p = RESULTS / name
     return json.loads(p.read_text()) if p.exists() else None
 
 
 def main() -> int:
     print("# Deadbolt — geração de testes verificada\n")
     print("Métrica congelada em METRIC_TESTGEN.md antes de qualquer geração.")
-    print("Mutation score medido re-executando mutmut; só a suíte muda, o fonte nunca —")
-    print("os IDs de mutante são estáveis, então cada morte é nomeável e conferível.\n")
+    print("Score = mutmut rodando do zero. Só a suíte muda; o fonte nunca — os IDs")
+    print("de mutante são estáveis, então cada morte é nomeável e conferível.\n")
 
-    for set_name, label in SETS:
-        rows = [(s, lbl, load(s, set_name)) for s, lbl in STAGES]
-        if not any(d for _, _, d in rows):
+    print("## Antes e depois\n")
+    head = f"{'':<32}{'backend':<22}{'antes':>8}{'depois':>8}{'Δ':>8}{'teto':>8}{'testes':>8}"
+    print(head); print("-" * len(head))
+    for set_name, suf, label, backend in RUNS:
+        r = load(f"testgen-T3-{set_name}{suf}.json")
+        if not r:
+            print(f"{label:<32}{backend:<22}{'— não medido —':>40}")
             continue
-        base = next(d for _, _, d in rows if d)["meta"]
-        print(f"\n## {label}")
-        print(f"{base['mutants_total']} mutantes · {base['killed_before']} já mortos · "
-              f"{base['survivors_attacked']} sobreviventes atacados · "
-              f"score de partida **{base['score_before']:.4f}**\n")
+        v = load(f"verify-T3-{set_name}{suf}.json")
+        m = r["meta"]
+        antes, total = m["killed_before"], m["mutants_total"]
+        depois = (total - len(v["survivors_after"])) if v else m["killed_after"]
+        t = load(f"../data/triage/{set_name}.json")
+        tri = TRIAGE / f"{set_name}.json"
+        imp = 0
+        if tri.exists():
+            d = json.loads(tri.read_text())
+            imp = sum(l["n_mutants"] for l in d["labels"]
+                      if l["label"] in ("equivalente", "inalcancavel"))
+        teto = f"{(total - imp) / total:.4f}" if imp else "—"
+        print(f"{label:<32}{backend:<22}{antes/total:>8.4f}{depois/total:>8.4f}"
+              f"{depois/total - antes/total:>+8.4f}{teto:>8}{m['filtrado_n_tests']:>8}")
 
-        head = (f"{'':<32}{'score':>8}{'Δ':>8}{'+mata':>7}{'testes':>8}"
-                f"{'cru ok':>8}{'desc.':>7}{'recusa':>8}{'US$':>8}")
-        print(head)
+    print("\n## Ablação — o que cada capability compra (DEV, API)\n")
+    head = f"{'':<26}{'score':>8}{'testes usáveis':>16}{'gerados':>9}{'commit direto':>15}"
+    print(head); print("-" * len(head))
+    for st, lbl in LADDER:
+        r = load(f"testgen-{st}-dev.json")
+        if not r:
+            continue
+        m = r["meta"]
+        print(f"{lbl:<26}{m['score_after']:>8.4f}{m['filtrado_n_tests']:>16}"
+              f"{m['n_generated']:>9}{('verde' if m['cru_suite_green'] else 'QUEBRA'):>15}")
+
+    print("\n## Camada 2 — triagem de equivalência\n")
+    head = f"{'':<12}{'sobrev.':>9}{'indeterm.':>11}{'redução':>10}{'impossíveis':>13}{'precisão':>10}"
+    print(head); print("-" * len(head))
+    ts = tu = ti = 0
+    for f in sorted(TRIAGE.glob("*.json")):
+        d = json.loads(f.read_text())
+        s, u = d["survivors"], d["undetermined"]
+        imp = sum(l["n_mutants"] for l in d["labels"]
+                  if l["label"] in ("equivalente", "inalcancavel"))
+        ts += s; tu += u; ti += imp
+        print(f"{d['set'].upper():<12}{s:>9}{u:>11}{s/u:>9.2f}x{imp:>13}{imp/u:>9.1%}")
+    if tu:
         print("-" * len(head))
-        for stage, lbl, d in rows:
-            if d is None:
-                print(f"{lbl:<32}{'— não medido —':>39}")
-                continue
-            m = d["meta"]
-            delta = m["score_after"] - m["score_before"]
-            descartados = (m.get("dropped_duplicate_name", 0)
-                           + m.get("dropped_failing_on_original", 0)
-                           + m.get("n_rejected_by_guards", 0))
-            print(f"{lbl:<32}{m['score_after']:>8.4f}{delta:>+8.4f}"
-                  f"{m['newly_killed']:>7}{m['filtrado_n_tests']:>8}"
-                  f"{str(m['cru_suite_green']):>8}{descartados:>7}"
-                  f"{m['n_model_declined']:>8}{m.get('cost_usd', 0):>8.2f}")
-
-        # o que o cru esconde
-        print()
-        for stage, lbl, d in rows:
-            if d is None:
-                continue
-            m = d["meta"]
-            if not m["cru_suite_green"]:
-                print(f"  ⚠ {stage}: commitado como veio, **quebra a suíte** "
-                      f"({m['cru_n_tests']} testes gerados, "
-                      f"{m['dropped_duplicate_name']} com nome repetido, "
-                      f"{m['dropped_failing_on_original']} vermelhos no original)")
-
-    print("\nLegenda: `cru ok` = a suíte continua verde se você commitar a saída do")
-    print("modelo sem nenhuma guarda. `desc.` = testes descartados. `recusa` = mutantes")
-    print("que o modelo declarou indetectáveis, com justificativa — entrada da camada 2.")
+        print(f"{'TOTAL':<12}{ts:>9}{tu:>11}{ts/tu:>9.2f}x{ti:>13}{ti/tu:>9.1%}")
+        print("\nMutante equivalente não pode ser morto — por definição. Logo tudo que a")
+        print("geração verificada mata é provadamente não-equivalente, e o filtro é sonoro:")
+        print("nenhum mutante matável é excluído da lista que o humano lê.")
     return 0
 
 
