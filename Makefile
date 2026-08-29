@@ -1,7 +1,7 @@
 PY ?= .venv/bin/python
 SET ?= dev
 
-.PHONY: help setup sanity ground-truth test predict eval report all clean
+.PHONY: help setup sanity ground-truth test predict eval report submission-table all clean
 
 help:
 	@grep -E '^[a-z-]+:.*?##' $(MAKEFILE_LIST) | sed 's/:.*##/\t/'
@@ -25,6 +25,9 @@ predict:          ## roda um estágio (STAGE=baseline|s4|s5|s6 SET=dev|holdout)
 
 eval:             ## pontua um arquivo de predições (PRED=results/x.pred.json)
 	$(PY) eval/run.py --predictions $(PRED) --save
+
+submission-table: ## reescreve a tabela dentro de SUBMISSION.md a partir de report.py
+	$(PY) scripts/refresh_submission_table.py
 
 report:           ## tabela final: pisos + todos os estágios medidos
 	$(PY) eval/report.py
