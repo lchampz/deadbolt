@@ -1,7 +1,7 @@
 PY ?= .venv/bin/python
 SET ?= dev
 
-.PHONY: help setup sanity ground-truth test predict eval report submission-table run-all all clean
+.PHONY: help setup sanity ground-truth test predict eval report submission-table run-all check-creds all clean
 
 help:
 	@grep -E '^[a-z-]+:.*?##' $(MAKEFILE_LIST) | sed 's/:.*##/\t/'
@@ -28,6 +28,9 @@ eval:             ## pontua um arquivo de predições (PRED=results/x.pred.json)
 
 submission-table: ## reescreve a tabela dentro de SUBMISSION.md a partir de report.py
 	$(PY) scripts/refresh_submission_table.py
+
+check-creds:      ## separa "chave inválida" de "saldo zerado" usando endpoints gratuitos
+	$(PY) scripts/check_credentials.py
 
 run-all:          ## grava os 4 estágios nos 2 conjuntos e refaz a tabela (exige DEADZONE_MODE=live)
 	bash scripts/run_all_stages.sh
