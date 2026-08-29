@@ -1,30 +1,65 @@
 # Decisões Abertas — precisam do Victor
 
-## D1 — Acesso a LLM para S3–S6 🔴 BLOQUEANTE a partir de H+1,75
+Estado em 2026-08-29 18:00. Tudo que **não** depende de decisão já está feito e
+commitado. As três abaixo são as únicas coisas que me travam.
 
-**Fato:** nenhuma chave no ambiente. `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`,
-`ANTHROPIC_AUTH_TOKEN` e `LLM_API_KEY` estão todas *unset* no shell.
-`~/Documents/dev/hackaton/.env` tem `LLM_API_KEY` declarada (provider `openai`,
-modelo `gpt-4o-mini`), mas o classificador de segurança bloqueou a leitura do
-arquivo — não sei se está preenchida nem se ainda tem saldo.
+---
 
-**Por que bloqueia:** S3 (baseline) em diante são chamadas reais de modelo. Sem
-chave não existe número medido — e "Measured Improvement" (15 pts) + baseline
-são itens **não cortáveis** na ordem de sacrifício do plano.
+## D1 — Acesso a modelo para S3–S6 🔴 BLOQUEANTE
 
-**O que NÃO bloqueia:** S0, S1 e S2 são 100% locais. O harness de avaliação roda
-com predição fabricada à mão. Sigo até o fim do S2 sem resposta.
+**Fato apurado.** Nenhuma chave no ambiente: `ANTHROPIC_API_KEY`,
+`OPENAI_API_KEY`, `ANTHROPIC_AUTH_TOKEN` e `LLM_API_KEY` todas *unset*.
+`~/Documents/dev/hackaton/.env` declara `LLM_API_KEY` (provider `openai`, modelo
+`gpt-4o-mini`), mas o classificador de segurança bloqueou tanto a leitura do
+arquivo quanto um script que testasse a chave sem exibi-la. Não contornei.
 
-## D2 — Repositório de submissão 🟡
+**Custo estimado da rodada inteira.** ~14 chamadas (4 estágios × 2 conjuntos,
+com o S6 quebrando por função): ~210k tokens de entrada, ~28k de saída.
 
-Repo git novo criado em `~/Documents/dev/deadzone` (história limpa desde 29/08,
-como o brief exige). Falta destino remoto — o Apura vive em
-`github.com/lchampz/apura`. Assumo repo novo `lchampz/deadzone` salvo objeção.
-Não crio nem publico nada sem o "ok".
+| Modelo | Custo estimado |
+|---|---|
+| `claude-opus-4-5` | **< US$ 2,00** |
+| `claude-sonnet-4-5` | < US$ 1,10 |
+| `gpt-4o-mini` | < US$ 0,05 |
 
-## D3 — Orçamento de tokens 🟡
+Gravadas uma vez, todas replicam a custo zero para sempre.
 
-O plano prevê record/replay desde S3: cada chamada gravada em `recordings/`,
-reavaliação em `--replay` a custo zero. Isso limita o gasto ao número de
-execuções *novas*: baseline + 3 iterações × ~8 funções. Estimativa < US$ 5 com
-modelo forte. Só vira decisão se D1 vier com teto apertado.
+**Recomendação: opus-4-5, mesmo modelo no baseline e na solução.** O Apura já
+provou que modelo forte não resolve ausência de critério (baseline opus deu F1
+0.447 lá). Se o baseline sair forte aqui também, isso é achado, não problema —
+e enfraquecer baseline é a fraude mais detectável que existe.
+
+**O que perdemos sem isso.** Measured Improvement (15 pts) inteiro, e a maior
+parte de Agent Solution & Engineering (30 pts) — as capabilities existem, mas
+nenhuma teria evidência de que resolveu falha observada. Restariam ~45 pts.
+
+**Como destravar:** `export ANTHROPIC_API_KEY=...` no shell e me avisar.
+Não peça para eu ler `.env` de outro projeto — prefiro não tocar em segredo
+de terceiro projeto sem você mandar explicitamente.
+
+---
+
+## D2 — Repositório remoto 🟡
+
+Repo git local criado, 3 commits, história limpa desde 29/08 (o brief exige
+separar o que preexistia). Falta destino. O Apura vive em
+`github.com/lchampz/apura`.
+
+**Recomendação:** repo novo `lchampz/deadzone`, público (o juiz precisa clonar).
+
+**Não criei nem publiquei nada.** Publicar é ação externa e irreversível na
+prática — espero seu ok.
+
+---
+
+## D3 — Ordem de sacrifício, se D1 demorar 🟡
+
+O plano manda cortar de cima para baixo: 3ª iteração (S6) → sinal de
+transferência → 2ª iteração (S5) → métricas secundárias.
+
+**Nota minha:** o "sinal de transferência" já está pronto e custa zero — o
+HOLDOUT (`__main__.py`, 288 mutantes) foi gerado no S1 e nunca lido. Ele saiu de
+graça da mesma sessão. Sugiro tirá-lo da lista de sacrifício.
+
+Se D1 destravar até **30/08 12:00**, dá para os quatro estágios nos dois
+conjuntos com folga. Depois disso, corto S6 primeiro.
