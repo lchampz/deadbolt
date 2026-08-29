@@ -7,3 +7,4 @@ corpus/*/.venv/
 corpus/*/*.egg-info/
 .DS_Store
 .env
+.sandboxes/

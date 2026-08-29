@@ -107,6 +107,8 @@ class Client:
     effort: str = field(default_factory=lambda: os.environ.get("DEADZONE_EFFORT", DEFAULT_EFFORT))
     recordings: Path = RECORDINGS
     calls: list[Call] = field(default_factory=list)
+    cache_read: int = 0
+    cache_write: int = 0
 
     def __post_init__(self) -> None:
         self.recordings.mkdir(parents=True, exist_ok=True)
@@ -115,7 +117,16 @@ class Client:
 
     # ---------------------------------------------------------------- público
 
-    def complete(self, system: str, prompt: str, *, stage: str = "", unit: str = "") -> Call:
+    def complete(self, system: str, prompt: str, *, stage: str = "", unit: str = "",
+                 cache_system: bool = False) -> Call:
+        """`cache_system` marca o bloco system para cache de prefixo.
+
+        O system carrega o módulo e a suíte inteira — dezenas de milhares de
+        tokens **idênticos** em toda chamada do mesmo módulo. Sem isso o custo
+        por mutante inviabiliza o orçamento (medido no spike: US$ 0,10/chamada).
+        A chave de cache do replay NÃO inclui esta flag: ela muda o custo, nunca
+        a resposta, e uma gravação feita com cache é igual a uma feita sem.
+        """
         key = cache_key(self.provider, self.model, system, prompt)
         path = self.recordings / f"{key}.json"
 
@@ -135,7 +146,7 @@ class Client:
                     prompt=prompt, effort=self.effort, stage=stage, unit=unit)
         started = time.time()
         try:
-            text, tin, tout, stop = self._live(system, prompt)
+            text, tin, tout, stop = self._live(system, prompt, cache_system=cache_system)
         except Exception as exc:  # noqa: BLE001 — o erro vira artefato, mas NUNCA cache
             call.error = f"{type(exc).__name__}: {exc}"
             call.wall_seconds = round(time.time() - started, 3)
@@ -180,11 +191,13 @@ class Client:
             "provider": self.provider,
             "mode": self.mode,
             "effort": self.effort,
+            "cache_read_tokens": self.cache_read,
+            "cache_write_tokens": self.cache_write,
         }
 
     # ----------------------------------------------------------------- rede
 
-    def _live(self, system: str, prompt: str) -> tuple[str, int, int, str]:
+    def _live(self, system: str, prompt: str, *, cache_system: bool = False) -> tuple[str, int, int, str]:
         if self.provider != "anthropic":
             raise NotImplementedError(
                 f"provider {self.provider!r} não implementado. Este projeto mede um "
@@ -196,10 +209,15 @@ class Client:
         import anthropic  # import tardio: o caminho de replay não depende disto
 
         client = anthropic.Anthropic()
+        system_arg = (
+            [{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}]
+            if cache_system
+            else system
+        )
         response = client.messages.create(
             model=self.model,
             max_tokens=MAX_TOKENS,
-            system=system,
+            system=system_arg,
             thinking={"type": "adaptive"},
             output_config={"effort": self.effort},
             messages=[{"role": "user", "content": prompt}],
@@ -220,5 +238,9 @@ class Client:
             )
 
         text = "".join(b.text for b in response.content if b.type == "text")
-        usage = response.usage
-        return text, usage.input_tokens, usage.output_tokens, response.stop_reason or ""
+        u = response.usage
+        # tokens lidos do cache custam ~0.1x; escritos custam ~1.25x. Somados à
+        # entrada para que o custo reportado seja o real, não o otimista.
+        self.cache_read += getattr(u, "cache_read_input_tokens", 0) or 0
+        self.cache_write += getattr(u, "cache_creation_input_tokens", 0) or 0
+        return text, u.input_tokens, u.output_tokens, response.stop_reason or ""
