@@ -1,7 +1,7 @@
 PY ?= .venv/bin/python
 SET ?= dev
 
-.PHONY: help setup sanity ground-truth predict eval report all clean
+.PHONY: help setup sanity ground-truth test predict eval report all clean
 
 help:
 	@grep -E '^[a-z-]+:.*?##' $(MAKEFILE_LIST) | sed 's/:.*##/\t/'
@@ -10,11 +10,11 @@ setup:            ## cria .venv e prepara os dois corpora pinados
 	uv venv --python 3.12 .venv
 	bash scripts/setup_corpus.sh
 
-ground-truth:     ## regera o ground truth de mutação (destrói o congelamento — ver METRIC.md R5)
-	cd corpus/python-slugify && .venv/bin/mutmut run
-	cd corpus/python-slugify-holdout && .venv/bin/mutmut run
-	$(PY) eval/build_ground_truth.py python-slugify
-	$(PY) eval/build_ground_truth.py python-slugify-holdout
+ground-truth:     ## regera o ground truth de mutação — para VERIFICAR, não emendar (METRIC.md R5)
+	PY=$(PY) bash scripts/regen_ground_truth.sh
+
+test:             ## testes da própria métrica — se quebrarem, todo results/ perde validade
+	$(PY) -m pytest tests/ -q
 
 sanity:           ## controles do harness: piso trivial, fabricada errada, aleatório, oráculo
 	$(PY) eval/run.py --sanity --set dev
@@ -29,4 +29,4 @@ eval:             ## pontua um arquivo de predições (PRED=results/x.pred.json)
 report:           ## tabela final: pisos + todos os estágios medidos
 	$(PY) eval/report.py
 
-all: sanity report ## caminho de reprodução sem chave de API
+all: test sanity report ## caminho de reprodução sem chave de API
