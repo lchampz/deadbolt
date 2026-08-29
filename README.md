@@ -98,6 +98,9 @@ mutated in the same session as the dev set and then left unread.
 
 ## 7. Licence and attribution
 
+Model: `claude-opus-5`, effort `high`, identical in the baseline and every
+iteration — see `REPRODUCTION.md` § What is held constant.
+
 Deadzone: MIT. Vendored corpus: `python-slugify` by Val Neekman, MIT — see
 `corpus/python-slugify/LICENSE`. Unmodified except for a `[mutmut]` section in
 `setup.cfg`; pinned SHA in `corpus/*/PINNED_SHA.txt`.

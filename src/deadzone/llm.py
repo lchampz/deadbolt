@@ -1,14 +1,32 @@
-"""Cliente LLM provider-agnóstico com record/replay.
+"""Cliente de modelo com record/replay.
 
 Duas garantias que o brief exige:
 
-1. **Reprodução sem chave.** `DEADZONE_MODE=replay` (default) nunca toca a rede.
-   Se faltar gravação, quebra alto — nunca silencia nem inventa resposta.
-2. **Trajetória completa.** Cada chamada grava prompt, resposta, modelo, tokens,
-   custo e timestamp em `recordings/`. É o artefato de trajetória do rubric.
+1. **Reprodução sem chave.** `DEADZONE_MODE=replay` (default) nunca toca a rede e
+   não importa nenhuma dependência de terceiro — só a stdlib. Se faltar gravação,
+   quebra alto: nunca silencia, nunca cai para chamada ao vivo, nunca inventa.
+2. **Trajetória completa.** Cada chamada grava prompt, resposta, modelo, esforço,
+   `stop_reason`, tokens, custo e timestamp em `recordings/`. Esse conjunto de
+   arquivos *é* o artefato de trajetória do rubric.
 
-A chave é lida do ambiente pelo processo; nunca é impressa, gravada nem
-incluída em nenhum artefato.
+O caminho ao vivo usa o SDK oficial `anthropic` (import tardio, só quando
+`DEADZONE_MODE=live`). A chave é resolvida pelo próprio SDK a partir do
+ambiente; nunca é lida, impressa, gravada nem incluída em nenhum artefato.
+
+## Decisões de medição registradas aqui, não escondidas
+
+- **`effort` fixo em `high` nos quatro estágios.** É um parâmetro que move
+  qualidade e custo; variá-lo entre baseline e solução tornaria a comparação
+  inválida. Fica gravado em cada chamada para poder ser auditado.
+- **Sem `fallbacks` de recusa.** O SDK oferece troca automática de modelo quando
+  um pedido é recusado. Num harness de medição isso seria um modelo diferente
+  respondendo no meio da comparação, sem aviso — exatamente o tipo de variável
+  não controlada que este projeto existe para expor. Em vez disso,
+  `stop_reason == "refusal"` levanta erro e para a execução.
+- **Reprodutibilidade honesta.** Opus 5 roda com pensamento adaptativo e não
+  aceita `temperature`; duas execuções ao vivo do mesmo prompt podem divergir.
+  Por isso o número reportado é o da **gravação**, e o caminho de reprodução do
+  juiz é o replay. O caminho ao vivo regrava, não reconfere.
 """
 
 from __future__ import annotations
@@ -17,26 +35,32 @@ import hashlib
 import json
 import os
 import time
-import urllib.error
-import urllib.request
 from dataclasses import dataclass, field
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 RECORDINGS = ROOT / "recordings"
 
-# USD por 1M tokens (entrada, saída). Fonte declarada em REPRODUCTION.md.
+DEFAULT_MODEL = "claude-opus-5"
+DEFAULT_EFFORT = "high"
+MAX_TOKENS = 16000
+
+# USD por 1M tokens (entrada, saída). Fonte e data em REPRODUCTION.md § Cost model.
 PRICING = {
-    "claude-opus-4-5": (5.00, 25.00),
-    "claude-sonnet-4-5": (3.00, 15.00),
+    "claude-opus-5": (5.00, 25.00),
+    "claude-fable-5": (10.00, 50.00),
+    "claude-opus-4-8": (5.00, 25.00),
+    "claude-sonnet-5": (2.00, 10.00),
     "claude-haiku-4-5": (1.00, 5.00),
-    "gpt-4o-mini": (0.15, 0.60),
-    "gpt-4o": (2.50, 10.00),
 }
 
 
 class MissingRecording(RuntimeError):
-    """Modo replay sem gravação. Falha alta — R2: nunca conserte silenciosamente."""
+    """Modo replay sem gravação. Falha alta — nunca conserte silenciosamente."""
+
+
+class ModelRefused(RuntimeError):
+    """O modelo recusou. Para a execução em vez de trocar de modelo por baixo."""
 
 
 @dataclass
@@ -47,6 +71,9 @@ class Call:
     system: str
     prompt: str
     response: str = ""
+    effort: str = DEFAULT_EFFORT
+    thinking: str = "adaptive"
+    stop_reason: str = ""
     input_tokens: int = 0
     output_tokens: int = 0
     cost_usd: float = 0.0
@@ -75,8 +102,9 @@ def cache_key(provider: str, model: str, system: str, prompt: str) -> str:
 @dataclass
 class Client:
     provider: str = field(default_factory=lambda: os.environ.get("DEADZONE_PROVIDER", "anthropic"))
-    model: str = field(default_factory=lambda: os.environ.get("DEADZONE_MODEL", "claude-opus-4-5"))
+    model: str = field(default_factory=lambda: os.environ.get("DEADZONE_MODEL", DEFAULT_MODEL))
     mode: str = field(default_factory=lambda: os.environ.get("DEADZONE_MODE", "replay"))
+    effort: str = field(default_factory=lambda: os.environ.get("DEADZONE_EFFORT", DEFAULT_EFFORT))
     recordings: Path = RECORDINGS
     calls: list[Call] = field(default_factory=list)
 
@@ -103,12 +131,13 @@ class Client:
                 f"Rode com DEADZONE_MODE=live e a chave no ambiente para gravar."
             )
 
-        call = Call(key=key, provider=self.provider, model=self.model,
-                    system=system, prompt=prompt, stage=stage, unit=unit)
+        call = Call(key=key, provider=self.provider, model=self.model, system=system,
+                    prompt=prompt, effort=self.effort, stage=stage, unit=unit)
         started = time.time()
         try:
-            text, tin, tout = self._live(system, prompt)
+            text, tin, tout, stop = self._live(system, prompt)
             call.response, call.input_tokens, call.output_tokens = text, tin, tout
+            call.stop_reason = stop
         except Exception as exc:  # noqa: BLE001 — o erro vira artefato, não é engolido
             call.error = f"{type(exc).__name__}: {exc}"
             raise
@@ -130,60 +159,46 @@ class Client:
             "model": self.model,
             "provider": self.provider,
             "mode": self.mode,
+            "effort": self.effort,
         }
 
     # ----------------------------------------------------------------- rede
 
-    def _live(self, system: str, prompt: str) -> tuple[str, int, int]:
-        if self.provider == "anthropic":
-            key = os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("DEADZONE_API_KEY")
-            if not key:
-                raise RuntimeError("ANTHROPIC_API_KEY ausente")
-            body = {
-                "model": self.model,
-                "max_tokens": 8000,
-                "system": system,
-                "messages": [{"role": "user", "content": prompt}],
-            }
-            data = self._post(
-                "https://api.anthropic.com/v1/messages",
-                body,
-                {"x-api-key": key, "anthropic-version": "2023-06-01"},
+    def _live(self, system: str, prompt: str) -> tuple[str, int, int, str]:
+        if self.provider != "anthropic":
+            raise NotImplementedError(
+                f"provider {self.provider!r} não implementado. Este projeto mede um "
+                f"modelo só, de propósito: trocar de provider no meio invalidaria a "
+                f"comparação baseline↔solução. Para medir outro, rode a suíte inteira "
+                f"de novo com DEADZONE_PROVIDER e grave em recordings/ separado."
             )
-            text = "".join(b.get("text", "") for b in data.get("content", []))
-            usage = data.get("usage", {})
-            return text, usage.get("input_tokens", 0), usage.get("output_tokens", 0)
 
-        if self.provider == "openai":
-            key = os.environ.get("OPENAI_API_KEY") or os.environ.get("DEADZONE_API_KEY")
-            if not key:
-                raise RuntimeError("OPENAI_API_KEY ausente")
-            base = os.environ.get("DEADZONE_BASE_URL", "https://api.openai.com/v1")
-            body = {
-                "model": self.model,
-                "messages": [
-                    {"role": "system", "content": system},
-                    {"role": "user", "content": prompt},
-                ],
-            }
-            data = self._post(f"{base}/chat/completions", body, {"Authorization": f"Bearer {key}"})
-            text = data["choices"][0]["message"]["content"]
-            usage = data.get("usage", {})
-            return text, usage.get("prompt_tokens", 0), usage.get("completion_tokens", 0)
+        import anthropic  # import tardio: o caminho de replay não depende disto
 
-        raise ValueError(f"provider desconhecido: {self.provider}")
-
-    @staticmethod
-    def _post(url: str, body: dict, headers: dict) -> dict:
-        req = urllib.request.Request(
-            url,
-            data=json.dumps(body).encode(),
-            headers={"content-type": "application/json", **headers},
-            method="POST",
+        client = anthropic.Anthropic()
+        response = client.messages.create(
+            model=self.model,
+            max_tokens=MAX_TOKENS,
+            system=system,
+            thinking={"type": "adaptive"},
+            output_config={"effort": self.effort},
+            messages=[{"role": "user", "content": prompt}],
         )
-        try:
-            with urllib.request.urlopen(req, timeout=180) as resp:
-                return json.loads(resp.read())
-        except urllib.error.HTTPError as exc:
-            detail = exc.read().decode()[:400]
-            raise RuntimeError(f"HTTP {exc.code}: {detail}") from None
+
+        if response.stop_reason == "refusal":
+            detail = getattr(response, "stop_details", None)
+            raise ModelRefused(
+                f"modelo recusou (categoria={getattr(detail, 'category', None)}). "
+                f"Nenhum fallback é acionado de propósito — trocar de modelo aqui "
+                f"quebraria a comparação. Ver src/deadzone/llm.py."
+            )
+        if response.stop_reason == "max_tokens":
+            raise RuntimeError(
+                f"resposta truncada em max_tokens={MAX_TOKENS} (stage/unit na gravação). "
+                f"Predição truncada não é predição ruim, é predição ausente — "
+                f"aumente MAX_TOKENS e regrave, não pontue isto."
+            )
+
+        text = "".join(b.text for b in response.content if b.type == "text")
+        usage = response.usage
+        return text, usage.input_tokens, usage.output_tokens, response.stop_reason or ""
