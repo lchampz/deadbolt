@@ -199,5 +199,33 @@ condition: S4 raised precision on all three sets, S5 cut false positives, S6
 raised recall. What failed is not any one iteration — it is the transfer of all
 of them, and no single change can be deleted to fix that.
 
+### The same result in absolute lines, which is smaller than the ratios suggest
+
+F1 hides how few lines are involved. Every number above, counted:
+
+| Set | \|G\| | stage | blind lines found | lines pointed at |
+|---|---:|---|---:|---:|
+| DEV | 17 | baseline | 7 | 31 |
+| DEV | 17 | **S6** | **10** | **18** |
+| HOLDOUT | 36 | baseline | 13 | 20 |
+| HOLDOUT | 36 | **S4** | **13** | **19** |
+| TRANSFER | 50 | baseline | 11 | 118 |
+| TRANSFER | 50 | **S4** | **9** | **72** |
+
+Three things this makes visible that the ratios do not:
+
+1. **The DEV gain is three lines.** Baseline finds 7 of 17, the full pipeline
+   finds 10 of 17. The rest of the "4.4× the floor" is noise removal — 31 lines
+   pointed at down to 18. Real, and small.
+2. **On the holdout the apparatus finds one more line than a single prompt**
+   (13 → 14 at S6), and S4's +0.009 F1 is zero extra lines found, just one less
+   wrong.
+3. **On TRANSFER, S4 finds *fewer* blind lines than the baseline** — 9 against 11.
+   Its entire F1 improvement comes from being less wrong (118 → 72 lines
+   pointed at), not from being more right.
+
+A ±0.05 change in F1 on DEV is one or two lines out of seventeen. None of these
+deltas should be read as a stable effect size, and this report does not claim one.
+
 **Cost of every number above:** US$ 2.16, 14 recorded calls. Re-scoring after the
 ground-truth correction cost nothing — the recordings were replayed.

@@ -7,54 +7,71 @@ Rule for every number spoken on camera: say the floor in the same breath.
 
 ---
 
-## 0:00–0:35 · The problem, on screen
+## 0:00–0:40 · Open with the result, not the pitch
+
+On screen: the holdout table, floor column highlighted.
+
+> "I built an agent that predicts where a test suite is blind. On the set I
+> developed against, it scores four times the trivial baseline. On the held-out
+> module — same library, same test suite — it loses to a one-line heuristic that
+> says 'the whole file is blind.'
+>
+> That's the result. Here's why I can tell you that with a straight face."
+
+## 0:40–1:15 · The problem, on screen
 
 Show `python-slugify`: 82 tests, green, 0.04 seconds.
 
-> "This suite passes. It executes almost every line of the module. And 46 of the
-> 216 ways I can change that module — one in five — nobody notices."
+> "This suite passes and executes almost every line. And 46 of the 216 ways I can
+> change that module — one in five — nobody notices."
 
-Run `mutmut`, show `🎉 170  🙁 46` live. Point at the number.
+Run `mutmut`, show `🎉 170  🙁 46` live.
 
-> "Line coverage answers *did this line run*. It never answers *would anyone
-> notice if it changed*. That gap is where regressions live, and the coverage
-> report cannot see it."
+> "Coverage answers *did this line run*. Never *would anyone notice if it
+> changed*. That gap is where regressions live."
 
-## 0:35–1:10 · Who and why it is worth solving
+## 1:15–1:45 · Who, and why it's worth solving
 
 > "Mutation testing finds this exactly — that's why it's my ground truth. But it
-> runs the whole suite once per mutant and hands you a list of survivors, not a
-> reason. Deadzone is the cheap targeted read: one module in, blind spots out,
-> with the type of blindness and a line you can quote in review."
+> runs the whole suite once per mutant and returns survivors, not reasons.
+> Deadzone is the cheap targeted read: one module in, typed blind spots out, each
+> with a line you can quote in review."
 
-## 1:10–1:50 · The measurement, before the solution
+## 1:45–2:25 · The measurement, built before the solution
 
 Show `METRIC.md` timestamp, then `make sanity`.
 
-> "The metric was frozen before any solution existed, and proved on a prediction
-> I fabricated to be wrong. Four controls."
+> "The metric was frozen before any solution existed and proved on a prediction I
+> fabricated to be wrong. Four controls, three sets."
 
-Point at the holdout row.
+Point at the holdout floor.
 
-> "This one changed the whole report. On the holdout, predicting the *entire file*
-> already scores F1 0.469. The trivial floor is not zero. So every table this repo
-> prints shows the floor next to the number — that's a defence, not a courtesy."
+> "This is the one that mattered. Predicting the *entire file* scores F1 0.537
+> there. The trivial floor is not zero — so every table prints it. That's a
+> defence, not a courtesy."
 
-## 1:50–2:20 · One real run, end to end
+## 2:25–2:55 · One real run, end to end
 
 `make predict STAGE=s6 SET=dev` → live, uncut, including the wait.
 Open one prediction: file, lines, type, the quoted source line, the rationale.
 
-## 2:20–3:30 · Baseline → final, and the changelog
+## 2:55–3:40 · Baseline → final, on three sets
 
 The final table on screen, floor and ceiling included. Walk the deltas.
 `CHANGELOG.md`: one entry per iteration, hypothesis written before the change.
 
-## 3:30–4:10 · The change that mattered, and the one that was removed
+## 3:40–4:15 · What failed — and it is not one experiment
 
-> "[The removed iteration] did not move the metric, so it is gone from the
-> pipeline and recorded as removed. An honest deletion is worth more than three
-> inflated marginal gains."
+> "Every iteration passed its own pre-registered death condition. The taxonomy
+> raised precision on all three sets. The evidence gate cut false positives —
+> holdout precision went to 0.818. The function sweep raised recall.
+>
+> And in absolute lines: the baseline finds 7 of 17 blind lines on dev, the full
+> pipeline finds 10. On the transfer set, the taxonomy finds *fewer* than the
+> baseline — 9 against 11 — and only wins on F1 by pointing at less.
+>
+> So nothing gets deleted, because nothing individually failed. What failed is the
+> transfer of all of it, and there's no single change to remove that fixes that."
 
 ## 4:10–4:45 · Reproduction
 
