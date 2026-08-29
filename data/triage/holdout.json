@@ -1,0 +1,39 @@
+{
+  "set": "holdout",
+  "protocol": "METRIC_TESTGEN.md § 8 — rótulo padrão é `dificil`; `equivalente` e `inalcancavel` exigem prova escrita",
+  "triaged_by": "assistente, sob o protocolo escrito; revisável pelo Victor",
+  "date": "2026-08-30",
+  "survivors": 109,
+  "killed_by_T3": 100,
+  "undetermined": 9,
+  "labels": [
+    {
+      "label": "equivalente",
+      "file": "slugify/__main__.py",
+      "lines": [19, 21, 23, 37],
+      "n_mutants": 4,
+      "mutation": "remove `default=True` de argumentos com action='store_false'",
+      "claim": "argparse já usa True como default de store_false.",
+      "proof": "Verificado: parser com `action='store_false', default=True` e parser com `action='store_false'` produzem (True, False) para (sem flag, com flag). Idênticos."
+    },
+    {
+      "label": "equivalente",
+      "file": "slugify/__main__.py",
+      "lines": [27, 29, 41],
+      "n_mutants": 3,
+      "mutation": "remove `default=False` de argumentos com action='store_true'",
+      "claim": "argparse já usa False como default de store_true.",
+      "proof": "Verificado: com e sem `default=False` produzem (False, True) para (sem flag, com flag). Idênticos."
+    },
+    {
+      "label": "equivalente",
+      "file": "slugify/__main__.py",
+      "lines": [31],
+      "n_mutants": 2,
+      "mutation": "`type=str` removido, e `type=str` -> `type=None`",
+      "claim": "O valor da linha de comando já chega como str; aplicar str() nele é identidade, e type=None é o default do argparse.",
+      "proof": "Verificado: as três formas produzem ('-', 'ZZ') para (sem flag, com flag '--flag ZZ'). Idênticas."
+    }
+  ],
+  "consequence": "Achado de produto: as 9 declarações `default=`/`type=` de `__main__.py` são redundantes — argparse já as fornece. São configuração morta, removíveis."
+}

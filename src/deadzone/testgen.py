@@ -594,7 +594,11 @@ def main() -> int:
             sandbox.cleanup()
 
     RESULTS.mkdir(exist_ok=True)
-    dest = RESULTS / f"testgen-{args.stage}-{args.set}.json"
+    # O backend entra no nome. A primeira versão não distinguia, e a execução de
+    # controle no Cursor sobrescreveu silenciosamente o resultado do Opus — duas
+    # medições diferentes disputando um arquivo só.
+    sufixo = "" if client.provider == "anthropic" else f"-{client.provider}"
+    dest = RESULTS / f"testgen-{args.stage}-{args.set}{sufixo}.json"
     dest.write_text(json.dumps({
         "meta": run_.meta,
         "killed_ids": run_.killed_ids,
