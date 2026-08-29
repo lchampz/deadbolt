@@ -188,3 +188,34 @@ humano, e está declarado como humano.
   citada. O que não encontrei publicado é a camada 2: tratar o resíduo como
   detector sonoro de equivalência. É lá que está a contribuição, e ela é
   declarada como tal, sem inflar a camada 1.
+
+---
+
+## 11. Corte de escopo declarado — 2026-08-30, antes de rodar os conjuntos fechados
+
+**Aprovado pelo Victor antes da execução.** Registrado aqui, não no relatório
+depois, porque corte declarado depois de ver resultado não é corte, é seleção.
+
+### O que foi cortado
+
+A escada completa `B → T1 → T2 → T3` roda **apenas no DEV**. Nos dois conjuntos
+fechados — HOLDOUT e TRANSFER — roda apenas a configuração final.
+
+### Por quê
+
+Orçamento. O DEV tem 46 sobreviventes; o HOLDOUT tem 109 e o TRANSFER 118. A
+escada completa nos três custaria mais que os US$ 5,97 restantes do orçamento de
+US$ 10. Isto é limite de dinheiro, não resultado omitido.
+
+### O que continua íntegro
+
+- **O antes/depois nos três conjuntos** — que é a métrica primária.
+- **A ablação num conjunto** — que é o que sustenta a claim de engenharia.
+- **A disciplina de holdout** — prompt e loop continuam desenvolvidos olhando só
+  o DEV, e os dois fechados rodam uma vez.
+
+### O que se perde, dito com todas as letras
+
+Não haverá comparação baseline-vs-solução no HOLDOUT nem no TRANSFER. Logo
+**nenhuma afirmação será feita sobre o baseline ingênuo transferir ou não**. O
+que transfere ou não, ali, é a configuração final — e só isso será dito.

@@ -7,72 +7,47 @@
     "wall_seconds": 388.668,
     "model": "claude-opus-5",
     "provider": "anthropic",
-    "mode": "live",
+    "mode": "replay",
     "effort": "high",
     "cache_read_tokens": 0,
-    "cache_write_tokens": 14406,
+    "cache_write_tokens": 0,
     "set": "dev",
     "stage": "B",
     "mutants_total": 216,
     "killed_before": 170,
     "score_before": 0.787,
-    "newly_killed": 46,
+    "newly_killed": 18,
     "of_which_timeout": 2,
-    "killed_after": 216,
-    "score_after": 1.0,
+    "killed_after": 188,
+    "score_after": 0.8704,
+    "survivors_attacked": 46,
+    "cru_n_tests": 48,
+    "cru_suite_green": false,
+    "filtrado_n_tests": 7,
+    "dropped_duplicate_name": 40,
+    "dropped_failing_on_original": 1,
     "n_generated": 48,
-    "n_accepted": 48,
-    "n_rejected": 0,
+    "n_rejected_by_guards": 41,
     "n_model_declined": 0,
-    "suite_green": true,
-    "repair_rounds": 0,
-    "survivors_attacked": 46
+    "repair_rounds": 0
   },
   "killed_ids": [
     "slugify.slugify.x_slugify__mutmut_15",
-    "slugify.slugify.x_slugify__mutmut_152",
-    "slugify.slugify.x_slugify__mutmut_153",
     "slugify.slugify.x_slugify__mutmut_16",
     "slugify.slugify.x_slugify__mutmut_17",
     "slugify.slugify.x_slugify__mutmut_18",
     "slugify.slugify.x_slugify__mutmut_19",
-    "slugify.slugify.x_slugify__mutmut_2",
     "slugify.slugify.x_slugify__mutmut_20",
-    "slugify.slugify.x_slugify__mutmut_21",
     "slugify.slugify.x_slugify__mutmut_22",
-    "slugify.slugify.x_slugify__mutmut_23",
-    "slugify.slugify.x_slugify__mutmut_24",
-    "slugify.slugify.x_slugify__mutmut_25",
-    "slugify.slugify.x_slugify__mutmut_3",
-    "slugify.slugify.x_slugify__mutmut_48",
-    "slugify.slugify.x_slugify__mutmut_49",
-    "slugify.slugify.x_slugify__mutmut_50",
-    "slugify.slugify.x_slugify__mutmut_51",
-    "slugify.slugify.x_slugify__mutmut_52",
-    "slugify.slugify.x_slugify__mutmut_53",
-    "slugify.slugify.x_slugify__mutmut_54",
-    "slugify.slugify.x_slugify__mutmut_55",
-    "slugify.slugify.x_slugify__mutmut_56",
-    "slugify.slugify.x_slugify__mutmut_57",
-    "slugify.slugify.x_slugify__mutmut_58",
-    "slugify.slugify.x_slugify__mutmut_64",
-    "slugify.slugify.x_smart_truncate__mutmut_17",
     "slugify.slugify.x_smart_truncate__mutmut_2",
-    "slugify.slugify.x_smart_truncate__mutmut_3",
     "slugify.slugify.x_smart_truncate__mutmut_33",
     "slugify.slugify.x_smart_truncate__mutmut_4",
     "slugify.slugify.x_smart_truncate__mutmut_6",
-    "slugify.slugify.x_smart_truncate__mutmut_8",
     "slugify.special.x_add_uppercase_char__mutmut_1",
     "slugify.special.x_add_uppercase_char__mutmut_10",
     "slugify.special.x_add_uppercase_char__mutmut_11",
-    "slugify.special.x_add_uppercase_char__mutmut_12",
     "slugify.special.x_add_uppercase_char__mutmut_2",
-    "slugify.special.x_add_uppercase_char__mutmut_3",
     "slugify.special.x_add_uppercase_char__mutmut_4",
-    "slugify.special.x_add_uppercase_char__mutmut_5",
-    "slugify.special.x_add_uppercase_char__mutmut_6",
-    "slugify.special.x_add_uppercase_char__mutmut_7",
     "slugify.special.x_add_uppercase_char__mutmut_8",
     "slugify.special.x_add_uppercase_char__mutmut_9"
   ],
@@ -108,173 +83,216 @@
     {
       "mutant_id": "extra_7",
       "test": "def test_slugify_replacements_are_applied_to_the_final_slug_too():\n    # '-' only exists after the slug was built, so only the post-pass can replace it\n    assert slugify(\"foo bar\", replacements=[[\"-\", \"_\"]]) == \"foo_bar\"\n    assert slugify(\"foo bar baz\", replacements=[[\"-\", \"+\"]]) == \"foo+bar+baz\"\n    assert slugify(\"foo bar\", allow_unicode=True, replacements=[[\"-\", \"_\"]]) == \"foo_bar\""
-    },
-    {
-      "mutant_id": "extra_8",
-      "test": "def test_slugify_invalid_numeric_character_references_are_ignored():\n    # chr() raises for these code points; the substitution must be silently skipped\n    assert slugify(\"&#1114112;\") == \"1114112\"\n    assert slugify(\"&#x110000;\") == \"x110000\"\n    assert slugify(\"&#1114112;\", allow_unicode=True) == \"1114112\"\n    # valid references still work next to text\n    assert slugify(\"a&#381;b\") == \"azb\""
-    },
-    {
-      "mutant_id": "extra_1",
-      "test": "def test_smart_truncate_word_boundary_without_separator_in_string():\n    # separator is absent from the string -> hard cut at max_length\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"-\") == \"abcd\"\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"_\") == \"abcd\"\n    # no truncation needed at all\n    assert smart_truncate(\"abc\", max_length=5, word_boundary=True, separator=\"-\") == \"abc\""
-    },
-    {
-      "mutant_id": "extra_2",
-      "test": "def test_smart_truncate_strips_separator_and_exact_fit():\n    # leading/trailing separators are always stripped\n    assert smart_truncate(\"--one-two--\", separator=\"-\") == \"one-two\"\n    # max_length == 0 means no truncation\n    assert smart_truncate(\"one-two-three\", max_length=0, separator=\"-\") == \"one-two-three\"\n    # word that exactly reaches max_length is kept (== branch)\n    assert smart_truncate(\"one-two\", max_length=7, word_boundary=True, separator=\"-\") == \"one-two\"\n    # plain truncation without word boundary\n    assert smart_truncate(\"one-two-three\", max_length=5, separator=\"-\") == \"one-t\""
-    },
-    {
-      "mutant_id": "extra_3",
-      "test": "def test_smart_truncate_fallback_when_no_word_fits():\n    # every word is longer than max_length -> fall back to a hard cut\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\") == \"abc\"\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\", save_order=True) == \"abc\"\n    # a later short word is picked up when order does not need to be preserved\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\") == \"gh\"\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\", save_order=True) == \"abcd\""
-    },
-    {
-      "mutant_id": "extra_4",
-      "test": "def test_slugify_accepts_bytes_input():\n    assert slugify(b\"Hello World\") == \"hello-world\"\n    assert slugify(\"C'est d\\u00e9j\\u00e0 l'\\u00e9t\\u00e9.\".encode(\"utf-8\")) == \"c-est-deja-l-ete\"\n    assert slugify(b\"Hello World\", separator=\"_\") == \"hello_world\""
-    },
-    {
-      "mutant_id": "extra_5",
-      "test": "def test_slugify_lowercase_false_preserves_case():\n    assert slugify(\"Hello World\", lowercase=False) == \"Hello-World\"\n    assert slugify(\"CamelCase Text\", lowercase=False, separator=\"_\") == \"CamelCase_Text\"\n    assert slugify(\"Hello World\") == \"hello-world\"\n    assert slugify(\"Hello World\", lowercase=False, allow_unicode=True) == \"Hello-World\""
-    },
-    {
-      "mutant_id": "extra_6",
-      "test": "def test_slugify_quote_pre_and_post_processing():\n    # ascii quote is turned into a separator before transliteration\n    assert slugify(\"it's a test\") == \"it-s-a-test\"\n    # a typographic quote becomes a quote only after transliteration and is dropped\n    assert slugify(\"Don\\u2019t stop\") == \"dont-stop\"\n    assert slugify(\"O\\u2019Brien\") == \"obrien\""
-    },
-    {
-      "mutant_id": "extra_7",
-      "test": "def test_slugify_replacements_are_applied_to_the_final_slug_too():\n    # '-' only exists after the slug was built, so only the post-pass can replace it\n    assert slugify(\"foo bar\", replacements=[[\"-\", \"_\"]]) == \"foo_bar\"\n    assert slugify(\"foo bar baz\", replacements=[[\"-\", \"+\"]]) == \"foo+bar+baz\"\n    assert slugify(\"foo bar\", allow_unicode=True, replacements=[[\"-\", \"_\"]]) == \"foo_bar\""
-    },
-    {
-      "mutant_id": "extra_8",
-      "test": "def test_slugify_invalid_numeric_character_references_are_ignored():\n    # chr() raises for these code points; the substitution must be silently skipped\n    assert slugify(\"&#1114112;\") == \"1114112\"\n    assert slugify(\"&#x110000;\") == \"x110000\"\n    assert slugify(\"&#1114112;\", allow_unicode=True) == \"1114112\"\n    # valid references still work next to text\n    assert slugify(\"a&#381;b\") == \"azb\""
-    },
-    {
-      "mutant_id": "extra_1",
-      "test": "def test_smart_truncate_word_boundary_without_separator_in_string():\n    # separator is absent from the string -> hard cut at max_length\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"-\") == \"abcd\"\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"_\") == \"abcd\"\n    # no truncation needed at all\n    assert smart_truncate(\"abc\", max_length=5, word_boundary=True, separator=\"-\") == \"abc\""
-    },
-    {
-      "mutant_id": "extra_2",
-      "test": "def test_smart_truncate_strips_separator_and_exact_fit():\n    # leading/trailing separators are always stripped\n    assert smart_truncate(\"--one-two--\", separator=\"-\") == \"one-two\"\n    # max_length == 0 means no truncation\n    assert smart_truncate(\"one-two-three\", max_length=0, separator=\"-\") == \"one-two-three\"\n    # word that exactly reaches max_length is kept (== branch)\n    assert smart_truncate(\"one-two\", max_length=7, word_boundary=True, separator=\"-\") == \"one-two\"\n    # plain truncation without word boundary\n    assert smart_truncate(\"one-two-three\", max_length=5, separator=\"-\") == \"one-t\""
-    },
-    {
-      "mutant_id": "extra_3",
-      "test": "def test_smart_truncate_fallback_when_no_word_fits():\n    # every word is longer than max_length -> fall back to a hard cut\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\") == \"abc\"\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\", save_order=True) == \"abc\"\n    # a later short word is picked up when order does not need to be preserved\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\") == \"gh\"\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\", save_order=True) == \"abcd\""
-    },
-    {
-      "mutant_id": "extra_4",
-      "test": "def test_slugify_accepts_bytes_input():\n    assert slugify(b\"Hello World\") == \"hello-world\"\n    assert slugify(\"C'est d\\u00e9j\\u00e0 l'\\u00e9t\\u00e9.\".encode(\"utf-8\")) == \"c-est-deja-l-ete\"\n    assert slugify(b\"Hello World\", separator=\"_\") == \"hello_world\""
-    },
-    {
-      "mutant_id": "extra_5",
-      "test": "def test_slugify_lowercase_false_preserves_case():\n    assert slugify(\"Hello World\", lowercase=False) == \"Hello-World\"\n    assert slugify(\"CamelCase Text\", lowercase=False, separator=\"_\") == \"CamelCase_Text\"\n    assert slugify(\"Hello World\") == \"hello-world\"\n    assert slugify(\"Hello World\", lowercase=False, allow_unicode=True) == \"Hello-World\""
-    },
-    {
-      "mutant_id": "extra_6",
-      "test": "def test_slugify_quote_pre_and_post_processing():\n    # ascii quote is turned into a separator before transliteration\n    assert slugify(\"it's a test\") == \"it-s-a-test\"\n    # a typographic quote becomes a quote only after transliteration and is dropped\n    assert slugify(\"Don\\u2019t stop\") == \"dont-stop\"\n    assert slugify(\"O\\u2019Brien\") == \"obrien\""
-    },
-    {
-      "mutant_id": "extra_7",
-      "test": "def test_slugify_replacements_are_applied_to_the_final_slug_too():\n    # '-' only exists after the slug was built, so only the post-pass can replace it\n    assert slugify(\"foo bar\", replacements=[[\"-\", \"_\"]]) == \"foo_bar\"\n    assert slugify(\"foo bar baz\", replacements=[[\"-\", \"+\"]]) == \"foo+bar+baz\"\n    assert slugify(\"foo bar\", allow_unicode=True, replacements=[[\"-\", \"_\"]]) == \"foo_bar\""
-    },
-    {
-      "mutant_id": "extra_8",
-      "test": "def test_slugify_invalid_numeric_character_references_are_ignored():\n    # chr() raises for these code points; the substitution must be silently skipped\n    assert slugify(\"&#1114112;\") == \"1114112\"\n    assert slugify(\"&#x110000;\") == \"x110000\"\n    assert slugify(\"&#1114112;\", allow_unicode=True) == \"1114112\"\n    # valid references still work next to text\n    assert slugify(\"a&#381;b\") == \"azb\""
-    },
-    {
-      "mutant_id": "extra_1",
-      "test": "def test_smart_truncate_word_boundary_without_separator_in_string():\n    # separator is absent from the string -> hard cut at max_length\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"-\") == \"abcd\"\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"_\") == \"abcd\"\n    # no truncation needed at all\n    assert smart_truncate(\"abc\", max_length=5, word_boundary=True, separator=\"-\") == \"abc\""
-    },
-    {
-      "mutant_id": "extra_2",
-      "test": "def test_smart_truncate_strips_separator_and_exact_fit():\n    # leading/trailing separators are always stripped\n    assert smart_truncate(\"--one-two--\", separator=\"-\") == \"one-two\"\n    # max_length == 0 means no truncation\n    assert smart_truncate(\"one-two-three\", max_length=0, separator=\"-\") == \"one-two-three\"\n    # word that exactly reaches max_length is kept (== branch)\n    assert smart_truncate(\"one-two\", max_length=7, word_boundary=True, separator=\"-\") == \"one-two\"\n    # plain truncation without word boundary\n    assert smart_truncate(\"one-two-three\", max_length=5, separator=\"-\") == \"one-t\""
-    },
-    {
-      "mutant_id": "extra_3",
-      "test": "def test_smart_truncate_fallback_when_no_word_fits():\n    # every word is longer than max_length -> fall back to a hard cut\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\") == \"abc\"\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\", save_order=True) == \"abc\"\n    # a later short word is picked up when order does not need to be preserved\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\") == \"gh\"\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\", save_order=True) == \"abcd\""
-    },
-    {
-      "mutant_id": "extra_4",
-      "test": "def test_slugify_accepts_bytes_input():\n    assert slugify(b\"Hello World\") == \"hello-world\"\n    assert slugify(\"C'est d\\u00e9j\\u00e0 l'\\u00e9t\\u00e9.\".encode(\"utf-8\")) == \"c-est-deja-l-ete\"\n    assert slugify(b\"Hello World\", separator=\"_\") == \"hello_world\""
-    },
-    {
-      "mutant_id": "extra_5",
-      "test": "def test_slugify_lowercase_false_preserves_case():\n    assert slugify(\"Hello World\", lowercase=False) == \"Hello-World\"\n    assert slugify(\"CamelCase Text\", lowercase=False, separator=\"_\") == \"CamelCase_Text\"\n    assert slugify(\"Hello World\") == \"hello-world\"\n    assert slugify(\"Hello World\", lowercase=False, allow_unicode=True) == \"Hello-World\""
-    },
-    {
-      "mutant_id": "extra_6",
-      "test": "def test_slugify_quote_pre_and_post_processing():\n    # ascii quote is turned into a separator before transliteration\n    assert slugify(\"it's a test\") == \"it-s-a-test\"\n    # a typographic quote becomes a quote only after transliteration and is dropped\n    assert slugify(\"Don\\u2019t stop\") == \"dont-stop\"\n    assert slugify(\"O\\u2019Brien\") == \"obrien\""
-    },
-    {
-      "mutant_id": "extra_7",
-      "test": "def test_slugify_replacements_are_applied_to_the_final_slug_too():\n    # '-' only exists after the slug was built, so only the post-pass can replace it\n    assert slugify(\"foo bar\", replacements=[[\"-\", \"_\"]]) == \"foo_bar\"\n    assert slugify(\"foo bar baz\", replacements=[[\"-\", \"+\"]]) == \"foo+bar+baz\"\n    assert slugify(\"foo bar\", allow_unicode=True, replacements=[[\"-\", \"_\"]]) == \"foo_bar\""
-    },
-    {
-      "mutant_id": "extra_8",
-      "test": "def test_slugify_invalid_numeric_character_references_are_ignored():\n    # chr() raises for these code points; the substitution must be silently skipped\n    assert slugify(\"&#1114112;\") == \"1114112\"\n    assert slugify(\"&#x110000;\") == \"x110000\"\n    assert slugify(\"&#1114112;\", allow_unicode=True) == \"1114112\"\n    # valid references still work next to text\n    assert slugify(\"a&#381;b\") == \"azb\""
-    },
-    {
-      "mutant_id": "extra_1",
-      "test": "def test_smart_truncate_word_boundary_without_separator_in_string():\n    # separator is absent from the string -> hard cut at max_length\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"-\") == \"abcd\"\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"_\") == \"abcd\"\n    # no truncation needed at all\n    assert smart_truncate(\"abc\", max_length=5, word_boundary=True, separator=\"-\") == \"abc\""
-    },
-    {
-      "mutant_id": "extra_2",
-      "test": "def test_smart_truncate_strips_separator_and_exact_fit():\n    # leading/trailing separators are always stripped\n    assert smart_truncate(\"--one-two--\", separator=\"-\") == \"one-two\"\n    # max_length == 0 means no truncation\n    assert smart_truncate(\"one-two-three\", max_length=0, separator=\"-\") == \"one-two-three\"\n    # word that exactly reaches max_length is kept (== branch)\n    assert smart_truncate(\"one-two\", max_length=7, word_boundary=True, separator=\"-\") == \"one-two\"\n    # plain truncation without word boundary\n    assert smart_truncate(\"one-two-three\", max_length=5, separator=\"-\") == \"one-t\""
-    },
-    {
-      "mutant_id": "extra_3",
-      "test": "def test_smart_truncate_fallback_when_no_word_fits():\n    # every word is longer than max_length -> fall back to a hard cut\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\") == \"abc\"\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\", save_order=True) == \"abc\"\n    # a later short word is picked up when order does not need to be preserved\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\") == \"gh\"\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\", save_order=True) == \"abcd\""
-    },
-    {
-      "mutant_id": "extra_4",
-      "test": "def test_slugify_accepts_bytes_input():\n    assert slugify(b\"Hello World\") == \"hello-world\"\n    assert slugify(\"C'est d\\u00e9j\\u00e0 l'\\u00e9t\\u00e9.\".encode(\"utf-8\")) == \"c-est-deja-l-ete\"\n    assert slugify(b\"Hello World\", separator=\"_\") == \"hello_world\""
-    },
-    {
-      "mutant_id": "extra_5",
-      "test": "def test_slugify_lowercase_false_preserves_case():\n    assert slugify(\"Hello World\", lowercase=False) == \"Hello-World\"\n    assert slugify(\"CamelCase Text\", lowercase=False, separator=\"_\") == \"CamelCase_Text\"\n    assert slugify(\"Hello World\") == \"hello-world\"\n    assert slugify(\"Hello World\", lowercase=False, allow_unicode=True) == \"Hello-World\""
-    },
-    {
-      "mutant_id": "extra_6",
-      "test": "def test_slugify_quote_pre_and_post_processing():\n    # ascii quote is turned into a separator before transliteration\n    assert slugify(\"it's a test\") == \"it-s-a-test\"\n    # a typographic quote becomes a quote only after transliteration and is dropped\n    assert slugify(\"Don\\u2019t stop\") == \"dont-stop\"\n    assert slugify(\"O\\u2019Brien\") == \"obrien\""
-    },
-    {
-      "mutant_id": "extra_7",
-      "test": "def test_slugify_replacements_are_applied_to_the_final_slug_too():\n    # '-' only exists after the slug was built, so only the post-pass can replace it\n    assert slugify(\"foo bar\", replacements=[[\"-\", \"_\"]]) == \"foo_bar\"\n    assert slugify(\"foo bar baz\", replacements=[[\"-\", \"+\"]]) == \"foo+bar+baz\"\n    assert slugify(\"foo bar\", allow_unicode=True, replacements=[[\"-\", \"_\"]]) == \"foo_bar\""
-    },
-    {
-      "mutant_id": "extra_8",
-      "test": "def test_slugify_invalid_numeric_character_references_are_ignored():\n    # chr() raises for these code points; the substitution must be silently skipped\n    assert slugify(\"&#1114112;\") == \"1114112\"\n    assert slugify(\"&#x110000;\") == \"x110000\"\n    assert slugify(\"&#1114112;\", allow_unicode=True) == \"1114112\"\n    # valid references still work next to text\n    assert slugify(\"a&#381;b\") == \"azb\""
-    },
-    {
-      "mutant_id": "extra_1",
-      "test": "def test_smart_truncate_word_boundary_without_separator_in_string():\n    # separator is absent from the string -> hard cut at max_length\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"-\") == \"abcd\"\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"_\") == \"abcd\"\n    # no truncation needed at all\n    assert smart_truncate(\"abc\", max_length=5, word_boundary=True, separator=\"-\") == \"abc\""
-    },
-    {
-      "mutant_id": "extra_2",
-      "test": "def test_smart_truncate_strips_separator_and_exact_fit():\n    # leading/trailing separators are always stripped\n    assert smart_truncate(\"--one-two--\", separator=\"-\") == \"one-two\"\n    # max_length == 0 means no truncation\n    assert smart_truncate(\"one-two-three\", max_length=0, separator=\"-\") == \"one-two-three\"\n    # word that exactly reaches max_length is kept (== branch)\n    assert smart_truncate(\"one-two\", max_length=7, word_boundary=True, separator=\"-\") == \"one-two\"\n    # plain truncation without word boundary\n    assert smart_truncate(\"one-two-three\", max_length=5, separator=\"-\") == \"one-t\""
-    },
-    {
-      "mutant_id": "extra_3",
-      "test": "def test_smart_truncate_fallback_when_no_word_fits():\n    # every word is longer than max_length -> fall back to a hard cut\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\") == \"abc\"\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\", save_order=True) == \"abc\"\n    # a later short word is picked up when order does not need to be preserved\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\") == \"gh\"\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\", save_order=True) == \"abcd\""
-    },
-    {
-      "mutant_id": "extra_4",
-      "test": "def test_slugify_accepts_bytes_input():\n    assert slugify(b\"Hello World\") == \"hello-world\"\n    assert slugify(\"C'est d\\u00e9j\\u00e0 l'\\u00e9t\\u00e9.\".encode(\"utf-8\")) == \"c-est-deja-l-ete\"\n    assert slugify(b\"Hello World\", separator=\"_\") == \"hello_world\""
-    },
-    {
-      "mutant_id": "extra_5",
-      "test": "def test_slugify_lowercase_false_preserves_case():\n    assert slugify(\"Hello World\", lowercase=False) == \"Hello-World\"\n    assert slugify(\"CamelCase Text\", lowercase=False, separator=\"_\") == \"CamelCase_Text\"\n    assert slugify(\"Hello World\") == \"hello-world\"\n    assert slugify(\"Hello World\", lowercase=False, allow_unicode=True) == \"Hello-World\""
-    },
-    {
-      "mutant_id": "extra_6",
-      "test": "def test_slugify_quote_pre_and_post_processing():\n    # ascii quote is turned into a separator before transliteration\n    assert slugify(\"it's a test\") == \"it-s-a-test\"\n    # a typographic quote becomes a quote only after transliteration and is dropped\n    assert slugify(\"Don\\u2019t stop\") == \"dont-stop\"\n    assert slugify(\"O\\u2019Brien\") == \"obrien\""
-    },
-    {
-      "mutant_id": "extra_7",
-      "test": "def test_slugify_replacements_are_applied_to_the_final_slug_too():\n    # '-' only exists after the slug was built, so only the post-pass can replace it\n    assert slugify(\"foo bar\", replacements=[[\"-\", \"_\"]]) == \"foo_bar\"\n    assert slugify(\"foo bar baz\", replacements=[[\"-\", \"+\"]]) == \"foo+bar+baz\"\n    assert slugify(\"foo bar\", allow_unicode=True, replacements=[[\"-\", \"_\"]]) == \"foo_bar\""
-    },
-    {
-      "mutant_id": "extra_8",
-      "test": "def test_slugify_invalid_numeric_character_references_are_ignored():\n    # chr() raises for these code points; the substitution must be silently skipped\n    assert slugify(\"&#1114112;\") == \"1114112\"\n    assert slugify(\"&#x110000;\") == \"x110000\"\n    assert slugify(\"&#1114112;\", allow_unicode=True) == \"1114112\"\n    # valid references still work next to text\n    assert slugify(\"a&#381;b\") == \"azb\""
     }
   ],
-  "rejected": [],
+  "rejected": [
+    {
+      "mutant_id": "extra_1",
+      "test": "def test_smart_truncate_word_boundary_without_separator_in_string():\n    # separator is absent from the string -> hard cut at max_length\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"-\") == \"abcd\"\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"_\") == \"abcd\"\n    # no truncation needed at all\n    assert smart_truncate(\"abc\", max_length=5, word_boundary=True, separator=\"-\") == \"abc\"",
+      "reason": "nome de teste repetido: test_smart_truncate_word_boundary_without_separator_in_string"
+    },
+    {
+      "mutant_id": "extra_2",
+      "test": "def test_smart_truncate_strips_separator_and_exact_fit():\n    # leading/trailing separators are always stripped\n    assert smart_truncate(\"--one-two--\", separator=\"-\") == \"one-two\"\n    # max_length == 0 means no truncation\n    assert smart_truncate(\"one-two-three\", max_length=0, separator=\"-\") == \"one-two-three\"\n    # word that exactly reaches max_length is kept (== branch)\n    assert smart_truncate(\"one-two\", max_length=7, word_boundary=True, separator=\"-\") == \"one-two\"\n    # plain truncation without word boundary\n    assert smart_truncate(\"one-two-three\", max_length=5, separator=\"-\") == \"one-t\"",
+      "reason": "nome de teste repetido: test_smart_truncate_strips_separator_and_exact_fit"
+    },
+    {
+      "mutant_id": "extra_3",
+      "test": "def test_smart_truncate_fallback_when_no_word_fits():\n    # every word is longer than max_length -> fall back to a hard cut\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\") == \"abc\"\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\", save_order=True) == \"abc\"\n    # a later short word is picked up when order does not need to be preserved\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\") == \"gh\"\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\", save_order=True) == \"abcd\"",
+      "reason": "nome de teste repetido: test_smart_truncate_fallback_when_no_word_fits"
+    },
+    {
+      "mutant_id": "extra_4",
+      "test": "def test_slugify_accepts_bytes_input():\n    assert slugify(b\"Hello World\") == \"hello-world\"\n    assert slugify(\"C'est d\\u00e9j\\u00e0 l'\\u00e9t\\u00e9.\".encode(\"utf-8\")) == \"c-est-deja-l-ete\"\n    assert slugify(b\"Hello World\", separator=\"_\") == \"hello_world\"",
+      "reason": "nome de teste repetido: test_slugify_accepts_bytes_input"
+    },
+    {
+      "mutant_id": "extra_5",
+      "test": "def test_slugify_lowercase_false_preserves_case():\n    assert slugify(\"Hello World\", lowercase=False) == \"Hello-World\"\n    assert slugify(\"CamelCase Text\", lowercase=False, separator=\"_\") == \"CamelCase_Text\"\n    assert slugify(\"Hello World\") == \"hello-world\"\n    assert slugify(\"Hello World\", lowercase=False, allow_unicode=True) == \"Hello-World\"",
+      "reason": "nome de teste repetido: test_slugify_lowercase_false_preserves_case"
+    },
+    {
+      "mutant_id": "extra_6",
+      "test": "def test_slugify_quote_pre_and_post_processing():\n    # ascii quote is turned into a separator before transliteration\n    assert slugify(\"it's a test\") == \"it-s-a-test\"\n    # a typographic quote becomes a quote only after transliteration and is dropped\n    assert slugify(\"Don\\u2019t stop\") == \"dont-stop\"\n    assert slugify(\"O\\u2019Brien\") == \"obrien\"",
+      "reason": "nome de teste repetido: test_slugify_quote_pre_and_post_processing"
+    },
+    {
+      "mutant_id": "extra_7",
+      "test": "def test_slugify_replacements_are_applied_to_the_final_slug_too():\n    # '-' only exists after the slug was built, so only the post-pass can replace it\n    assert slugify(\"foo bar\", replacements=[[\"-\", \"_\"]]) == \"foo_bar\"\n    assert slugify(\"foo bar baz\", replacements=[[\"-\", \"+\"]]) == \"foo+bar+baz\"\n    assert slugify(\"foo bar\", allow_unicode=True, replacements=[[\"-\", \"_\"]]) == \"foo_bar\"",
+      "reason": "nome de teste repetido: test_slugify_replacements_are_applied_to_the_final_slug_too"
+    },
+    {
+      "mutant_id": "extra_8",
+      "test": "def test_slugify_invalid_numeric_character_references_are_ignored():\n    # chr() raises for these code points; the substitution must be silently skipped\n    assert slugify(\"&#1114112;\") == \"1114112\"\n    assert slugify(\"&#x110000;\") == \"x110000\"\n    assert slugify(\"&#1114112;\", allow_unicode=True) == \"1114112\"\n    # valid references still work next to text\n    assert slugify(\"a&#381;b\") == \"azb\"",
+      "reason": "nome de teste repetido: test_slugify_invalid_numeric_character_references_are_ignored"
+    },
+    {
+      "mutant_id": "extra_1",
+      "test": "def test_smart_truncate_word_boundary_without_separator_in_string():\n    # separator is absent from the string -> hard cut at max_length\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"-\") == \"abcd\"\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"_\") == \"abcd\"\n    # no truncation needed at all\n    assert smart_truncate(\"abc\", max_length=5, word_boundary=True, separator=\"-\") == \"abc\"",
+      "reason": "nome de teste repetido: test_smart_truncate_word_boundary_without_separator_in_string"
+    },
+    {
+      "mutant_id": "extra_2",
+      "test": "def test_smart_truncate_strips_separator_and_exact_fit():\n    # leading/trailing separators are always stripped\n    assert smart_truncate(\"--one-two--\", separator=\"-\") == \"one-two\"\n    # max_length == 0 means no truncation\n    assert smart_truncate(\"one-two-three\", max_length=0, separator=\"-\") == \"one-two-three\"\n    # word that exactly reaches max_length is kept (== branch)\n    assert smart_truncate(\"one-two\", max_length=7, word_boundary=True, separator=\"-\") == \"one-two\"\n    # plain truncation without word boundary\n    assert smart_truncate(\"one-two-three\", max_length=5, separator=\"-\") == \"one-t\"",
+      "reason": "nome de teste repetido: test_smart_truncate_strips_separator_and_exact_fit"
+    },
+    {
+      "mutant_id": "extra_3",
+      "test": "def test_smart_truncate_fallback_when_no_word_fits():\n    # every word is longer than max_length -> fall back to a hard cut\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\") == \"abc\"\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\", save_order=True) == \"abc\"\n    # a later short word is picked up when order does not need to be preserved\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\") == \"gh\"\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\", save_order=True) == \"abcd\"",
+      "reason": "nome de teste repetido: test_smart_truncate_fallback_when_no_word_fits"
+    },
+    {
+      "mutant_id": "extra_4",
+      "test": "def test_slugify_accepts_bytes_input():\n    assert slugify(b\"Hello World\") == \"hello-world\"\n    assert slugify(\"C'est d\\u00e9j\\u00e0 l'\\u00e9t\\u00e9.\".encode(\"utf-8\")) == \"c-est-deja-l-ete\"\n    assert slugify(b\"Hello World\", separator=\"_\") == \"hello_world\"",
+      "reason": "nome de teste repetido: test_slugify_accepts_bytes_input"
+    },
+    {
+      "mutant_id": "extra_5",
+      "test": "def test_slugify_lowercase_false_preserves_case():\n    assert slugify(\"Hello World\", lowercase=False) == \"Hello-World\"\n    assert slugify(\"CamelCase Text\", lowercase=False, separator=\"_\") == \"CamelCase_Text\"\n    assert slugify(\"Hello World\") == \"hello-world\"\n    assert slugify(\"Hello World\", lowercase=False, allow_unicode=True) == \"Hello-World\"",
+      "reason": "nome de teste repetido: test_slugify_lowercase_false_preserves_case"
+    },
+    {
+      "mutant_id": "extra_6",
+      "test": "def test_slugify_quote_pre_and_post_processing():\n    # ascii quote is turned into a separator before transliteration\n    assert slugify(\"it's a test\") == \"it-s-a-test\"\n    # a typographic quote becomes a quote only after transliteration and is dropped\n    assert slugify(\"Don\\u2019t stop\") == \"dont-stop\"\n    assert slugify(\"O\\u2019Brien\") == \"obrien\"",
+      "reason": "nome de teste repetido: test_slugify_quote_pre_and_post_processing"
+    },
+    {
+      "mutant_id": "extra_7",
+      "test": "def test_slugify_replacements_are_applied_to_the_final_slug_too():\n    # '-' only exists after the slug was built, so only the post-pass can replace it\n    assert slugify(\"foo bar\", replacements=[[\"-\", \"_\"]]) == \"foo_bar\"\n    assert slugify(\"foo bar baz\", replacements=[[\"-\", \"+\"]]) == \"foo+bar+baz\"\n    assert slugify(\"foo bar\", allow_unicode=True, replacements=[[\"-\", \"_\"]]) == \"foo_bar\"",
+      "reason": "nome de teste repetido: test_slugify_replacements_are_applied_to_the_final_slug_too"
+    },
+    {
+      "mutant_id": "extra_8",
+      "test": "def test_slugify_invalid_numeric_character_references_are_ignored():\n    # chr() raises for these code points; the substitution must be silently skipped\n    assert slugify(\"&#1114112;\") == \"1114112\"\n    assert slugify(\"&#x110000;\") == \"x110000\"\n    assert slugify(\"&#1114112;\", allow_unicode=True) == \"1114112\"\n    # valid references still work next to text\n    assert slugify(\"a&#381;b\") == \"azb\"",
+      "reason": "nome de teste repetido: test_slugify_invalid_numeric_character_references_are_ignored"
+    },
+    {
+      "mutant_id": "extra_1",
+      "test": "def test_smart_truncate_word_boundary_without_separator_in_string():\n    # separator is absent from the string -> hard cut at max_length\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"-\") == \"abcd\"\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"_\") == \"abcd\"\n    # no truncation needed at all\n    assert smart_truncate(\"abc\", max_length=5, word_boundary=True, separator=\"-\") == \"abc\"",
+      "reason": "nome de teste repetido: test_smart_truncate_word_boundary_without_separator_in_string"
+    },
+    {
+      "mutant_id": "extra_2",
+      "test": "def test_smart_truncate_strips_separator_and_exact_fit():\n    # leading/trailing separators are always stripped\n    assert smart_truncate(\"--one-two--\", separator=\"-\") == \"one-two\"\n    # max_length == 0 means no truncation\n    assert smart_truncate(\"one-two-three\", max_length=0, separator=\"-\") == \"one-two-three\"\n    # word that exactly reaches max_length is kept (== branch)\n    assert smart_truncate(\"one-two\", max_length=7, word_boundary=True, separator=\"-\") == \"one-two\"\n    # plain truncation without word boundary\n    assert smart_truncate(\"one-two-three\", max_length=5, separator=\"-\") == \"one-t\"",
+      "reason": "nome de teste repetido: test_smart_truncate_strips_separator_and_exact_fit"
+    },
+    {
+      "mutant_id": "extra_3",
+      "test": "def test_smart_truncate_fallback_when_no_word_fits():\n    # every word is longer than max_length -> fall back to a hard cut\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\") == \"abc\"\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\", save_order=True) == \"abc\"\n    # a later short word is picked up when order does not need to be preserved\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\") == \"gh\"\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\", save_order=True) == \"abcd\"",
+      "reason": "nome de teste repetido: test_smart_truncate_fallback_when_no_word_fits"
+    },
+    {
+      "mutant_id": "extra_4",
+      "test": "def test_slugify_accepts_bytes_input():\n    assert slugify(b\"Hello World\") == \"hello-world\"\n    assert slugify(\"C'est d\\u00e9j\\u00e0 l'\\u00e9t\\u00e9.\".encode(\"utf-8\")) == \"c-est-deja-l-ete\"\n    assert slugify(b\"Hello World\", separator=\"_\") == \"hello_world\"",
+      "reason": "nome de teste repetido: test_slugify_accepts_bytes_input"
+    },
+    {
+      "mutant_id": "extra_5",
+      "test": "def test_slugify_lowercase_false_preserves_case():\n    assert slugify(\"Hello World\", lowercase=False) == \"Hello-World\"\n    assert slugify(\"CamelCase Text\", lowercase=False, separator=\"_\") == \"CamelCase_Text\"\n    assert slugify(\"Hello World\") == \"hello-world\"\n    assert slugify(\"Hello World\", lowercase=False, allow_unicode=True) == \"Hello-World\"",
+      "reason": "nome de teste repetido: test_slugify_lowercase_false_preserves_case"
+    },
+    {
+      "mutant_id": "extra_6",
+      "test": "def test_slugify_quote_pre_and_post_processing():\n    # ascii quote is turned into a separator before transliteration\n    assert slugify(\"it's a test\") == \"it-s-a-test\"\n    # a typographic quote becomes a quote only after transliteration and is dropped\n    assert slugify(\"Don\\u2019t stop\") == \"dont-stop\"\n    assert slugify(\"O\\u2019Brien\") == \"obrien\"",
+      "reason": "nome de teste repetido: test_slugify_quote_pre_and_post_processing"
+    },
+    {
+      "mutant_id": "extra_7",
+      "test": "def test_slugify_replacements_are_applied_to_the_final_slug_too():\n    # '-' only exists after the slug was built, so only the post-pass can replace it\n    assert slugify(\"foo bar\", replacements=[[\"-\", \"_\"]]) == \"foo_bar\"\n    assert slugify(\"foo bar baz\", replacements=[[\"-\", \"+\"]]) == \"foo+bar+baz\"\n    assert slugify(\"foo bar\", allow_unicode=True, replacements=[[\"-\", \"_\"]]) == \"foo_bar\"",
+      "reason": "nome de teste repetido: test_slugify_replacements_are_applied_to_the_final_slug_too"
+    },
+    {
+      "mutant_id": "extra_8",
+      "test": "def test_slugify_invalid_numeric_character_references_are_ignored():\n    # chr() raises for these code points; the substitution must be silently skipped\n    assert slugify(\"&#1114112;\") == \"1114112\"\n    assert slugify(\"&#x110000;\") == \"x110000\"\n    assert slugify(\"&#1114112;\", allow_unicode=True) == \"1114112\"\n    # valid references still work next to text\n    assert slugify(\"a&#381;b\") == \"azb\"",
+      "reason": "nome de teste repetido: test_slugify_invalid_numeric_character_references_are_ignored"
+    },
+    {
+      "mutant_id": "extra_1",
+      "test": "def test_smart_truncate_word_boundary_without_separator_in_string():\n    # separator is absent from the string -> hard cut at max_length\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"-\") == \"abcd\"\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"_\") == \"abcd\"\n    # no truncation needed at all\n    assert smart_truncate(\"abc\", max_length=5, word_boundary=True, separator=\"-\") == \"abc\"",
+      "reason": "nome de teste repetido: test_smart_truncate_word_boundary_without_separator_in_string"
+    },
+    {
+      "mutant_id": "extra_2",
+      "test": "def test_smart_truncate_strips_separator_and_exact_fit():\n    # leading/trailing separators are always stripped\n    assert smart_truncate(\"--one-two--\", separator=\"-\") == \"one-two\"\n    # max_length == 0 means no truncation\n    assert smart_truncate(\"one-two-three\", max_length=0, separator=\"-\") == \"one-two-three\"\n    # word that exactly reaches max_length is kept (== branch)\n    assert smart_truncate(\"one-two\", max_length=7, word_boundary=True, separator=\"-\") == \"one-two\"\n    # plain truncation without word boundary\n    assert smart_truncate(\"one-two-three\", max_length=5, separator=\"-\") == \"one-t\"",
+      "reason": "nome de teste repetido: test_smart_truncate_strips_separator_and_exact_fit"
+    },
+    {
+      "mutant_id": "extra_3",
+      "test": "def test_smart_truncate_fallback_when_no_word_fits():\n    # every word is longer than max_length -> fall back to a hard cut\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\") == \"abc\"\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\", save_order=True) == \"abc\"\n    # a later short word is picked up when order does not need to be preserved\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\") == \"gh\"\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\", save_order=True) == \"abcd\"",
+      "reason": "nome de teste repetido: test_smart_truncate_fallback_when_no_word_fits"
+    },
+    {
+      "mutant_id": "extra_4",
+      "test": "def test_slugify_accepts_bytes_input():\n    assert slugify(b\"Hello World\") == \"hello-world\"\n    assert slugify(\"C'est d\\u00e9j\\u00e0 l'\\u00e9t\\u00e9.\".encode(\"utf-8\")) == \"c-est-deja-l-ete\"\n    assert slugify(b\"Hello World\", separator=\"_\") == \"hello_world\"",
+      "reason": "nome de teste repetido: test_slugify_accepts_bytes_input"
+    },
+    {
+      "mutant_id": "extra_5",
+      "test": "def test_slugify_lowercase_false_preserves_case():\n    assert slugify(\"Hello World\", lowercase=False) == \"Hello-World\"\n    assert slugify(\"CamelCase Text\", lowercase=False, separator=\"_\") == \"CamelCase_Text\"\n    assert slugify(\"Hello World\") == \"hello-world\"\n    assert slugify(\"Hello World\", lowercase=False, allow_unicode=True) == \"Hello-World\"",
+      "reason": "nome de teste repetido: test_slugify_lowercase_false_preserves_case"
+    },
+    {
+      "mutant_id": "extra_6",
+      "test": "def test_slugify_quote_pre_and_post_processing():\n    # ascii quote is turned into a separator before transliteration\n    assert slugify(\"it's a test\") == \"it-s-a-test\"\n    # a typographic quote becomes a quote only after transliteration and is dropped\n    assert slugify(\"Don\\u2019t stop\") == \"dont-stop\"\n    assert slugify(\"O\\u2019Brien\") == \"obrien\"",
+      "reason": "nome de teste repetido: test_slugify_quote_pre_and_post_processing"
+    },
+    {
+      "mutant_id": "extra_7",
+      "test": "def test_slugify_replacements_are_applied_to_the_final_slug_too():\n    # '-' only exists after the slug was built, so only the post-pass can replace it\n    assert slugify(\"foo bar\", replacements=[[\"-\", \"_\"]]) == \"foo_bar\"\n    assert slugify(\"foo bar baz\", replacements=[[\"-\", \"+\"]]) == \"foo+bar+baz\"\n    assert slugify(\"foo bar\", allow_unicode=True, replacements=[[\"-\", \"_\"]]) == \"foo_bar\"",
+      "reason": "nome de teste repetido: test_slugify_replacements_are_applied_to_the_final_slug_too"
+    },
+    {
+      "mutant_id": "extra_8",
+      "test": "def test_slugify_invalid_numeric_character_references_are_ignored():\n    # chr() raises for these code points; the substitution must be silently skipped\n    assert slugify(\"&#1114112;\") == \"1114112\"\n    assert slugify(\"&#x110000;\") == \"x110000\"\n    assert slugify(\"&#1114112;\", allow_unicode=True) == \"1114112\"\n    # valid references still work next to text\n    assert slugify(\"a&#381;b\") == \"azb\"",
+      "reason": "nome de teste repetido: test_slugify_invalid_numeric_character_references_are_ignored"
+    },
+    {
+      "mutant_id": "extra_1",
+      "test": "def test_smart_truncate_word_boundary_without_separator_in_string():\n    # separator is absent from the string -> hard cut at max_length\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"-\") == \"abcd\"\n    assert smart_truncate(\"abcdefghij\", max_length=4, word_boundary=True, separator=\"_\") == \"abcd\"\n    # no truncation needed at all\n    assert smart_truncate(\"abc\", max_length=5, word_boundary=True, separator=\"-\") == \"abc\"",
+      "reason": "nome de teste repetido: test_smart_truncate_word_boundary_without_separator_in_string"
+    },
+    {
+      "mutant_id": "extra_2",
+      "test": "def test_smart_truncate_strips_separator_and_exact_fit():\n    # leading/trailing separators are always stripped\n    assert smart_truncate(\"--one-two--\", separator=\"-\") == \"one-two\"\n    # max_length == 0 means no truncation\n    assert smart_truncate(\"one-two-three\", max_length=0, separator=\"-\") == \"one-two-three\"\n    # word that exactly reaches max_length is kept (== branch)\n    assert smart_truncate(\"one-two\", max_length=7, word_boundary=True, separator=\"-\") == \"one-two\"\n    # plain truncation without word boundary\n    assert smart_truncate(\"one-two-three\", max_length=5, separator=\"-\") == \"one-t\"",
+      "reason": "nome de teste repetido: test_smart_truncate_strips_separator_and_exact_fit"
+    },
+    {
+      "mutant_id": "extra_3",
+      "test": "def test_smart_truncate_fallback_when_no_word_fits():\n    # every word is longer than max_length -> fall back to a hard cut\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\") == \"abc\"\n    assert smart_truncate(\"abcdef-ghijkl\", max_length=3, word_boundary=True, separator=\"-\", save_order=True) == \"abc\"\n    # a later short word is picked up when order does not need to be preserved\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\") == \"gh\"\n    assert smart_truncate(\"abcdef-gh\", max_length=4, word_boundary=True, separator=\"-\", save_order=True) == \"abcd\"",
+      "reason": "nome de teste repetido: test_smart_truncate_fallback_when_no_word_fits"
+    },
+    {
+      "mutant_id": "extra_4",
+      "test": "def test_slugify_accepts_bytes_input():\n    assert slugify(b\"Hello World\") == \"hello-world\"\n    assert slugify(\"C'est d\\u00e9j\\u00e0 l'\\u00e9t\\u00e9.\".encode(\"utf-8\")) == \"c-est-deja-l-ete\"\n    assert slugify(b\"Hello World\", separator=\"_\") == \"hello_world\"",
+      "reason": "nome de teste repetido: test_slugify_accepts_bytes_input"
+    },
+    {
+      "mutant_id": "extra_5",
+      "test": "def test_slugify_lowercase_false_preserves_case():\n    assert slugify(\"Hello World\", lowercase=False) == \"Hello-World\"\n    assert slugify(\"CamelCase Text\", lowercase=False, separator=\"_\") == \"CamelCase_Text\"\n    assert slugify(\"Hello World\") == \"hello-world\"\n    assert slugify(\"Hello World\", lowercase=False, allow_unicode=True) == \"Hello-World\"",
+      "reason": "nome de teste repetido: test_slugify_lowercase_false_preserves_case"
+    },
+    {
+      "mutant_id": "extra_6",
+      "test": "def test_slugify_quote_pre_and_post_processing():\n    # ascii quote is turned into a separator before transliteration\n    assert slugify(\"it's a test\") == \"it-s-a-test\"\n    # a typographic quote becomes a quote only after transliteration and is dropped\n    assert slugify(\"Don\\u2019t stop\") == \"dont-stop\"\n    assert slugify(\"O\\u2019Brien\") == \"obrien\"",
+      "reason": "nome de teste repetido: test_slugify_quote_pre_and_post_processing"
+    },
+    {
+      "mutant_id": "extra_7",
+      "test": "def test_slugify_replacements_are_applied_to_the_final_slug_too():\n    # '-' only exists after the slug was built, so only the post-pass can replace it\n    assert slugify(\"foo bar\", replacements=[[\"-\", \"_\"]]) == \"foo_bar\"\n    assert slugify(\"foo bar baz\", replacements=[[\"-\", \"+\"]]) == \"foo+bar+baz\"\n    assert slugify(\"foo bar\", allow_unicode=True, replacements=[[\"-\", \"_\"]]) == \"foo_bar\"",
+      "reason": "nome de teste repetido: test_slugify_replacements_are_applied_to_the_final_slug_too"
+    },
+    {
+      "mutant_id": "extra_8",
+      "test": "def test_slugify_invalid_numeric_character_references_are_ignored():\n    # chr() raises for these code points; the substitution must be silently skipped\n    assert slugify(\"&#1114112;\") == \"1114112\"\n    assert slugify(\"&#x110000;\") == \"x110000\"\n    assert slugify(\"&#1114112;\", allow_unicode=True) == \"1114112\"\n    # valid references still work next to text\n    assert slugify(\"a&#381;b\") == \"azb\"",
+      "reason": "nome de teste repetido: test_slugify_invalid_numeric_character_references_are_ignored"
+    },
+    {
+      "mutant_id": "extra_8",
+      "test": "def test_slugify_invalid_numeric_character_references_are_ignored():\n    # chr() raises for these code points; the substitution must be silently skipped\n    assert slugify(\"&#1114112;\") == \"1114112\"\n    assert slugify(\"&#x110000;\") == \"x110000\"\n    assert slugify(\"&#1114112;\", allow_unicode=True) == \"1114112\"\n    # valid references still work next to text\n    assert slugify(\"a&#381;b\") == \"azb\"",
+      "reason": "G1: falha no código original",
+      "output": "112;\", allow_unicode=True) == \"1114112\"\n        # valid references still work next to text\n>       assert slugify(\"a&#381;b\") == \"azb\"\nE       AssertionError: assert 'az-b' == 'azb'\nE         \nE         - azb\nE         + az-b\nE         ?   +\n\ntest_probe.py:12: AssertionError\n=========================== short test summary info ============================\nFAILED test_probe.py::test_slugify_invalid_numeric_character_references_are_ignored - AssertionError: assert 'az-b' == 'azb'\n1 failed in 0.04s\n"
+    }
+  ],
   "model_declined": [],
   "generated": [
     {
