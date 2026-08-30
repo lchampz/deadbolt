@@ -1,6 +1,6 @@
 # Deadbolt — Hackathon Submission Summary
 
-**Project:** Deadbolt · https://github.com/lchampz/deadzone
+**Project:** Deadbolt · https://github.com/lchampz/deadbolt
 **Track:** micro1 Frontier Engineering Challenge 2026
 **Language:** English for the judges. The reasoning trail in `docs/` is Portuguese (Brazil).
 
@@ -128,8 +128,8 @@ Two real findings fell out, each with a mechanical proof in `data/triage/`:
 ## Reproducibility (15 pts)
 
 ```bash
-git clone https://github.com/lchampz/deadzone.git && cd deadzone
-docker build -t deadzone . && docker run --rm --network none deadzone
+git clone https://github.com/lchampz/deadbolt.git && cd deadbolt
+docker build -t deadbolt . && docker run --rm --network none deadbolt
 ```
 
 46 tests, the sanity controls and every table, offline. `make verify SET=<set>`

@@ -20,8 +20,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "eval"))
 sys.path.insert(0, str(ROOT / "src"))
 
-from deadzone.llm import Call, Client, MissingRecording, cache_key  # noqa: E402
-from deadzone.predict import STAGES, Target, evidence_gate, numbered, reconcile, run  # noqa: E402
+from deadbolt.llm import Call, Client, MissingRecording, cache_key  # noqa: E402
+from deadbolt.predict import STAGES, Target, evidence_gate, numbered, reconcile, run  # noqa: E402
 from metric import GroundTruth, score  # noqa: E402
 
 PROMPTS = ROOT / "prompts"

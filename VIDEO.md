@@ -111,7 +111,7 @@ Show the four stages.
 
 ## 4:40–5:00 · Reproduce it
 
-`docker run --rm --network none deadzone` → the tables.
+`docker run --rm --network none deadbolt` → the tables.
 
 > "No key, no subscription, no network. Verifying the numbers needs nothing;
 > regenerating the tests needs credentials. Six dollars eighty-three of API, total."

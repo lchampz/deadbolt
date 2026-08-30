@@ -22,7 +22,7 @@ sanity:           ## controles do harness: piso trivial, fabricada errada, aleat
 	$(PY) eval/run.py --sanity --set transfer
 
 predict:          ## roda um estágio (STAGE=baseline|s4|s5|s6 SET=dev|holdout)
-	PYTHONPATH=src $(PY) -m deadzone.predict --stage $(STAGE) --set $(SET)
+	PYTHONPATH=src $(PY) -m deadbolt.predict --stage $(STAGE) --set $(SET)
 
 eval:             ## pontua um arquivo de predições (PRED=results/x.pred.json)
 	$(PY) eval/run.py --predictions $(PRED) --save
@@ -33,7 +33,7 @@ submission-table: ## reescreve a tabela dentro de SUBMISSION.md a partir de repo
 check-creds:      ## separa "chave inválida" de "saldo zerado" usando endpoints gratuitos
 	$(PY) scripts/check_credentials.py
 
-run-all:          ## grava os 4 estágios nos 2 conjuntos e refaz a tabela (exige DEADZONE_MODE=live)
+run-all:          ## grava os 4 estágios nos 2 conjuntos e refaz a tabela (exige DEADBOLT_MODE=live)
 	bash scripts/run_all_stages.sh
 
 report-testgen:   ## tabela do Deadbolt — antes/depois, ablação e camada 2
@@ -43,7 +43,7 @@ verify:           ## roda o mutmut do zero sobre os testes gerados (SET=dev SUF=
 	$(PY) eval/verify_mutmut.py $(SET) T3 $(SUF)
 
 testgen:          ## gera testes num estágio (STAGE=B|T1|T2|T3 SET=dev|holdout|transfer)
-	PYTHONPATH=src $(PY) -m deadzone.testgen --stage $(STAGE) --set $(SET)
+	PYTHONPATH=src $(PY) -m deadbolt.testgen --stage $(STAGE) --set $(SET)
 
 report:           ## tabela final: pisos + todos os estágios medidos
 	$(PY) eval/report.py

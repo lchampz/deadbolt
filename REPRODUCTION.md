@@ -13,9 +13,9 @@ Measured on: macOS 15 (darwin 24.6.0), Apple Silicon. Container: `python:3.12-sl
 ## Path A — container, no API key (the one that matters)
 
 ```bash
-git clone https://github.com/lchampz/deadzone.git && cd deadzone
-docker build -t deadzone .
-docker run --rm --network none deadzone
+git clone https://github.com/lchampz/deadbolt.git && cd deadbolt
+docker build -t deadbolt .
+docker run --rm --network none deadbolt
 ```
 
 `--network none` is not decoration: the whole path is offline by construction,
@@ -117,7 +117,7 @@ Re-running the same stage after recording costs nothing: with
 
 ### Cost model
 
-Prices in `src/deadzone/llm.py` (`PRICING`), USD per 1M tokens, Anthropic
+Prices in `src/deadbolt/llm.py` (`PRICING`), USD per 1M tokens, Anthropic
 first-party rates as of 2026-08:
 
 | Model | Input | Output |
@@ -139,7 +139,7 @@ exact — the table is never silently wrong about tokens.
 | mutmut | 3.7.0 |
 | pytest | ≥8 |
 | corpus | `python-slugify` @ `7b6d5d96c1995e6dccb39a19a13ba78d7d0a3ee4` (2026-01-07) |
-| runtime deps of Deadzone itself | none for Path A/B — stdlib only |
+| runtime deps of Deadbolt itself | none for Path A/B — stdlib only |
 | optional, Path C only | `anthropic` ≥ 1.2 (official SDK) |
 
 The reproduction path has no third-party runtime dependency: `llm.py` imports
@@ -154,8 +154,8 @@ The reproduction path has no third-party runtime dependency: `llm.py` imports
 ## What reproduces with no credentials at all
 
 ```bash
-git clone https://github.com/lchampz/deadzone.git && cd deadzone
-docker build -t deadzone . && docker run --rm --network none deadzone
+git clone https://github.com/lchampz/deadbolt.git && cd deadbolt
+docker build -t deadbolt . && docker run --rm --network none deadbolt
 ```
 
 Prints 46 tests, the sanity controls, and every table: before/after on four runs,

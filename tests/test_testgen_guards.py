@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "eval"))
 sys.path.insert(0, str(ROOT / "src"))
 
-from deadzone.testgen import Corpus, Sandbox, check, measure  # noqa: E402
+from deadbolt.testgen import Corpus, Sandbox, check, measure  # noqa: E402
 
 
 @pytest.fixture(scope="module")
@@ -111,3 +111,22 @@ def test_linha_de_partida_bate_com_a_metrica_congelada():
         c = Corpus(name)
         assert c.totals() == (total, killed), name
         assert len(c.survivors()) == surv, name
+
+
+def test_corpus_pinado_esta_intacto():
+    """O corpus versionado não pode divergir do que está commitado.
+
+    Uma execução interrompida deixou uma mutação no fonte de
+    `corpus/python-slugify/slugify/slugify.py`: um bloco try/except virou import
+    direto e deslocou quatro linhas. O ground truth inteiro é indexado por número
+    de linha — corpus deslocado significa toda medição apontando para o lugar
+    errado, silenciosamente. Este teste é a tranca.
+    """
+    import subprocess
+
+    r = subprocess.run(
+        ["git", "status", "--porcelain", "--", "corpus/"],
+        cwd=ROOT, capture_output=True, text=True,
+    )
+    sujos = [ln for ln in r.stdout.splitlines() if ln.strip()]
+    assert not sujos, "corpus pinado modificado:\n" + "\n".join(sujos)

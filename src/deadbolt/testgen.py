@@ -31,7 +31,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "eval"))
 sys.path.insert(0, str(ROOT / "src"))
 
-from deadzone.llm import Client  # noqa: E402
+from deadbolt.llm import Client  # noqa: E402
 from metric import SETS  # noqa: E402
 
 CORPUS = ROOT / "corpus"

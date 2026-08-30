@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "eval"))
 sys.path.insert(0, str(ROOT / "src"))
 
-from deadzone.testgen import Corpus, Sandbox  # noqa: E402
+from deadbolt.testgen import Corpus, Sandbox  # noqa: E402
 
 COUNT = re.compile(r"(\d+)/(\d+)\s+🎉\s*(\d+).*?🙁\s*(\d+)", re.S)
 

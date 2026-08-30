@@ -90,8 +90,8 @@ them.
 ## 5. Reproduce it — no API key, no subscription
 
 ```bash
-git clone https://github.com/lchampz/deadzone.git && cd deadzone
-docker build -t deadzone . && docker run --rm --network none deadzone
+git clone https://github.com/lchampz/deadbolt.git && cd deadbolt
+docker build -t deadbolt . && docker run --rm --network none deadbolt
 ```
 
 Replays the recorded calls and reproduces every table offline. Regenerating the

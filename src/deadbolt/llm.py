@@ -2,7 +2,7 @@
 
 Duas garantias que o brief exige:
 
-1. **Reprodução sem chave.** `DEADZONE_MODE=replay` (default) nunca toca a rede e
+1. **Reprodução sem chave.** `DEADBOLT_MODE=replay` (default) nunca toca a rede e
    não importa nenhuma dependência de terceiro — só a stdlib. Se faltar gravação,
    quebra alto: nunca silencia, nunca cai para chamada ao vivo, nunca inventa.
 2. **Trajetória completa.** Cada chamada grava prompt, resposta, modelo, esforço,
@@ -10,7 +10,7 @@ Duas garantias que o brief exige:
    arquivos *é* o artefato de trajetória do rubric.
 
 O caminho ao vivo usa o SDK oficial `anthropic` (import tardio, só quando
-`DEADZONE_MODE=live`). A chave é resolvida pelo próprio SDK a partir do
+`DEADBOLT_MODE=live`). A chave é resolvida pelo próprio SDK a partir do
 ambiente; nunca é lida, impressa, gravada nem incluída em nenhum artefato.
 
 ## Decisões de medição registradas aqui, não escondidas
@@ -126,10 +126,10 @@ def cache_key(provider: str, model: str, system: str, prompt: str,
 
 @dataclass
 class Client:
-    provider: str = field(default_factory=lambda: os.environ.get("DEADZONE_PROVIDER", "anthropic"))
-    model: str = field(default_factory=lambda: os.environ.get("DEADZONE_MODEL", DEFAULT_MODEL))
-    mode: str = field(default_factory=lambda: os.environ.get("DEADZONE_MODE", "replay"))
-    effort: str = field(default_factory=lambda: os.environ.get("DEADZONE_EFFORT", DEFAULT_EFFORT))
+    provider: str = field(default_factory=lambda: os.environ.get("DEADBOLT_PROVIDER", "anthropic"))
+    model: str = field(default_factory=lambda: os.environ.get("DEADBOLT_MODEL", DEFAULT_MODEL))
+    mode: str = field(default_factory=lambda: os.environ.get("DEADBOLT_MODE", "replay"))
+    effort: str = field(default_factory=lambda: os.environ.get("DEADBOLT_EFFORT", DEFAULT_EFFORT))
     recordings: Path = RECORDINGS
     calls: list[Call] = field(default_factory=list)
     cache_read: int = 0
@@ -140,7 +140,7 @@ class Client:
     def __post_init__(self) -> None:
         self.recordings.mkdir(parents=True, exist_ok=True)
         if self.mode not in ("replay", "live"):
-            raise ValueError(f"DEADZONE_MODE inválido: {self.mode!r} (use replay|live)")
+            raise ValueError(f"DEADBOLT_MODE inválido: {self.mode!r} (use replay|live)")
 
     # ---------------------------------------------------------------- público
 
@@ -167,7 +167,7 @@ class Client:
         if self.mode == "replay":
             raise MissingRecording(
                 f"sem gravação para {key} (stage={stage} unit={unit} model={self.model}).\n"
-                f"Rode com DEADZONE_MODE=live e a chave no ambiente para gravar."
+                f"Rode com DEADBOLT_MODE=live e a chave no ambiente para gravar."
             )
 
         call = Call(key=key, provider=self.provider, model=self.model, system=system,
@@ -244,7 +244,7 @@ class Client:
                 f"provider {self.provider!r} não implementado. Este projeto mede um "
                 f"modelo só, de propósito: trocar de provider no meio invalidaria a "
                 f"comparação baseline↔solução. Para medir outro, rode a suíte inteira "
-                f"de novo com DEADZONE_PROVIDER e grave em recordings/ separado."
+                f"de novo com DEADBOLT_PROVIDER e grave em recordings/ separado."
             )
 
         import anthropic  # import tardio: o caminho de replay não depende disto
@@ -270,7 +270,7 @@ class Client:
             raise ModelRefused(
                 f"modelo recusou (categoria={getattr(detail, 'category', None)}). "
                 f"Nenhum fallback é acionado de propósito — trocar de modelo aqui "
-                f"quebraria a comparação. Ver src/deadzone/llm.py."
+                f"quebraria a comparação. Ver src/deadbolt/llm.py."
             )
         if response.stop_reason == "max_tokens":
             err = RuntimeError(
@@ -312,7 +312,7 @@ class Client:
 
         import tempfile
 
-        model = os.environ.get("DEADZONE_CURSOR_MODEL", "claude-opus-5-thinking-high")
+        model = os.environ.get("DEADBOLT_CURSOR_MODEL", "claude-opus-5-thinking-high")
         junto = f"{system}\n\n---\n\n{prompt}"
         # Roda num diretório vazio e descartável, nunca no repositório. `--mode ask`
         # já é somente-leitura; o diretório vazio é a segunda tranca, para que

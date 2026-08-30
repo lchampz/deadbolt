@@ -1,5 +1,5 @@
 [project]
-name = "deadzone"
+name = "deadbolt"
 version = "0.1.0"
 description = "Test blind spot predictor — predicts which lines a test suite cannot see, measured against mutation-testing ground truth"
 requires-python = ">=3.12"

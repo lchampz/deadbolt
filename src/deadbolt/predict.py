@@ -9,8 +9,8 @@ Quatro estágios cumulativos, um por iteração medida:
     s6        + varredura por função com reconciliação
 
 Uso:
-    DEADZONE_MODE=live  python -m deadzone.predict --stage baseline --set dev
-    DEADZONE_MODE=replay python -m deadzone.predict --stage s6 --set holdout
+    DEADBOLT_MODE=live  python -m deadbolt.predict --stage baseline --set dev
+    DEADBOLT_MODE=replay python -m deadbolt.predict --stage s6 --set holdout
 """
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "eval"))
 sys.path.insert(0, str(ROOT / "src"))
 
-from deadzone.llm import Client  # noqa: E402
+from deadbolt.llm import Client  # noqa: E402
 from metric import SETS, TAXONOMY  # noqa: E402
 
 PROMPTS = ROOT / "prompts"
