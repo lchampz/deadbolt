@@ -3,7 +3,7 @@ __pycache__/
 *.pyc
 .pytest_cache/
 corpus/*/mutants/
-corpus/*/.venv/
+corpus/*/.venv
 corpus/*/*.egg-info/
 .DS_Store
 .env

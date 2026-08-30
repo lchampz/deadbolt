@@ -12,12 +12,13 @@ command -v "$PY" >/dev/null 2>&1 || PY="$(command -v python3 || command -v pytho
 
 for c in python-slugify python-slugify-holdout; do
   echo "== mutmut run: $c"
-  if [ -x "corpus/$c/.venv/bin/mutmut" ]; then
-    MUT="$PWD/corpus/$c/.venv/bin/mutmut"
+  # via módulo, não via script de console — shebang guarda caminho absoluto
+  if [ -x "corpus/$c/.venv/bin/python" ]; then
+    MUTPY="$PWD/corpus/$c/.venv/bin/python"
   else
-    MUT="$(command -v mutmut)"
+    MUTPY="$PY"
   fi
-  ( cd "corpus/$c" && "$MUT" run 2>&1 | tr '\r' '\n' | tail -1 )
+  ( cd "corpus/$c" && "$MUTPY" -m mutmut run 2>&1 | tr '\r' '\n' | tail -1 )
   "$PY" eval/build_ground_truth.py "$c"
 done
 

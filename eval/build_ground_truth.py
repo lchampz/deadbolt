@@ -21,9 +21,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CORPUS_NAME = sys.argv[1] if len(sys.argv) > 1 else "python-slugify"
 CORPUS = ROOT / "corpus" / CORPUS_NAME
-_venv_mutmut = CORPUS / ".venv" / "bin" / "mutmut"
-# no container não há venv por corpus; cai para o mutmut do PATH
-MUTMUT = _venv_mutmut.resolve() if _venv_mutmut.exists() else Path("mutmut")
+# `python -m mutmut`, nunca o script de console: o shebang dele guarda o caminho
+# absoluto de quando o venv foi criado, e renomear a pasta do projeto o quebra.
+_venv_py = CORPUS / ".venv" / "bin" / "python"
+MUTMUT = [str(_venv_py) if _venv_py.exists() else sys.executable, "-m", "mutmut"]
 SPINNER = re.compile(r"[⠀-⣿]")
 
 # mutmut usa DOIS esquemas de nome. O segundo custou 301 mutantes descartados
@@ -49,9 +50,7 @@ def _clean(raw: str) -> str:
 
 
 def _run(args: list[str]) -> str:
-    out = subprocess.run(
-        [str(MUTMUT), *args], cwd=CORPUS, capture_output=True, text=True
-    )
+    out = subprocess.run([*MUTMUT, *args], cwd=CORPUS, capture_output=True, text=True)
     return _clean(out.stdout + out.stderr)
 
 

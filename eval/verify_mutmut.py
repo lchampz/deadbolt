@@ -60,10 +60,14 @@ def main() -> int:
         print(green.stdout[-1500:])
         return 1
 
-    mut = str(corpus.root.absolute() / ".venv/bin/mutmut")
+    # `python -m mutmut` em vez do script de console: o script tem shebang com
+    # caminho absoluto gravado na criação do venv, e renomear a pasta do projeto
+    # o quebra com um FileNotFoundError que nomeia o SCRIPT, não o interpretador
+    # que sumiu. Chamar pelo módulo não tem esse modo de falha.
+    mut = [corpus.python, "-m", "mutmut"]
     env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1"}
     print(f"\nrodando mutmut do zero em {sb.path.name} …")
-    p = subprocess.run([mut, "run"], cwd=sb.path, capture_output=True, text=True,
+    p = subprocess.run([*mut, "run"], cwd=sb.path, capture_output=True, text=True,
                        env=env, timeout=3600)
     saida = re.sub(r"[⠀-⣿]", "", (p.stdout + p.stderr).replace("\r", "\n"))
     ultimas = [l for l in saida.splitlines() if "🎉" in l]
@@ -71,7 +75,7 @@ def main() -> int:
     print(f"  {linha}")
 
     # quem sobreviveu segundo o mutmut, para cruzar com o proxy incremental
-    r = subprocess.run([mut, "results", "--all", "True"], cwd=sb.path,
+    r = subprocess.run([*mut, "results", "--all", "True"], cwd=sb.path,
                        capture_output=True, text=True, env=env, timeout=600)
     limpo = re.sub(r"[⠀-⣿]", "", (r.stdout + r.stderr).replace("\r", "\n"))
     vivos = {ln.strip().rpartition(":")[0].strip()
@@ -100,13 +104,40 @@ def main() -> int:
 
     print(f"\n{'':<26}{'mutantes':>10}{'mortos':>9}{'score':>9}")
     print("-" * 54)
-    print(f"{'antes (suíte original)':<26}{antes_total:>10}{antes_killed:>9}{antes_killed/antes_total:>9.4f}")
-    if total:
-        print(f"{'depois (+ gerados)':<26}{total:>10}{killed:>9}{killed/total:>9.4f}")
-        print(f"\ndelta: {killed/total - antes_killed/antes_total:+.4f} · "
-              f"incremental do pipeline dizia {res['meta']['score_after']:.4f}")
-        bate = abs(killed / total - res["meta"]["score_after"]) < 0.02
-        print("CONFERE" if bate else "DIVERGE — a medição incremental não bate com o mutmut")
+    print(f"{'antes (suíte original)':<26}{antes_total:>10}{antes_killed:>9}"
+          f"{antes_killed / antes_total:>9.4f}")
+    if not total:
+        print("mutmut não devolveu contagem — saída bruta acima")
+        sb.cleanup()
+        return 1
+
+    score = killed / total
+    print(f"{'depois (+ gerados)':<26}{total:>10}{killed:>9}{score:>9.4f}")
+    print(f"\ndelta: {score - antes_killed / antes_total:+.4f}")
+
+    # Reprodutibilidade: esta execução bate com o número publicado?
+    anterior = ROOT / "results" / f"verify-{stage}-{set_name}{suf}.json"
+    publicado = None
+    if anterior.exists():
+        d = json.loads(anterior.read_text())
+        publicado = (total - len(d["survivors_after"])) / total
+
+    if publicado is None:
+        print("primeira verificação deste conjunto — nada com que comparar ainda")
+    elif abs(score - publicado) < 1e-9:
+        print(f"REPRODUZ o número publicado ({publicado:.4f}) — OK")
+    else:
+        print(f"NÃO REPRODUZ: publicado {publicado:.4f}, agora {score:.4f}")
+        sb.cleanup()
+        return 1
+
+    # O proxy interno aparece só como nota de rodapé: ele está desqualificado
+    # desde METRIC_TESTGEN.md § 14 e não entra em nenhum número reportado.
+    proxy = res["meta"]["score_after"]
+    if abs(score - proxy) >= 0.001:
+        print(f"nota: o proxy interno dizia {proxy:.4f} — desqualificado, "
+              f"ver METRIC_TESTGEN.md § 14")
+
     sb.cleanup()
     return 0
 
