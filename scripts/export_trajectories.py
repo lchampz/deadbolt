@@ -139,6 +139,67 @@ def render(stage: str, set_name: str, recs: dict) -> str | None:
     return "\n".join(L) + "\n"
 
 
+TESTGEN = [("B", "dev", ""), ("T1", "dev", ""), ("T2", "dev", ""), ("T3", "dev", ""),
+           ("T3", "holdout", ""), ("T3", "dev", "-cursor"), ("T3", "transfer", "-cursor")]
+
+
+def render_testgen(stage: str, set_name: str, suf: str, recs: dict) -> str | None:
+    path = RESULTS / f"testgen-{stage}-{set_name}{suf}.json"
+    if not path.exists():
+        return None
+    d = json.loads(path.read_text())
+    m = d["meta"]
+    v = RESULTS / f"verify-{stage}-{set_name}{suf}.json"
+    verificado = json.loads(v.read_text()) if v.exists() else None
+
+    calls = [r for r in recs.values()
+             if r.get("stage") == f"testgen-{stage}"
+             and r.get("unit", "").startswith(set_name)
+             and (r.get("provider") == "cursor") == bool(suf)]
+    calls.sort(key=lambda r: r.get("unit", ""))
+
+    L = [f"# Trajetória — geração de testes · {stage} · {set_name}{suf}", "",
+         f"Backend `{m.get('provider')}` · modelo `{m.get('model')}` · effort `{m.get('effort')}` "
+         f"· modo `{m.get('mode')}`",
+         f"Custo US$ {m.get('cost_usd', 0):.4f} · {m.get('input_tokens', 0)} in / "
+         f"{m.get('output_tokens', 0)} out · cache {m.get('cache_read_tokens', 0)} lidos",
+         "", "## Resultado", "",
+         "| | mutantes | mortos | score |", "|---|---:|---:|---:|",
+         f"| antes | {m['mutants_total']} | {m['killed_before']} | {m['score_before']:.4f} |"]
+    if verificado:
+        depois = m["mutants_total"] - len(verificado["survivors_after"])
+        L.append(f"| depois (**mutmut do zero**) | {m['mutants_total']} | {depois} | "
+                 f"**{depois / m['mutants_total']:.4f}** |")
+    L += ["", "## Ações — uma chamada por lote de mutantes", ""]
+    if not calls:
+        L.append("_Nenhuma gravação casada._\n")
+    for i, c in enumerate(calls, 1):
+        L += [f"### {i}. `{c.get('unit')}`", "",
+              f"gravação `{c.get('key')}` · {c.get('output_tokens', 0)} tokens de saída "
+              f"· US$ {c.get('cost_usd', 0):.4f} · {c.get('timestamp', '')}", "",
+              "<details><summary>instrução</summary>", "", "```", trim(c.get("prompt", ""), 900),
+              "```", "</details>", "",
+              "<details><summary>resposta crua</summary>", "", "```",
+              trim(c.get("response", ""), 900), "```", "</details>", ""]
+
+    L += ["## Feedback — o que as guardas rejeitaram", ""]
+    rej = d.get("rejected", [])
+    if not rej:
+        L.append("_Nenhuma rejeição._\n")
+    for r in rej[:20]:
+        L.append(f"- {r.get('reason', '?')[:110]}")
+    if len(rej) > 20:
+        L.append(f"- … e mais {len(rej) - 20}")
+
+    L += ["", "## Recusas do modelo — entrada da camada 2", ""]
+    for x in d.get("model_declined", [])[:12]:
+        L.append(f"- `{', '.join(x.get('targets') or [])}` — {str(x.get('why', ''))[:150]}")
+    L += ["", f"## Testes que embarcaram: {m['filtrado_n_tests']}", ""]
+    for g in d.get("accepted", [])[:6]:
+        L += ["```python", g["test"][:700], "```", ""]
+    return "\n".join(L) + "\n"
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--json", action="store_true")
@@ -157,6 +218,14 @@ def main() -> int:
             dest = OUT / f"{stage}-{set_name}.md"
             dest.write_text(md)
             written.append(dest.name)
+
+    for stage, set_name, suf in TESTGEN:
+        md = render_testgen(stage, set_name, suf, recs)
+        if md is None:
+            continue
+        dest = OUT / f"testgen-{stage}-{set_name}{suf}.md"
+        dest.write_text(md)
+        written.append(dest.name)
 
     index = [
         "# Trajetórias dos agentes",
