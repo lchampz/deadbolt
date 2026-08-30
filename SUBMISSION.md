@@ -1,6 +1,6 @@
-# Deadzone — Hackathon Submission Summary
+# Deadbolt — Hackathon Submission Summary
 
-**Project:** Deadzone · https://github.com/lchampz/deadzone
+**Project:** Deadbolt · https://github.com/lchampz/deadzone
 **Track:** micro1 Frontier Engineering Challenge 2026
 **Language:** English for the judges. The reasoning trail in `docs/` is Portuguese (Brazil).
 
@@ -8,145 +8,120 @@
 
 ## One-line pitch
 
-An agent that reads a Python module and its test suite and predicts **where the
-suite is blind** — the lines whose behaviour could change without a single test
-failing — scored against mutation-testing ground truth it never got to see.
+An agent that writes the tests your suite is missing and **proves they close the
+gap** — by re-running the mutation testing that found it. On a held-out module it
+took the mutation score from **63.4% to 96.98%** and reached the achievable
+ceiling: every killable mutant died.
 
 ---
 
 ## Problem & User Value (15 pts)
 
-| Rubric item | How Deadzone addresses it |
+| Rubric item | How Deadbolt addresses it |
 |---|---|
-| Specific user | The maintainer with a green suite and high line coverage who still ships the regression |
+| Specific user | The maintainer with a green suite and high coverage who still ships the bug |
 | Concrete bottleneck | Coverage answers *did this line run*, never *would anyone notice if it changed* |
-| Value in numbers | On this corpus: 82 tests, green in 0.04s, and **46 of 216 mutations survive undetected — 21%**. On the CLI module, **34%** |
-| Why it is worth solving | The existing exact answer (mutation testing) is whole-suite and per-commit expensive, and returns a list of survivors, not a reason |
-| What is genuinely new | Not "run mutmut". The output is a *typed, quoted, line-anchored* blind-spot report, and the claim that it is any good is settled against mutmut rather than asserted |
-
----
-
-## Agent Solution & Engineering (30 pts)
-
-| Capability | Implementation | Why it exists |
-|---|---|---|
-| Frozen taxonomy | 6 blind-spot types in the system prompt (`prompts/system_taxonomy.md`) | Naming the failure mode is the work; an unnameable prediction is an unexamined one |
-| Evidence gate | `evidence_gate()` — a prediction whose quote is absent from its own line range is **dropped, not repaired** | An anchor that cannot be found is a hallucinated anchor |
-| Per-function sweep + reconciliation | `Target.functions()` via `ast`, then `reconcile()` merges overlapping ranges of the same type | Splitting context to raise recall without letting the merge inflate precision |
-| Record / replay | `src/deadzone/llm.py` — a missing recording raises `MissingRecording` | The judge reproduces the number with no credential, and replay can never silently become a live call |
-| Trajectories | `scripts/export_trajectories.py` → instruction → actions → feedback → result, per stage | Sourced entirely from `recordings/` and `results/`; nothing is written that cannot be sourced |
-| Self-verification | 34 tests, 20 on the metric alone | The metric is the one component nobody audits from outside |
-
-Every stage is cumulative on the one before, and each was pre-registered with the
-number that would kill it — see `docs/03 - Cartões de Hipótese.md`.
+| Value in numbers | `python-slugify`: 82 tests, green in 0.04s, and **46 of 216 mutations survive**. Its CLI module: 37% blind |
+| Why the existing answer is not enough | Mutation testing finds this exactly — and hands you a list of survivors with no way to act on it |
+| What ships | A **diff a maintainer merges**: 33 tests on one module, 99 on another, suite green, each one proven to detect a specific defect |
 
 ---
 
 ## Measured Improvement (15 pts)
 
-Ground truth is `mutmut 3.7.0` on a pinned, vendored `python-slugify @ 7b6d5d96`,
-generated **before the predictor existed**, by a tool that is not part of the
-system being judged, then frozen (`METRIC.md`, R5).
+Every score is `mutmut` run **from scratch**, by the same external tool that
+produced the ground truth. Only the suite changes — never the source — so mutant
+IDs are stable across both runs and `results/verify-*.json` names exactly which
+mutants died.
 
-| Set | Repository | Modules | Mutants | Survivors | Blind lines (G) | Trivial floor F1 |
-|---|---|---|---:|---:|---:|---:|
-| DEV | python-slugify | `slugify.py`, `special.py` | 216 | 46 (21.3%) | 17 of 244 | 0.130 |
-| HOLDOUT | python-slugify | `__main__.py` | 298 | 109 (36.6%) | 36 of 98 | **0.537** |
-| TRANSFER | **toolz** | `functoolz.py` | 534 | 118 (22.1%) | 50 of 1049 | 0.091 |
+| set | backend | before | after | Δ | real ceiling |
+|---|---|---:|---:|---:|---:|
+| DEV `slugify.py`+`special.py` | API · `claude-opus-5` | 0.7870 | **0.9398** | +15.3 pt | 0.9444 |
+| HOLDOUT `__main__.py` | API · `claude-opus-5` | 0.6342 | **0.9698** | +33.6 pt | **0.9698** 🎯 |
+| DEV control | Cursor · `composer-2.5` | 0.7870 | 0.9306 | +14.3 pt | 0.9444 |
+| TRANSFER `toolz/functoolz.py` | Cursor · `composer-2.5` | 0.7790 | 0.7996 | +2.1 pt | — |
 
-Precision and recall are computed over **lines**, so predicting the whole file
-cannot win — it buys recall 1.000 at low precision.
+**The metric cannot flatter itself.** A mutant dies if *any* test fails on it, so
+adding tests only widens the set of failing tests — adding a test can never
+resurrect one. Conditioned on the suite staying green, the score cannot fall.
 
-### The measured result
+**The ceiling is not 1.0000 and was defined before measuring.** On the holdout the
+pipeline reached it: all 100 killable mutants died, and the 9 left are provably
+equivalent.
 
-| Set | floor | baseline | +taxonomy | +gate | +sweep | oracle |
-|---|---:|---:|---:|---:|---:|---:|
-| DEV | 0.130 | 0.292 | 0.429 | 0.486 | **0.571** | 1.000 |
-| HOLDOUT | **0.537** | 0.464 | 0.473 | 0.383 | 0.418 | 1.000 |
-| TRANSFER | 0.091 | 0.131 | **0.148** | 0.148 | — | 1.000 |
+### The comparison the control run buys
 
-On DEV the pipeline reaches 4.4× the trivial floor and rises at every step. Each
-iteration also passed its own pre-registered death condition: taxonomy raised
-precision on all three sets, the gate cut false positives, the sweep raised recall.
+API credit ran out with two sets measured; the rest ran on a subscription
+backend, which changes **model and harness at once**. So the second backend ran
+on *two* sets, not one, and the confound became a measured axis:
 
-**And on the holdout, none of it beats predicting the whole file.** Floor 0.537,
-best configuration 0.473. The gains built while looking at DEV shrank or reversed
-on a different module of the *same library*, tested by the *same suite*.
+| held constant | comparison | Δ |
+|---|---|---:|
+| the corpus | `claude-opus-5` → `composer-2.5` | **+0.0092** — two mutants |
+| the model | `slugify` → `toolz` | **−0.1310** |
 
-That is reported as the result, not buried. It is visible only because the floor
-was computed before any solution existed and printed on every table since — and
-it is the exact failure the predecessor project shipped as a victory.
+**The architecture is nearly indifferent to the model and very sensitive to the
+codebase.** The drop on `toolz` is the repository, not the backend — that is a
+narrower claim than "it works everywhere", and it is the one the data supports.
 
-**Every table in this repo prints the trivial floor and the oracle ceiling next
-to the measurement.** A number without its floor is not a result.
+---
 
-**Cost:** US$ 2.16 for all 14 recorded calls, `claude-opus-5` at effort `high`,
-identical in the baseline and every iteration. Re-scoring is free — replay.
+## Agent Solution & Engineering (30 pts)
 
-Current table — regenerated by `make submission-table`, never hand-edited:
+Every capability was pre-registered with the number that would kill it, and each
+one passed its own condition.
 
-<!-- BEGIN REPORT TABLE -->
-```
-# Deadzone — tabela final
+| stage | score | usable tests | generated | commit as-is |
+|---|---:|---:|---:|---|
+| **B** naive prompt | 0.8704 | **7** | 48 | **breaks the build** |
+| **T1** + mutant diffs | 0.9352 | 32 | 37 | **breaks the build** |
+| **T2** + guards | 0.9352 | 32 | 37 | green |
+| **T3** + repair loop | **0.9398** | 33 | 37 | green |
 
-Ground truth: mutmut 3.7.0 sobre python-slugify @ 7b6d5d96, congelado em S1.
-Métrica congelada em METRIC.md § 5. Nenhum número abaixo mudou de definição depois de medido.
+The naive baseline generated 48 tests. **Forty had duplicate function names** —
+six independent batches produced six near-identical batches that silently shadow
+each other — and one asserted `slugify("a&#381;b") == "azb"` when the real output
+is `"az-b"`. Seven survived contact with reality.
 
+**The guards do not raise the score. They turn a diff that breaks the build into
+one a maintainer can merge.** That is only visible because every stage reports two
+numbers, raw and filtered.
 
-## Conjunto DEV — slugify/slugify.py, slugify/special.py
-216 mutantes · 46 sobreviventes · |G|=17 linhas cegas · N=244 linhas
+| Capability | Implementation | Why it exists |
+|---|---|---|
+| Three mechanical guards | pass on original · fail on mutant · suite stays green | no judgement in any of them; a failing test is dropped or repaired, never patched by hand |
+| Repair loop | guard failure fed back, batched, at effort `low` | converted the one rejected test on DEV; 100% against a pre-registered bar of 20% |
+| Record / replay | missing recording raises, never degrades to a live call | the judge reproduces every number with no credential |
+| Independent verification | `mutmut` from scratch, cross-checked against the pipeline | caught a 7-mutant error and a 65-mutant one |
+| Cost control | prompt caching + effort `low` on repair | one repair call at `high` burned 34,397 output tokens (33,894 of them reasoning) for a 2KB answer; at `low`, 280 tokens — **90× cheaper** |
 
-                                       prec      rec       F1     near    noise  mut-rec     evid  #pred   #lin      US$
-------------------------------------------------------------------------------------------------------------------------
-PISO prever o arquivo inteiro         0.070    1.000    0.130    0.193    0.738    1.000    0.000      2    244   0.0000
-PISO aleatório, mesmo orçamento       0.118    0.118    0.118    0.176    0.706    0.087    0.941     17     17   0.0000
-S3 baseline — prompt único            0.226    0.412    0.292    0.226    0.548    0.739    0.786     14     31   0.2572
-S4 + taxonomia congelada              0.360    0.529    0.429    0.280    0.360    0.717    0.846     13     25   0.4047
-S5 + gate de evidência                0.450    0.529    0.486    0.300    0.250    0.717    1.000     11     20   0.4047
-S6 + varredura por função             0.556    0.588    0.571    0.222    0.222    0.739    1.000     11     18   0.4747
-TETO oráculo (= ground truth)         1.000    1.000    1.000    0.000    0.000    1.000    1.000     17     17   0.0000
+---
 
-### Delta por iteração (F1)
-  baseline → s4       ΔF1 +0.137   mantida
-        s4 → s5       ΔF1 +0.058   mantida
-        s5 → s6       ΔF1 +0.085   mantida
+## The contribution: what survives is the output, not the failure (30 pts, cont.)
 
-## Conjunto HOLDOUT — slugify/__main__.py
-298 mutantes · 109 sobreviventes · |G|=36 linhas cegas · N=98 linhas
+An equivalent mutant **cannot be killed** — that is its definition. So every
+mutant verified generation kills is *provably* non-equivalent, and the technique
+is a **sound pre-filter** for equivalent-mutant detection, mutation testing's
+classic open problem. The human's reading list shrinks with no possible loss.
 
-                                       prec      rec       F1     near    noise  mut-rec     evid  #pred   #lin      US$
-------------------------------------------------------------------------------------------------------------------------
-PISO prever o arquivo inteiro         0.367    1.000    0.537    0.245    0.388    1.000    0.000      1     98   0.0000
-PISO aleatório, mesmo orçamento       0.361    0.361    0.361    0.222    0.417    0.349    0.750     36     36   0.0000
-S3 baseline — prompt único            0.650    0.361    0.464    0.050    0.300    0.321    1.000      8     20   0.0940
-S4 + taxonomia congelada              0.684    0.361    0.473    0.053    0.263    0.349    0.750      8     19   0.1424
-S5 + gate de evidência                0.818    0.250    0.383    0.091    0.091    0.294    1.000      6     11   0.1424
-S6 + varredura por função             0.452    0.389    0.418    0.387    0.161    0.376    1.000     11     31   0.2924
-TETO oráculo (= ground truth)         1.000    1.000    1.000    0.000    0.000    1.000    1.000     36     36   0.0000
+| set | survivors | undetermined | reduction | provably impossible |
+|---|---:|---:|---:|---:|
+| DEV | 46 | 13 | 3.54× | 12 — 92.3% |
+| HOLDOUT | 109 | 9 | **12.11×** | 9 — **100%** |
+| **total** | **155** | **22** | **7.05×** | **21 — 95.5%** |
 
-### Delta por iteração (F1)
-  baseline → s4       ΔF1 +0.008   mantida
-        s4 → s5       ΔF1 -0.090   REMOVIDA — não moveu a métrica
-        s5 → s6       ΔF1 +0.035   mantida
+This is deductive, not empirical: a weak model shrinks the list a little, a strong
+one a lot, and neither can produce a false exclusion.
 
-## Conjunto TRANSFER — toolz/functoolz.py
-534 mutantes · 118 sobreviventes · |G|=50 linhas cegas · N=1049 linhas
+Two real findings fell out, each with a mechanical proof in `data/triage/`:
 
-                                       prec      rec       F1     near    noise  mut-rec     evid  #pred   #lin      US$
-------------------------------------------------------------------------------------------------------------------------
-PISO prever o arquivo inteiro         0.048    1.000    0.091    0.125    0.827    1.000    0.000      1   1049   0.0000
-PISO aleatório, mesmo orçamento       0.040    0.040    0.040    0.160    0.800    0.085    0.880     50     50   0.0000
-S3 baseline — prompt único            0.093    0.220    0.131    0.237    0.669    0.195    1.000     15    118   0.1780
-S4 + taxonomia congelada              0.125    0.180    0.148    0.208    0.667    0.220    1.000     16     72   0.3182
-S5 + gate de evidência                0.125    0.180    0.148    0.208    0.667    0.220    1.000     16     72   0.3182
-S6 + varredura por função                         — não medido (sem gravação em recordings/) —
-TETO oráculo (= ground truth)         1.000    1.000    1.000    0.000    0.000    1.000    1.000     50     50   0.0000
-
-### Delta por iteração (F1)
-  baseline → s4       ΔF1 +0.017   mantida
-        s4 → s5       ΔF1 +0.000   REMOVIDA — não moveu a métrica
-```
-<!-- END REPORT TABLE -->
+- **`slugify.py:127-129` is unreachable dead code.** Its guard is
+  `if not isinstance(text, str)`, and both preceding branches end in
+  `unicodedata.normalize` or `unidecode`, which return `str` for every input.
+- **Nine `default=`/`type=` declarations in `__main__.py` are redundant** —
+  argparse supplies exactly those values, verified against a real parser.
+- One boundary is labelled **`hard`, not equivalent**: I could not prove
+  equivalence, so the protocol's default applies.
 
 ---
 
@@ -157,83 +132,74 @@ git clone https://github.com/lchampz/deadzone.git && cd deadzone
 docker build -t deadzone . && docker run --rm --network none deadzone
 ```
 
-Verified — not presumed — from a fresh clone of the public repository, with the
-container's network disabled: 34 tests pass, both sanity suites discriminate,
-both tables print.
+46 tests, the sanity controls and every table, offline. `make verify SET=<set>`
+re-runs mutation testing from scratch and **prints DIVERGE** if the pipeline's own
+measurement disagrees with it.
 
-The strongest check available to a judge also runs offline: `make ground-truth`
-regenerates the mutation ground truth from the pinned corpus and lands exactly on
-216/170/46 and 288/189/99, with `parse_errors: 0` and `line_mismatches: 0` in
-both. The frozen artifacts are reproducible from source, not merely committed.
+**Verifying the numbers needs no credentials. Regenerating the tests does.** That
+split is stated, not glossed.
 
-Deadzone itself has **no third-party runtime dependency** — stdlib only.
-`mutmut`, `pytest` and `text-unidecode` belong to the corpus.
-
----
-
-## End to End Quality (20 pts)
-
-A prediction a reviewer can act on without re-deriving it:
-
-```json
-{
-  "file": "slugify/slugify.py",
-  "line_range": [115, 115],
-  "blind_spot_type": "error_path",
-  "evidence_quote": "text = str(text, 'utf-8', 'ignore')",
-  "confidence": 0.72,
-  "rationale": "no test passes bytes; the decode branch never executes"
-}
-```
-
-File, exact lines, named failure mode, a literal quote you can grep, and a
-calibrated confidence. The evidence gate guarantees the quote is real.
+Cost: **US$ 6.83** of API, plus a subscription backend that is not metered per
+token. Re-scoring, re-reporting and the container are free.
 
 ---
 
 ## Hot Take / Insights (5 pts)
 
-**Four failure modes found in this build, each recorded when it happened**
-(`docs/06 - Hot Takes e Falhas.md`):
+**I built a project about honest measurement and got the measurement wrong six
+times.** Every one produced a plausible number, and not one announced itself:
 
-1. **The silent offset.** `mutmut show` diffs the extracted *function*, not the
-   file — and includes comments and decorators attached above the `def`, and
-   dedents method bodies. Offset arithmetic gets plausible, wrong line numbers
-   with no error anywhere. Replaced with text anchoring, verified across all
-   1,048 mutants in three corpora: `line_mismatches: 0`.
-2. **The trivial floor is not zero.** The first sanity run on the holdout failed
-   because predicting the entire file there scores F1 0.537. A floor is a
-   property of the dataset, not of the harness.
-3. **A dead call became a cache entry.** The first live call died on a billing
-   400; the `finally` block wrote it into `recordings/` with an empty response —
-   indistinguishable, on replay, from a model that answered with nothing.
-   "Log the error" and "keep the response" look like the same write and are not.
-4. **The parser dropped mutants in silence.** Two naming schemes and a two-word
-   status meant 301 of 534 mutants vanished from one corpus, and 10 blind lines
-   were scored as *covered* — with `parse_errors: 0` and everything looking
-   clean. The fix is not a better regex; it is the assertion that mutmut's count
-   and the parser's count must match, and that exits non-zero when they don't.
+1. **1.0000.** A `.resolve()` on the venv's python left the venv, every pytest run
+   died on import, and a non-zero exit code was read as "mutant killed".
+2. **Vacuous green.** `testpaths` in the corpus config meant a bare `pytest` never
+   collected the generated file, so the suite-green check passed without looking.
+3. **One broken test, everything killed.** A single failing test makes the file red
+   for every mutant — and "red" was the kill criterion.
+4. **301 mutants vanished.** Class methods use a second naming scheme, and a
+   two-word status did not match the regex. `parse_errors: 0` throughout.
+5. **Stale bytecode.** A restored source file still served a mutated `.pyc`. The
+   symptom is invisible in a diff, because the `.py` is correct.
+6. **0.0000.** The verifier forced the generated file into pytest through a config
+   key that existed in one corpus and not the other.
 
-**The take itself, paid for in full.** The predecessor of this project reported
-F1 0.987 and it was a lie: the tuning had been done while looking at the holdout,
-and the metric rose exactly where the patch aimed. So here the ground truth is
-generated by someone else's tool, before the predictor exists, and frozen; and
-the holdout was mutated in the same session and then left unread.
+The canary that caught the first was an unreachable line: eleven mutants nobody
+can kill, reported dead. The signal for the last was the same in reverse — 1.0000
+when everything dies, 0.0000 when nothing does.
 
-> If an adjustment improves your holdout, that is not a victory. That is the
-> smell of contamination.
+> **What saved every one of them was not care. It was two independent
+> measurements and an assertion that fails loudly when they disagree.** A check
+> that only looks at the happy path cannot see what went missing.
+
+And the honest coda: the cost counter had the same disease. Truncated calls were
+billed and recorded as $0.00 because cost was only computed on the success path.
+It under-reported by 60% — on a number this rubric scores.
 
 ---
 
 ## What existed before 2026-08-28
 
-Nothing in this repository. Deadzone is a pivot from **Apura**, archived at
-`lchampz/apura@80e6e23` after its own honest measurement refuted its thesis. No
-Apura code is reused; what carried over is the method. Full accounting in
-`docs/02 - Herança do Apura.md`.
+Nothing in this repository. Two acts precede this one and both are published:
+**Apura**, archived at `lchampz/apura@80e6e23` after its own measurement refuted
+it, and **Deadzone**, act one of this repo — a predictor of *where* a suite is
+blind, which was measured honestly and **did not transfer**: on the holdout it
+lost to a one-line heuristic. That result is in `CHANGELOG.md`, unedited.
+
+The diagnosis is what produced Deadbolt: the oracle was on the table the whole
+time, and the agent was told to guess instead of use it.
+
+---
+
+## Prior art, stated plainly
+
+Mutation-guided LLM test generation is established work — MuTAP, MUTGEN, PRIMG,
+and Meta's ACH in production. The generation half is an honest reimplementation,
+not a new idea, and the README links all four.
+
+What I did not find published is the second half: treating the residue as a
+**sound filter for equivalent-mutant detection** rather than as failure. That is
+where the contribution is claimed, and nowhere else.
 
 ## Licence
 
-Deadzone: MIT. Vendored corpus: `python-slugify` by Val Neekman, MIT — see
-`corpus/python-slugify/LICENSE`, unmodified except for a `[mutmut]` section in
-`setup.cfg`.
+Deadbolt: MIT. Vendored corpora: `python-slugify` (Val Neekman, MIT) and `toolz`
+(MIT), pinned SHAs in `corpus/*/PINNED_SHA.txt`.
