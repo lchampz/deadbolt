@@ -92,16 +92,10 @@ def main() -> int:
              if "__mutmut_" in ln and ln.strip().rpartition(":")[2].strip() != "killed"}
     proxy_mortos = set(res["killed_ids"])
     discordam = sorted(vivos & proxy_mortos)
-    if discordam:
-        print(f"\nDIVERGEM — o proxy disse morto, o mutmut diz vivo ({len(discordam)}):")
-        gt = {m["id"]: m for m in corpus.survivors()}
-        for i in discordam:
-            g = gt.get(i)
-            if g:
-                print(f"  {g['file']}:{g['line']:<4} {g['original'][:44]!r}")
-                print(f"       → {g['mutated'][:60]!r}")
-            else:
-                print(f"  {i}")
+    # A lista de discordâncias com o proxy vai só para o JSON. Ela foi útil
+    # para diagnosticar (achou a mutação multi-linha), mas o proxy está
+    # desqualificado desde METRIC_TESTGEN.md § 14 e imprimi-la aqui enche a tela
+    # de ruído sobre um número que não é reportado em lugar nenhum.
     (ROOT / "results" / f"verify-{stage}-{set_name}{suf}.json").write_text(json.dumps({
         "set": set_name, "stage": stage, "tool": "mutmut 3.7.0 run from scratch",
         "survivors_after": sorted(vivos), "proxy_disagreements": discordam,
@@ -139,13 +133,6 @@ def main() -> int:
         print(f"NÃO REPRODUZ: publicado {publicado:.4f}, agora {score:.4f}")
         sb.cleanup()
         return 1
-
-    # O proxy interno aparece só como nota de rodapé: ele está desqualificado
-    # desde METRIC_TESTGEN.md § 14 e não entra em nenhum número reportado.
-    proxy = res["meta"]["score_after"]
-    if abs(score - proxy) >= 0.001:
-        print(f"nota: o proxy interno dizia {proxy:.4f} — desqualificado, "
-              f"ver METRIC_TESTGEN.md § 14")
 
     sb.cleanup()
     return 0
