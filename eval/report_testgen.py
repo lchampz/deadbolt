@@ -7,7 +7,7 @@
     python eval/report_testgen.py --no-color   sem ANSI, para colar em texto
 
 Os números vêm de `eval/verify_mutmut.py` — o mutmut rodando do zero — e nunca
-da medição interna do pipeline, que está desqualificada (METRIC_TESTGEN.md § 14).
+da medição interna do pipeline, que está desqualificada (docs/metric-testgen.md § 14).
 """
 
 from __future__ import annotations
@@ -223,7 +223,7 @@ def bloco_triagem(k: Ink) -> None:
 def rodape(k: Ink) -> None:
     print()
     print("  " + k.dim("─" * (W - 4)))
-    print("  " + k.dim("score = mutmut rodando do zero · congelado em METRIC_TESTGEN.md"))
+    print("  " + k.dim("score = mutmut rodando do zero · congelado em docs/metric-testgen.md"))
     print("  " + k.dim("conferir por conta própria:  make verify SET=holdout"))
     print()
 

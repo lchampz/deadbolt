@@ -67,7 +67,7 @@ It must report `parse_errors: 0, line_mismatches: 0`. A non-zero value there
 invalidates every number downstream, and the script exits non-zero.
 
 > **Note.** `make ground-truth` overwrites the frozen artifacts. It reproduces
-> them bit-for-bit from the pinned corpus, but under R5 (METRIC.md) the frozen
+> them bit-for-bit from the pinned corpus, but under R5 (metric-prediction.md) the frozen
 > files are the record. Regenerate to verify, not to amend.
 
 ## Path C — live model calls (optional, costs money)
@@ -186,7 +186,7 @@ asserts the whole suite is green, and re-runs mutation testing. Expected:
 It also cross-checks the pipeline's own incremental measurement and **prints
 DIVERGE when they disagree**. That check is not decoration — it caught a
 seven-mutant error on the holdout and a sixty-five-mutant error on transfer, and
-it is why the incremental proxy is no longer reported anywhere (`METRIC_TESTGEN.md`
+it is why the incremental proxy is no longer reported anywhere (`metric-testgen.md`
 § 12 and § 14).
 
 ## Regenerating the tests — this is the part that needs credentials
@@ -202,7 +202,7 @@ DEADZONE_MODE=live make testgen STAGE=T3 SET=dev
 | dev `-cursor`, transfer `-cursor` | `composer-2.5` via `cursor-agent` | a Cursor subscription |
 
 The second backend exists because API credit ran out mid-project. It is declared,
-not hidden — see `METRIC_TESTGEN.md` § 13 for why the control run on DEV is what
+not hidden — see `metric-testgen.md` § 13 for why the control run on DEV is what
 makes those numbers interpretable at all.
 
 **Verifying the numbers needs nothing. Regenerating the tests needs credentials.**

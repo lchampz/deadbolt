@@ -5,7 +5,7 @@ One entry per measured iteration. Every entry carries the hypothesis written
 removals. An iteration that does not move the metric is removed and recorded as
 removed; that is worth more than three inflated marginal gains.
 
-Frozen metric: [`METRIC.md`](METRIC.md). Ground truth: `data/ground_truth/`.
+Frozen metric: [`docs/metric-prediction.md`](docs/metric-prediction.md). Ground truth: `data/ground_truth/`.
 
 ---
 
@@ -164,7 +164,7 @@ the precision S5 had won.
 
 **Not run on TRANSFER, and this is a cut, not an omission.** `functoolz.py` has
 45 functions and methods; the sweep would be 45 calls for one optional set.
-Declared in `METRIC.md` § 9 before the transfer set was measured, not after.
+Declared in `docs/metric-prediction.md` § 9 before the transfer set was measured, not after.
 
 ---
 
@@ -191,7 +191,7 @@ S2, before any solution existed, and printed on every table since.
 precision 0.818 at recall 0.250 — eleven lines named, nine correct — while the
 floor reaches its 0.537 with precision 0.367 and recall 1.000, by saying every
 line is blind. A reviewer can act on the first and not on the second. F1 does not
-capture that, and F1 was named the primary metric in `METRIC.md` before anything
+capture that, and F1 was named the primary metric in `docs/metric-prediction.md` before anything
 was measured. So the floor wins, and it is recorded as winning.
 
 **No iteration was removed**, because none met its pre-registered death
@@ -258,7 +258,7 @@ case is "did not rise". That is a property of the task, not a hope about the mod
 
 ## The result
 
-Frozen before generation in [`METRIC_TESTGEN.md`](METRIC_TESTGEN.md). Every score
+Frozen before generation in [`docs/metric-testgen.md`](docs/metric-testgen.md). Every score
 below is `mutmut` run from scratch on the corpus with the generated tests added —
 the same external tool that produced the ground truth, not the pipeline's own
 measurement.

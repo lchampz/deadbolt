@@ -56,7 +56,7 @@ def stage_score(stage: str, set_name: str):
 def main() -> int:
     print("# Deadzone — tabela final\n")
     print("Ground truth: mutmut 3.7.0 sobre python-slugify @ 7b6d5d96, congelado em S1.")
-    print("Métrica congelada em METRIC.md § 5. Nenhum número abaixo mudou de definição depois de medido.\n")
+    print("Métrica congelada em docs/metric-prediction.md § 5. Nenhum número abaixo mudou de definição depois de medido.\n")
 
     for set_name in ("dev", "holdout", "transfer"):
         gt = GroundTruth.load(set_name)

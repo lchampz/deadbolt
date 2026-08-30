@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Regera o ground truth de mutação dos dois corpora e reconstrói os JSON.
 #
-# ATENÇÃO (R5, METRIC.md): isto SOBRESCREVE artefatos congelados. Reproduz do
+# ATENÇÃO (R5, docs/metric-prediction.md): isto SOBRESCREVE artefatos congelados. Reproduz do
 # corpus pinado, então o resultado deve bater bit a bit. Rode para VERIFICAR,
 # não para emendar. Divergência aqui é um achado, não um detalhe.
 set -euo pipefail

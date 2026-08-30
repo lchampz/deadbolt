@@ -48,7 +48,7 @@ MAX_TOKENS = 48000
 # cada falha e estourou 16000 na primeira tentativa. Streaming evita o timeout
 # de HTTP que um max_tokens alto provoca em requisição normal.
 
-# USD por 1M tokens (entrada, saída). Fonte e data em REPRODUCTION.md § Cost model.
+# USD por 1M tokens (entrada, saída). Fonte e data em docs/reproduction.md § Cost model.
 PRICING = {
     "claude-opus-5": (5.00, 25.00),
     "claude-fable-5": (10.00, 50.00),
@@ -297,7 +297,7 @@ class Client:
         Usado só quando o crédito de API acaba. O `cursor-agent` roda na
         assinatura do usuário, com system prompt e scaffolding próprios, então um
         número produzido aqui **não é comparável lado a lado** com um produzido
-        pela API. Vai reportado à parte e rotulado (METRIC_TESTGEN.md § 13).
+        pela API. Vai reportado à parte e rotulado (docs/metric-testgen.md § 13).
 
         `--mode ask` é obrigatório: sem ele o cursor-agent é um agente com
         ferramentas de escrita e shell, e um gerador de teste não pode ter

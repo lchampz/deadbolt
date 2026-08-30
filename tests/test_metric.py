@@ -31,7 +31,7 @@ def dev() -> GroundTruth:
     [
         # DEV: inalterado desde o S1.
         ("dev", 216, 170, 46, 17),
-        # HOLDOUT: corrigido em 2026-08-29 por abort declarado em METRIC.md § 8.
+        # HOLDOUT: corrigido em 2026-08-29 por abort declarado em docs/metric-prediction.md § 8.
         # Antes: 288/189/99/30 — 10 mutantes `no tests` eram descartados pelo
         # parser e as 6 linhas deles contavam como COBERTAS.
         ("holdout", 298, 189, 109, 36),
@@ -73,7 +73,7 @@ def test_mutante_sem_teste_conta_como_cego():
     """`no tests` = nenhum teste executa a linha. É o ponto cego mais puro.
 
     Contá-lo como linha coberta penalizava o preditor por acertar. São as 6
-    linhas do main() de __main__.py — ver METRIC.md § 8.
+    linhas do main() de __main__.py — ver docs/metric-prediction.md § 8.
     """
     gt = GroundTruth.load("holdout")
     raw = json.loads(
@@ -210,10 +210,10 @@ def test_taxonomia_tem_seis_tipos_e_bate_com_o_prompt():
     assert len(TAXONOMY) == 6
     prompt = (ROOT / "prompts" / "system_taxonomy.md").read_text()
     for t in TAXONOMY:
-        assert t in prompt, f"tipo {t} congelado em METRIC.md mas ausente do prompt"
+        assert t in prompt, f"tipo {t} congelado em docs/metric-prediction.md mas ausente do prompt"
 
 
 def test_metric_md_declara_os_mesmos_conjuntos():
-    text = (ROOT / "METRIC.md").read_text()
+    text = (ROOT / "docs" / "metric-prediction.md").read_text()
     for name in SETS:
         assert name.upper() in text

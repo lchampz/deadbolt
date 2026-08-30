@@ -1,7 +1,7 @@
-"""Métrica congelada do Deadzone. Ver METRIC.md § 5 e § 6.
+"""Métrica congelada do Deadzone. Ver docs/metric-prediction.md § 5 e § 6.
 
 R5: este arquivo não muda depois de 2026-08-29T16:30:00Z sem abort declarado
-por escrito em METRIC.md. Qualquer alteração aqui invalida toda comparação
+por escrito em docs/metric-prediction.md. Qualquer alteração aqui invalida toda comparação
 baseline↔solução já registrada em results/.
 """
 
@@ -35,7 +35,7 @@ SETS = {
         "files": ["slugify/__main__.py"],
         "test_file": "test.py",
     },
-    # Terceiro conjunto, outro repositório. Ver METRIC.md § 9.
+    # Terceiro conjunto, outro repositório. Ver docs/metric-prediction.md § 9.
     "transfer": {
         "corpus": "toolz-transfer",
         "files": ["toolz/functoolz.py"],
@@ -63,7 +63,7 @@ class GroundTruth:
         files = set(spec["files"])
 
         # `no tests` é a forma mais pura de ponto cego: nenhum teste sequer
-        # executa a linha. Ver METRIC.md § 8 — correção declarada de 2026-08-29.
+        # executa a linha. Ver docs/metric-prediction.md § 8 — correção declarada de 2026-08-29.
         BLIND = {"survived", "no tests"}
 
         surv: set[tuple[str, int]] = set()

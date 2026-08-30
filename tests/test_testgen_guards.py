@@ -105,7 +105,7 @@ def test_medicao_cobre_todo_sobrevivente_e_nao_da_tudo_morto(dev):
 
 
 def test_linha_de_partida_bate_com_a_metrica_congelada():
-    """METRIC_TESTGEN.md § 3. Se isto mudar, todo delta reportado é inválido."""
+    """docs/metric-testgen.md § 3. Se isto mudar, todo delta reportado é inválido."""
     esperado = {"dev": (216, 170, 46), "holdout": (298, 189, 109), "transfer": (534, 416, 118)}
     for name, (total, killed, surv) in esperado.items():
         c = Corpus(name)

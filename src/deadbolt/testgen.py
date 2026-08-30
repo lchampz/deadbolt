@@ -1,6 +1,6 @@
 """Geração de testes verificada — camada 1 e instrumento da camada 2.
 
-Ver METRIC_TESTGEN.md para métrica, guardas e teto, todos congelados antes
+Ver docs/metric-testgen.md para métrica, guardas e teto, todos congelados antes
 desta implementação existir.
 
 Quatro estágios cumulativos:
@@ -389,7 +389,7 @@ def measure(sandbox: Sandbox, survivors: list[dict], test_name: str) -> dict[str
     """Quais sobreviventes o arquivo de testes mata.
 
     Só sobreviventes são testados: mutante já morto continua morto quando se
-    ADICIONA teste (METRIC_TESTGEN.md § 2). Isso torna a medição incremental
+    ADICIONA teste (docs/metric-testgen.md § 2). Isso torna a medição incremental
     exata, não uma aproximação.
 
     **Pré-condição verificada, não presumida:** o arquivo tem que estar VERDE no
@@ -524,7 +524,7 @@ def generate(corpus: Corpus, stage: str, client: Client, sandbox: Sandbox) -> Ru
             pending = novos
 
     # ------------------------------------------------------------------
-    # Dois números, como METRIC_TESTGEN.md § 7 exige: CRU e FILTRADO.
+    # Dois números, como docs/metric-testgen.md § 7 exige: CRU e FILTRADO.
     # A diferença entre eles é o valor da guarda, e ela não é escondida.
     # ------------------------------------------------------------------
     final = "test_deadbolt.py"

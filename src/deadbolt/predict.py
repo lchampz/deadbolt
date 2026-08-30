@@ -3,7 +3,7 @@
 Quatro estágios cumulativos, um por iteração medida:
 
     baseline  prompt único, arquivo inteiro, sem taxonomia, sem gate
-    s4        + taxonomia congelada de 6 tipos (METRIC.md § 4)
+    s4        + taxonomia congelada de 6 tipos (docs/metric-prediction.md § 4)
     s5        + gate de evidência em código: predição cuja citação não aparece
               literalmente dentro do line_range é DESCARTADA, não corrigida
     s6        + varredura por função com reconciliação

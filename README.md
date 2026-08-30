@@ -96,7 +96,7 @@ docker build -t deadbolt . && docker run --rm --network none deadbolt
 
 Replays the recorded calls and reproduces every table offline. Regenerating the
 tests needs credentials; verifying the numbers does not. Details, including what
-each path can and cannot reproduce, in [`REPRODUCTION.md`](REPRODUCTION.md).
+each path can and cannot reproduce, in [`docs/reproduction.md`](docs/reproduction.md).
 
 ## 6. This is act two. Act one failed, and it is still published.
 
@@ -123,7 +123,35 @@ What I did not find published is § 4: treating the residue as a **sound filter 
 equivalent-mutant detection** rather than as failure. That is where the
 contribution is, and it is claimed there and nowhere else.
 
-## 8. Licence
+## 8. Where everything is
+
+| | |
+|---|---|
+| `CHANGELOG.md` | the improvement changelog — one entry per experiment, both acts |
+| `docs/reproduction.md` | run it from a clean environment: setup, commands, expected output, cost |
+| `docs/metric-testgen.md` | the metric, frozen before generation, with every declared correction |
+| `docs/metric-prediction.md` | act one's metric, kept unedited |
+| `docs/trajectories/` | one file per agent run: instruction → actions → feedback → result |
+| `src/deadbolt/` | the agent: model client with record/replay, and the generation pipeline |
+| `eval/` | scoring harness and the independent `mutmut` verifier |
+| `prompts/` | every prompt, versioned |
+| `corpus/` | the three pinned corpora, with their SHAs |
+| `data/ground_truth/` | the frozen mutation reports |
+| `data/triage/` | layer-two labels, each with a mechanical proof |
+| `results/` | per-run predictions and verification output |
+| `recordings/` | every model call — prompt, response, tokens, cost |
+| `tests/` | 47 tests, most of them guarding the measurement itself |
+
+Common commands:
+
+```bash
+make sanity          # the harness controls, on all three sets
+make report-testgen  # the results table
+make verify SET=holdout   # re-run mutation testing and check the published number
+make test            # the test suite
+```
+
+## 9. Licence
 
 Deadbolt: MIT. Vendored corpora, pinned SHAs in `corpus/*/PINNED_SHA.txt`:
 

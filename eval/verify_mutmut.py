@@ -1,6 +1,6 @@
 """Verificação independente: roda o `mutmut` de verdade sobre a suíte + testes gerados.
 
-METRIC_TESTGEN.md § 4 diz que o número da manchete vem de `mutmut run` do zero,
+docs/metric-testgen.md § 4 diz que o número da manchete vem de `mutmut run` do zero,
 não da medição incremental do pipeline. A medição incremental é rápida e exata
 sob a monotonicidade, mas ela é MINHA — e já reportou 1.0000 duas vezes por bug.
 Esta aqui é a ferramenta externa dando o veredito.
@@ -94,7 +94,7 @@ def main() -> int:
     discordam = sorted(vivos & proxy_mortos)
     # A lista de discordâncias com o proxy vai só para o JSON. Ela foi útil
     # para diagnosticar (achou a mutação multi-linha), mas o proxy está
-    # desqualificado desde METRIC_TESTGEN.md § 14 e imprimi-la aqui enche a tela
+    # desqualificado desde docs/metric-testgen.md § 14 e imprimi-la aqui enche a tela
     # de ruído sobre um número que não é reportado em lugar nenhum.
     (ROOT / "results" / f"verify-{stage}-{set_name}{suf}.json").write_text(json.dumps({
         "set": set_name, "stage": stage, "tool": "mutmut 3.7.0 run from scratch",
