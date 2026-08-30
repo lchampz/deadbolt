@@ -1,7 +1,7 @@
 PY ?= .venv/bin/python
 SET ?= dev
 
-.PHONY: help setup sanity ground-truth test predict eval report submission-table run-all check-creds all clean
+.PHONY: help setup sanity ground-truth test predict eval report report-testgen verify testgen submission-table run-all check-creds all clean
 
 help:
 	@grep -E '^[a-z-]+:.*?##' $(MAKEFILE_LIST) | sed 's/:.*##/\t/'
@@ -36,7 +36,16 @@ check-creds:      ## separa "chave inválida" de "saldo zerado" usando endpoints
 run-all:          ## grava os 4 estágios nos 2 conjuntos e refaz a tabela (exige DEADZONE_MODE=live)
 	bash scripts/run_all_stages.sh
 
+report-testgen:   ## tabela do Deadbolt — antes/depois, ablação e camada 2
+	$(PY) eval/report_testgen.py
+
+verify:           ## roda o mutmut do zero sobre os testes gerados (SET=dev SUF=)
+	$(PY) eval/verify_mutmut.py $(SET) T3 $(SUF)
+
+testgen:          ## gera testes num estágio (STAGE=B|T1|T2|T3 SET=dev|holdout|transfer)
+	PYTHONPATH=src $(PY) -m deadzone.testgen --stage $(STAGE) --set $(SET)
+
 report:           ## tabela final: pisos + todos os estágios medidos
 	$(PY) eval/report.py
 
-all: test sanity report ## caminho de reprodução sem chave de API
+all: test sanity report report-testgen ## caminho de reprodução sem chave de API

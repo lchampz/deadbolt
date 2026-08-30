@@ -145,7 +145,11 @@ class Corpus:
         # resolvê-lo sai do venv — o processo perde pytest e todo import falha.
         # Custou um harness que reportava score 1.0000 porque TODA execução dava
         # returncode != 0 por ModuleNotFoundError, e isso conta como "mutante morto".
-        self.python = str(self.root.absolute() / ".venv/bin/python")
+        venv = self.root.absolute() / ".venv/bin/python"
+        # No container não existe venv por corpus: os pacotes são globais. Cair
+        # para o interpretador corrente mantém o mesmo caminho de reprodução
+        # funcionando dentro e fora do Docker.
+        self.python = str(venv) if venv.exists() else sys.executable
 
     def survivors(self) -> list[dict]:
         raw = json.loads((GROUND_TRUTH / f"mutants-{self.name}.json").read_text())

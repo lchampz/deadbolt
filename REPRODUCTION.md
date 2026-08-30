@@ -1,5 +1,8 @@
 # Reproduction guide
 
+> Act two (Deadbolt — test generation) is § A below. Act one (Deadzone — the
+> predictor that did not transfer) is unchanged and starts at § Path A.
+
 Three paths. The first needs nothing but Docker and produces the numbers in the
 README. The third is the only one that spends money, and it is optional.
 
@@ -142,3 +145,78 @@ exact — the table is never silently wrong about tokens.
 The reproduction path has no third-party runtime dependency: `llm.py` imports
 `anthropic` lazily, inside the live branch only, so replay is stdlib-only.
 `mutmut`, `pytest` and `text-unidecode` belong to the corpus, not to the predictor.
+
+
+---
+
+# § A — Deadbolt: the test-generation results
+
+## What reproduces with no credentials at all
+
+```bash
+git clone https://github.com/lchampz/deadzone.git && cd deadzone
+docker build -t deadzone . && docker run --rm --network none deadzone
+```
+
+Prints 46 tests, the sanity controls, and every table: before/after on four runs,
+the ablation, and the layer-two triage. No network, no key, no subscription.
+
+## Verifying the headline yourself — the strongest check
+
+The scores are not this project's own measurement. They come from `mutmut` run
+from scratch over the corpus with the generated tests added:
+
+```bash
+make verify SET=dev                  # API / claude-opus-5
+make verify SET=holdout              # API / claude-opus-5
+make verify SET=dev SUF=-cursor      # Cursor / composer-2.5
+make verify SET=transfer SUF=-cursor # Cursor / composer-2.5
+```
+
+Each run rebuilds a sandbox from the pinned corpus, adds the generated test file,
+asserts the whole suite is green, and re-runs mutation testing. Expected:
+
+| set | mutants | killed | score |
+|---|---:|---:|---:|
+| dev | 216 | 203 | 0.9398 |
+| holdout | 298 | 289 | 0.9698 |
+| dev `-cursor` | 216 | 201 | 0.9306 |
+| transfer `-cursor` | 534 | 427 | 0.7996 |
+
+It also cross-checks the pipeline's own incremental measurement and **prints
+DIVERGE when they disagree**. That check is not decoration — it caught a
+seven-mutant error on the holdout and a sixty-five-mutant error on transfer, and
+it is why the incremental proxy is no longer reported anywhere (`METRIC_TESTGEN.md`
+§ 12 and § 14).
+
+## Regenerating the tests — this is the part that needs credentials
+
+```bash
+export ANTHROPIC_API_KEY=...
+DEADZONE_MODE=live make testgen STAGE=T3 SET=dev
+```
+
+| set | backend | what you need |
+|---|---|---|
+| dev, holdout | `claude-opus-5` via the official SDK | an Anthropic API key |
+| dev `-cursor`, transfer `-cursor` | `composer-2.5` via `cursor-agent` | a Cursor subscription |
+
+The second backend exists because API credit ran out mid-project. It is declared,
+not hidden — see `METRIC_TESTGEN.md` § 13 for why the control run on DEV is what
+makes those numbers interpretable at all.
+
+**Verifying the numbers needs nothing. Regenerating the tests needs credentials.**
+That split is the honest one, and it is stated rather than glossed.
+
+## Cost, measured
+
+| | |
+|---|---|
+| Anthropic API | **US$ 6.83** total, `claude-opus-5` at effort `high` |
+| Cursor | subscription, not metered per token — no token counts are invented |
+| Every re-score, re-report and container run | **US$ 0.00** |
+
+The counter under-reported at first: truncated calls were billed and recorded as
+$0.00 because cost was only computed on the success path, and cache tokens (write
+1.25×, read 0.1×) never entered the total. Both are fixed; the figure above is
+the corrected one.

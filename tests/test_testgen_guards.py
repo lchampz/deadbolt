@@ -29,11 +29,21 @@ def dev():
     sb.cleanup()
 
 
-def test_python_do_venv_nao_e_resolvido():
-    """Regressão: .resolve() no bin/python do venv sai do venv e perde o pytest."""
+def test_interpretador_do_corpus_tem_pytest():
+    """Regressão: `.resolve()` no bin/python do venv saía do venv e perdia o pytest.
+
+    A primeira versão deste teste afirmava o FORMATO do caminho
+    (`".venv/bin/python" in c.python`) e quebrou no container, onde os pacotes
+    são globais e não há venv por corpus. Afirmar formato em vez da propriedade
+    é o mesmo erro em miniatura: o que importa não é onde o interpretador está,
+    é que ele consegue importar pytest.
+    """
+    import subprocess
+
     c = Corpus("dev")
-    assert ".venv/bin/python" in c.python
-    assert Path(c.python).exists()
+    assert Path(c.python).exists(), c.python
+    r = subprocess.run([c.python, "-c", "import pytest"], capture_output=True, text=True)
+    assert r.returncode == 0, f"{c.python} não tem pytest: {r.stderr[-200:]}"
 
 
 @pytest.mark.parametrize("set_name", ["dev", "holdout", "transfer"])
