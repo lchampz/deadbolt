@@ -2,12 +2,13 @@
 build-backend = "setuptools.build_meta"
 requires = [
   "setuptools >=77",
-  "setuptools-git-versioning >=2.0",
 ]
 
 [project]
 name = "toolz"
-dynamic = ["version"]
+version = "1.1.0"  # vendorizado sem .git: setuptools-git-versioning
+                   # não tem tag de onde derivar e cairia em 0.0.1.
+                   # 1.1.0 é a tag real do commit pinado.
 description = "List processing tools and functional utilities"
 readme = "README.rst"
 requires-python = ">=3.9"
@@ -44,11 +45,6 @@ homepage = "https://github.com/pytoolz/toolz"
 repository = "https://github.com/pytoolz/toolz"
 documentation = "https://toolz.readthedocs.io/en/latest/"
 changelog = "https://github.com/pytoolz/toolz/releases"
-
-[tool.setuptools-git-versioning]
-enabled = true
-dev_template = "{tag}+{ccount}.g{sha}"
-dirty_template = "{tag}+{ccount}.g{sha}.dirty"
 
 [tool.setuptools]
 packages = [

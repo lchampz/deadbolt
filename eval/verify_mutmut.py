@@ -65,6 +65,15 @@ def main() -> int:
     # o quebra com um FileNotFoundError que nomeia o SCRIPT, não o interpretador
     # que sumiu. Chamar pelo módulo não tem esse modo de falha.
     mut = [corpus.python, "-m", "mutmut"]
+    # Falha alta se o interpretador escolhido não tem mutmut. Sem isto, o
+    # fallback para `sys.executable` roda um Python sem a ferramenta, o mutmut
+    # não devolve contagem, e a verificação "não confirma" por um motivo que não
+    # tem nada a ver com o resultado que ela deveria estar checando.
+    probe = subprocess.run([*mut, "--version"], capture_output=True, text=True)
+    if probe.returncode != 0:
+        print(f"ERRO: {corpus.python} não tem mutmut instalado.\n"
+              f"Rode:  bash scripts/setup_corpus.sh")
+        return 1
     env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1"}
     print(f"\nrodando mutmut do zero em {sb.path.name} …")
     p = subprocess.run([*mut, "run"], cwd=sb.path, capture_output=True, text=True,

@@ -125,6 +125,14 @@ contribution is, and it is claimed there and nowhere else.
 
 ## 8. Licence
 
-Deadbolt: MIT. Vendored corpora: `python-slugify` (Val Neekman, MIT) and `toolz`
-(MIT) — pinned SHAs in `corpus/*/PINNED_SHA.txt`, unmodified but for a `[mutmut]`
-section in `setup.cfg`.
+Deadbolt: MIT. Vendored corpora, pinned SHAs in `corpus/*/PINNED_SHA.txt`:
+
+- **`python-slugify`** (Val Neekman, MIT) — unmodified but for a `[mutmut]`
+  section added to `setup.cfg`.
+- **`toolz`** (MIT) — the same `[mutmut]` section, plus a static
+  `version = "1.1.0"` in `pyproject.toml`. The upstream version comes from a git
+  tag, and a vendored copy has no `.git`, so it resolved to `0.0.1` and the
+  project's own `test_has_version` failed. 1.1.0 is the real tag of the pinned
+  commit. Nothing under `functoolz.py`, the mutated module, is touched — the
+  ground truth is byte-identical either way (534 mutants, 416 killed, 118
+  survivors, verified after the change).

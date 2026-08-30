@@ -1,7 +1,7 @@
 {
   "corpus": "toolz-transfer",
   "pinned_sha": "568c2b8393973cd172a466546c9d95779c452438",
-  "tool": "mutmut, version 3.7.0",
+  "tool": "python -m mutmut, version 3.7.0",
   "totals": {
     "mutants": 534,
     "listed_by_mutmut": 534,

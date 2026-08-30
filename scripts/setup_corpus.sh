@@ -10,7 +10,7 @@ cd "$(dirname "$0")/.."
 prep() {
   local dir="$1"; shift
   echo "== $dir"
-  uv venv --python 3.12 "$dir/.venv" >/dev/null
+  uv venv --clear --python 3.12 "$dir/.venv" >/dev/null
   uv pip install --python "$dir/.venv/bin/python" -q "$@"
   ( cd "$dir" && .venv/bin/python -m pytest -q 2>&1 | tail -1 )
 }
@@ -20,11 +20,11 @@ prep() {
 prep corpus/python-slugify         text-unidecode pytest "mutmut==3.7.0"
 prep corpus/python-slugify-holdout text-unidecode pytest "mutmut==3.7.0"
 
-# toolz deriva a versão de tags git via setuptools_scm; o corpus é vendorizado
-# sem .git, então a versão real vai explícita (PINNED_SHA.txt guarda a tag).
+# toolz é vendorizado sem .git e sua versão vinha de tag; ela foi fixada em
+# 1.1.0 no pyproject do corpus — modificação declarada, ver README § licença.
 echo "== corpus/toolz-transfer"
-uv venv --python 3.12 corpus/toolz-transfer/.venv >/dev/null
-SETUPTOOLS_SCM_PRETEND_VERSION=1.1.0 uv pip install \
+uv venv --clear --python 3.12 corpus/toolz-transfer/.venv >/dev/null
+uv pip install \
   --python corpus/toolz-transfer/.venv/bin/python -q -e corpus/toolz-transfer
 uv pip install --python corpus/toolz-transfer/.venv/bin/python -q pytest "mutmut==3.7.0"
 ( cd corpus/toolz-transfer && .venv/bin/python -m pytest -q 2>&1 | tail -1 )
