@@ -4,7 +4,7 @@ Instrução → ações → feedback → resultado, por estágio. Geradas de
 `recordings/` e `results/` por `scripts/export_trajectories.py`.
 Nada aqui é redigido à mão; estágio sem gravação aparece como ausente.
 
-Gravações em `recordings/`: **14**
+Gravações em `recordings/`: **94**
 
 - [baseline-dev.md](baseline-dev.md)
 - [baseline-holdout.md](baseline-holdout.md)

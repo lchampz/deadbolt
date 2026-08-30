@@ -15,7 +15,7 @@ Piso trivial deste conjunto e teto do oráculo em `eval/report.py`.
 
 ### 1. `slugify/__main__.py::main`
 
-gravação `42eec0080524788463c6` · 11738→858 tokens · US$ 0.0801 · 11.082s · 2026-08-29T18:44:31Z
+gravação `c191ee05941979c90b58` · 11738→858 tokens · US$ 0.0801 · 11.082s · 2026-08-29T18:44:31Z
 
 <details><summary>instrução (prompt de usuário)</summary>
 
@@ -119,7 +119,7 @@ class TestSlugify(unittest.TestCase):
 
 ### 2. `slugify/__main__.py::parse_args`
 
-gravação `cd7cd9e524b9ba9585a1` · 12843→2372 tokens · US$ 0.1235 · 31.702s · 2026-08-29T18:44:04Z
+gravação `40930c9a61fade74d148` · 12843→2372 tokens · US$ 0.1235 · 31.702s · 2026-08-29T18:44:04Z
 
 <details><summary>instrução (prompt de usuário)</summary>
 
@@ -162,7 +162,7 @@ Function `parse_args`, lines 10-65 of `slugify/__main__.py`.
 
 ### 3. `slugify/__main__.py::slugify_params`
 
-gravação `5d72ea016e2a6fc29003` · 11851→1181 tokens · US$ 0.0888 · 16.177s · 2026-08-29T18:44:20Z
+gravação `58df2cd822d82a82f5cc` · 11851→1181 tokens · US$ 0.0888 · 16.177s · 2026-08-29T18:44:20Z
 
 <details><summary>instrução (prompt de usuário)</summary>
 
@@ -230,7 +230,7 @@ class TestSlugify(unittest.TestCase):
 
 ### 4. `slugify/slugify.py::slugify`
 
-gravação `69c6f1d8878f4bbd30e5` · 13800→3185 tokens · US$ 0.1486 · 37.759s · 2026-08-29T18:42:35Z
+gravação `b65e942f82758da332c2` · 13800→3185 tokens · US$ 0.1486 · 37.759s · 2026-08-29T18:42:35Z
 
 <details><summary>instrução (prompt de usuário)</summary>
 
@@ -312,7 +312,7 @@ Function `slugify`, lines 75-197 of `slugify/slugify.py`.
 
 ### 5. `slugify/slugify.py::smart_truncate`
 
-gravação `ca1e078031d746f963c0` · 12195→3536 tokens · US$ 0.1494 · 41.17s · 2026-08-29T18:41:58Z
+gravação `da73a8605a314a817256` · 12195→3536 tokens · US$ 0.1494 · 41.17s · 2026-08-29T18:41:58Z
 
 <details><summary>instrução (prompt de usuário)</summary>
 
@@ -404,7 +404,7 @@ Function `smart_truncate`, lines 27-72 of `slugify/slugify.py`.
 
 ### 6. `slugify/special.py::add_uppercase_char`
 
-gravação `f196f6bffbdd7065f8c5` · 11789→4711 tokens · US$ 0.1767 · 56.877s · 2026-08-29T18:43:32Z
+gravação `00e1ff666217fa95f005` · 11789→4711 tokens · US$ 0.1767 · 56.877s · 2026-08-29T18:43:32Z
 
 <details><summary>instrução (prompt de usuário)</summary>
 

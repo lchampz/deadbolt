@@ -15,7 +15,7 @@ Piso trivial deste conjunto e teto do oráculo em `eval/report.py`.
 
 ### 1. `slugify/__main__.py`
 
-gravação `4954b8f697590c934d73` · 13338→3029 tokens · US$ 0.1424 · 36.92s · 2026-08-29T18:41:16Z
+gravação `3d50e61e14bd1f25138f` · 13338→3029 tokens · US$ 0.1424 · 36.92s · 2026-08-29T18:41:16Z
 
 <details><summary>instrução (prompt de usuário)</summary>
 
@@ -94,7 +94,7 @@ gravação `4954b8f697590c934d73` · 13338→3029 tokens · US$ 0.1424 · 36.92s
 
 ### 2. `slugify/slugify.py`
 
-gravação `a020671ca5a3d20ebaa6` · 14880→5989 tokens · US$ 0.2241 · 70.939s · 2026-08-29T18:39:37Z
+gravação `10a6ae3046a654ca16c1` · 14880→5989 tokens · US$ 0.2241 · 70.939s · 2026-08-29T18:39:37Z
 
 <details><summary>instrução (prompt de usuário)</summary>
 
@@ -191,7 +191,7 @@ gravação `a020671ca5a3d20ebaa6` · 14880→5989 tokens · US$ 0.2241 · 70.939
 
 ### 3. `slugify/special.py`
 
-gravação `ace84516a3bc18459b2d` · 12357→4751 tokens · US$ 0.1806 · 62.183s · 2026-08-29T18:40:39Z
+gravação `37986ebf7018f3785942` · 12357→4751 tokens · US$ 0.1806 · 62.183s · 2026-08-29T18:40:39Z
 
 <details><summary>instrução (prompt de usuário)</summary>
 
@@ -269,7 +269,7 @@ gravação `ace84516a3bc18459b2d` · 12357→4751 tokens · US$ 0.1806 · 62.183
 
 ### 4. `toolz/functoolz.py`
 
-gravação `e4ffbe57ce133f6fffd0` · 25223→7683 tokens · US$ 0.3182 · 92.463s · 2026-08-29T19:39:55Z
+gravação `2eb47bf58e7f7ec84e2b` · 25223→7683 tokens · US$ 0.3182 · 92.463s · 2026-08-29T19:39:55Z
 
 <details><summary>instrução (prompt de usuário)</summary>
 
